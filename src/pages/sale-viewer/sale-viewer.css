@@ -1,0 +1,16 @@
+section.sale-viewer {
+  padding: 80px 0;
+}
+
+.sale-view-title {
+  font-size: 35px;
+  font-weight: 600;
+  margin: auto;
+  text-align: center;
+  color: #7bc9ba;
+  margin-bottom: 30px;
+}
+
+.sale-view-search-input input {
+  width: 100%;
+}
