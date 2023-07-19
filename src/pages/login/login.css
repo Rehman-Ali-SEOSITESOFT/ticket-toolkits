@@ -1,0 +1,32 @@
+.login_wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content {
+  text-align: center;
+  border: 1px solid white;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0px 0px 12px 3px rgba(225, 233, 235, 0.82);
+  -webkit-box-shadow: 0px 0px 12px 3px rgba(225, 233, 235, 0.82);
+  -moz-box-shadow: 0px 0px 12px 3px rgba(225, 233, 235, 0.82);
+}
+.black_moon {
+  width: 100px;
+  height: 100%;
+}
+.content h2 {
+  color: #e1e9eb;
+  font-size: 40px;
+  font-weight: 600;
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+.content button {
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 4px;
+  border: none;
+}
