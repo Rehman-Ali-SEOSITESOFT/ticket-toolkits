@@ -4,7 +4,7 @@ import blackmoon from "../../assets/images/blackmoon.png";
 const Login = () => {
   return (
     <section className="login_wrapper">
-      <div className="container-fluid">
+      <div className="container-xxl">
         <div className="row">
           <div className="col-lg-6">
             <div className="content">
