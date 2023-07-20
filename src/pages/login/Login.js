@@ -4,16 +4,13 @@ import blackmoon from "../../assets/images/blackmoon.png";
 const Login = () => {
   return (
     <section className="login_wrapper">
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-lg-6">
+      <div className="container-xxl">
+        <div className="row justify-content-center">
+          <div className="col-lg-5 col-md-6 col-sm-10">
             <div className="content">
               <img src={blackmoon} alt="" className="img-fluid black_moon" />
               <h2>Ticket Toolkit</h2>
-              <button>
-                Updated Version available for purchase,plese contact me @ js @
-                mal on discord
-              </button>
+              <button>Login with discord</button>
             </div>
           </div>
         </div>

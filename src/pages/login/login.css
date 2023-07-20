@@ -8,10 +8,11 @@
   text-align: center;
   border: 1px solid white;
   border-radius: 8px;
-  padding: 25px;
+  padding: 90px 25px;
   box-shadow: 0px 0px 12px 3px rgba(225, 233, 235, 0.82);
   -webkit-box-shadow: 0px 0px 12px 3px rgba(225, 233, 235, 0.82);
   -moz-box-shadow: 0px 0px 12px 3px rgba(225, 233, 235, 0.82);
+  background: #1f1e1e;
 }
 .black_moon {
   width: 100px;
@@ -20,13 +21,32 @@
 .content h2 {
   color: #e1e9eb;
   font-size: 40px;
-  font-weight: 600;
+  font-weight: 700;
   margin-top: 15px;
   margin-bottom: 30px;
 }
 .content button {
-  cursor: pointer;
+  cursor: pointer !important;
   padding: 10px 15px;
   border-radius: 4px;
   border: none;
+  font-size: 16px;
+  font-weight: 500;
+}
+@media screen and (max-width: 992px) {
+  .content h2 {
+    font-size: 36px;
+    font-weight: 600;
+  }
+}
+@media screen and (max-width: 576px) {
+  .content h2 {
+    font-size: 29px;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+  .content button {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
 }
