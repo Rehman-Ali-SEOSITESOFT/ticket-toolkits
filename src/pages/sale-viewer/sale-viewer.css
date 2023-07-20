@@ -343,4 +343,10 @@ section.sale-viewer {
     min-width: 100%;
     width: 100%;
   }
+  .graphic p.recordss {
+    padding: 5px 10px;
+  }
+  .graphic .time-right {
+    font-size: 14px;
+  }
 }

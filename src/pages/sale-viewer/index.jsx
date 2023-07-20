@@ -275,7 +275,7 @@ const SaleViewer = () => {
               </ResponsiveContainer>
             </div>
             <div className="enevt-cards-disc">
-              <div className="d-flex event-cardss">
+              <div className="d-flex event-cardss flex-wrap">
                 <div className="cart">
                   <h4 className="title">Avg. Price</h4>
                   <p className="total-price"> $900</p>

@@ -1,0 +1,45 @@
+header {
+  padding: 20px 0;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.logo-main,
+.user-main {
+  margin-bottom: 0;
+}
+
+.user-main img,
+.logo-main img {
+  max-height: 40px;
+  margin-right: 15px;
+}
+.user-main,
+.logo-main {
+  font-weight: 600;
+  color: rgb(229 229 229/ 1);
+  text-transform: capitalize;
+  font-size: 20px;
+  line-height: 27px;
+  font-family: poppins;
+}
+
+.logo-main span {
+  font-size: 12px;
+  font-weight: 400;
+}
+.user-main {
+  font-weight: 400;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 575px) {
+  .user-main,
+  .logo-main {
+    font-size: 15px;
+    line-height: 25px;
+  }
+  .user-main img,
+  .logo-main img {
+    max-height: 30px;
+    margin-right: 10px;
+  }
+}
