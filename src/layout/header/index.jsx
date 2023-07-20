@@ -11,7 +11,7 @@ const Header = () => {
           <div className="col-md-6 col-ms-6 col-8">
             <h2 className="logo-main">
               <img src={icon} className="logo" alt="" />
-              ticket toolkit <span> by fnf</span>
+              ticket toolkit <span> by FnF</span>
             </h2>
           </div>
           <div className="col-md-6 col-ms-6 col-4 text-end">
