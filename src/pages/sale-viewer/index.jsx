@@ -74,7 +74,6 @@ const SaleViewer = () => {
     },
   ];
 
-  /// SCATTER CHART
   const data01 = [
     {
       x: 100,
