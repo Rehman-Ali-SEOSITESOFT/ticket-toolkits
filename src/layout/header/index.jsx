@@ -15,10 +15,19 @@ const Header = () => {
             </h2>
           </div>
           <div className="col-md-6 col-ms-6 col-4 text-end">
-            <h3 className="user-main">
-              <img src={usericon} className="logo" alt="" />
-              john
-            </h3>
+            <div className="user-main dropdown">
+              <img
+                src={usericon}
+                className="logo dropdown-toggle"
+                alt=""
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              />
+              <h3 className="user-main d-inline-block">john</h3>
+              <ul class="dropdown-menu">
+                <li class="dropdown-item">Logout</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

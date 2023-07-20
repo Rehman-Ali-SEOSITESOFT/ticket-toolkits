@@ -26,8 +26,10 @@ const SaleViewer = () => {
 
   const hanldeClose = () => {
     setOpedPopUp(false);
+    document.querySelector("body").style.overflow = "auto";
   };
   const hanldeOpened = () => {
+    document.querySelector("body").style.overflow = "hidden";
     setOpedPopUp(true);
   };
   const hanldeChangeInputResult = (event) => {
