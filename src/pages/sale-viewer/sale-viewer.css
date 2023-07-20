@@ -47,12 +47,12 @@ section.sale-viewer {
 }
 .search-output-cards .output-card {
   width: 32%;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   margin-bottom: 35px;
+  box-shadow: rgb(86 85 85 / 20%) 0px 18px 50px -10px;
 }
 
 .search-output-cards .output-card:hover {
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 .output-card .output-cart-image {
   min-width: 200px;
@@ -91,8 +91,15 @@ section.sale-viewer {
 .output-cart-content .address {
   font-size: 15px;
   line-height: 25px;
-  color: hsla(0, 0%, 90%, 0.9);
+  color: hsl(0deg 0% 90% / 46%);
   margin-bottom: 10px;
+  font-weight: 400;
+  text-transform: capitalize;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-transform: capitalize;
 }
 
@@ -104,8 +111,236 @@ section.sale-viewer {
   margin-bottom: 10px;
 }
 
+.show-more-sales {
+  margin-top: 20px;
+  text-align: center;
+}
+.show-more-sales button {
+  background-color: #7bc9ba;
+  padding: 0.5rem 4rem;
+  border: none;
+  color: black;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: capitalize;
+  border: 1px solid #7bc9ba;
+}
+.show-more-sales button:hover {
+  background-color: #121823;
+  color: #7bc9ba;
+}
+
+/*  GRAPHIC */
+.graphic {
+  margin: 100px 0 20px 0 !important;
+}
+.graphic .heading {
+  color: #d4d4d4;
+  font-size: 25px;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins";
+}
+.graphic .time-right {
+  font-size: 15px;
+  line-height: 25px;
+  color: hsl(0deg 0% 90% / 46%);
+  margin-bottom: 0;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+.graphic p.recordss {
+  margin: 0;
+  border: 1px solid #00000085;
+  display: inline-block;
+  color: white;
+  padding: 0.5rem 2rem;
+  border-radius: 5px;
+  background: #7bc9ba29;
+  color: #7bc9ba;
+  font-weight: 500;
+  margin: 10px 0 0 0;
+}
+
+/*  DISCTPIOTN */
+.enevt-cards-disc button {
+  padding: 0.5rem 4rem;
+  border: none;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: capitalize;
+  border: 1px solid #7bc9ba;
+  background-color: #121823;
+  color: #7bc9ba;
+  width: 100%;
+}
+.enevt-cards-disc button:hover {
+  color: black;
+  background-color: #7bc9ba;
+}
+.enevt-cards-disc .event-cardss {
+  gap: 20px;
+}
+
+.enevt-cards-disc .cart {
+  padding: 1.5rem;
+  background: #000000ab;
+  color: #7bc9ba;
+  text-align: center;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  min-width: 190px;
+  border-radius: 5px;
+  transition: all 0.5s ease-in-out;
+}
+.enevt-cards-disc .cart:hover {
+  transform: scale(1.15);
+  transition: all 0.5s ease-in-out;
+}
+.cart .total-price {
+  font-weight: 600;
+  color: rgb(229 229 229/ 1);
+  font-size: 40px;
+  line-height: 45px;
+  margin-bottom: 0;
+}
+.cart .title {
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
+/* ////////////// POPUP LISING */
+.event-sale-listing .event-sale-detail {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  max-height: 400px;
+  overflow-x: hidden;
+  padding: 0 2rem 1rem 2rem;
+  background-color: #060606;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  border-radius: 10px;
+}
+.event-sale-overlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  backdrop-filter: blur(2px);
+  background-color: #ffffff14;
+  z-index: 1;
+}
+/* .event-sale-listing {
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  display: flex;
+} */
+
+.table > :not(caption) > * > * {
+  text-align: center;
+  border-width: 1px;
+  background-color: #060606 !important;
+}
+#style-1::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+#style-1::-webkit-scrollbar {
+  width: 7px;
+  background-color: transparent;
+}
+
+#style-1::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #7bc9ba;
+}
+.closed-popup {
+  background: #7bc9ba;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  font-size: 15px;
+  text-align: center;
+  border-radius: 20px;
+  margin: auto;
+  line-height: 25px;
+  z-index: 2;
+  position: sticky;
+  top: 9px;
+  float: right;
+  margin-bottom: 18px;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 1024px) {
   .search-output-cards .output-card {
     width: 48%;
+  }
+  .sale-view-title {
+    margin-bottom: 20px;
+  }
+  .sale-view-search-input input {
+    padding: 0.5rem 0.5rem 0.5rem 4rem;
+  }
+  .sale-view-search-input .sale-search-icon {
+    height: 38px;
+    padding: 7px 15px;
+  }
+  .graphic .heading {
+    font-size: 20px;
+    line-height: normal;
+  }
+  .graphic p.recordss {
+    padding: 0.3rem 1rem;
+    font-size: 15px;
+  }
+  .enevt-cards-disc .cart {
+    min-width: 48%;
+    width: 48%;
+  }
+  .event-sale-listing .event-sale-detail {
+    width: 95%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .output-cart-content .title {
+    font-size: 16px;
+    line-height: normal;
+  }
+  .output-cart-content .weekname,
+  .output-cart-content .address {
+    font-size: 14px;
+    line-height: normal;
+  }
+  .graphic {
+    margin: 50px 0 0 0 !important;
+  }
+  section.sale-viewer {
+    padding: 50px 0;
+  }
+  .enevt-cards-disc .cart {
+    min-width: 30%;
+    width: 30%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .search-output-cards .output-card {
+    width: 100%;
+  }
+  .enevt-cards-disc .cart {
+    min-width: 100%;
+    width: 100%;
   }
 }
