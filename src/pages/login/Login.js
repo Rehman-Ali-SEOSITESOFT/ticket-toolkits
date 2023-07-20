@@ -10,7 +10,7 @@ const Login = () => {
             <div className="content">
               <img src={blackmoon} alt="" className="img-fluid black_moon" />
               <h2>Ticket Toolkit</h2>
-              <button>Login with discord</button>
+              <button>Login with Discord</button>
             </div>
           </div>
         </div>
