@@ -200,10 +200,18 @@ const SearchResult = () => {
               <div className="output-card">
                 <div className="mulit-output-cart-image d-flex justify-content-between">
                   <div className="left-side">
-                    <img src={masjid} alt="" className="img-fluid" />
+                    <img
+                      src="https://img.vggcdn.net/img/cat/6451/1/13.jpg"
+                      alt=""
+                      className="img-fluid"
+                    />
                   </div>
                   <div className="right-side">
-                    <img src="https://img.vggcdn.net/svgv2/375965.svg?v=4" alt="" className="img-fluid" />
+                    <img
+                      src="https://img.vggcdn.net/svgv2/375965.svg?v=4"
+                      alt=""
+                      className="img-fluid"
+                    />
                   </div>
                 </div>
                 <div className="output-cart-content">
