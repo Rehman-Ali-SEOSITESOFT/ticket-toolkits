@@ -15,10 +15,12 @@ import {
   ZAxis,
 } from "recharts";
 import "./search.css";
+import NotFound from "../../components/not-found";
 const SearchResult = () => {
   const [searchResult, setSearchResult] = useState("");
   const [cards, setCarts] = useState([1, 2, 3, 4, 5, 1, 1, 1, 1, 2, 3]);
   const [opedPopUp, setOpedPopUp] = useState(false);
+  const [evetnListingPop, setEvetnListingPop] = useState(false);
 
   const hanldeClose = () => {
     setOpedPopUp(false);
@@ -28,9 +30,18 @@ const SearchResult = () => {
     document.querySelector("body").style.overflow = "hidden";
     setOpedPopUp(true);
   };
+  const hanldeEventListingPopUPClosed = () => {
+    setEvetnListingPop(false);
+    document.querySelector("body").style.overflow = "auto";
+  };
+  const hanldeEventListingPopUPOpened = () => {
+    document.querySelector("body").style.overflow = "hidden";
+    setEvetnListingPop(true);
+  };
   const hanldeChangeInputResult = (event) => {
     setSearchResult(event.target.value);
   };
+
   const data = [
     {
       name: " A",
@@ -62,66 +73,96 @@ const SearchResult = () => {
     },
   ];
 
-  const data01 = [
+  const data02 = [
     {
-      x: 100,
-      y: 200,
-      z: 200,
+      x: 10,
+      y: 50,
+      z: 10,
     },
     {
-      x: 120,
+      x: 40,
       y: 100,
       z: 260,
     },
     {
-      x: 170,
-      y: 300,
+      x: 70,
+      y: 150,
       z: 400,
     },
     {
-      x: 140,
+      x: 100,
       y: 250,
       z: 280,
     },
     {
-      x: 150,
-      y: 400,
+      x: 130,
+      y: 230,
       z: 500,
     },
     {
-      x: 110,
-      y: 280,
+      x: 150,
+      y: 350,
       z: 200,
     },
   ];
-  const data02 = [
+  const data01 = [
     {
-      x: 200,
+      x: "Jan",
       y: 260,
       z: 240,
     },
     {
-      x: 240,
+      x: "Feb",
       y: 290,
       z: 220,
     },
     {
-      x: 190,
+      x: "Mar",
       y: 290,
       z: 250,
     },
     {
-      x: 198,
+      x: "April",
       y: 250,
       z: 210,
     },
     {
-      x: 180,
+      x: "May",
       y: 280,
       z: 260,
     },
     {
-      x: 210,
+      x: "Jun",
+      y: 220,
+      z: 230,
+    },
+    {
+      x: "Jul",
+      y: 220,
+      z: 230,
+    },
+    {
+      x: "Aug",
+      y: 220,
+      z: 230,
+    },
+    {
+      x: "Sep",
+      y: 220,
+      z: 230,
+    },
+    {
+      x: "Oct",
+      y: 220,
+      z: 230,
+    },
+    {
+      x: "Nov",
+      y: 220,
+      z: 230,
+    },
+    {
+      x: "Dec",
       y: 220,
       z: 230,
     },
@@ -151,7 +192,7 @@ const SearchResult = () => {
 
           <div className="col-lg-1 col-md-1 col-6">
             <Link
-              to={`/search?search-result=${searchResult}`}
+              to={`/search?search-result=£{searchResult}`}
               className="search-button text-decoration-none"
             >
               {" "}
@@ -247,28 +288,27 @@ const SearchResult = () => {
                   <XAxis
                     tick={{ fill: "white" }}
                     dataKey="x"
-                    type="number"
-                    name="stature"
-                    unit="cm"
+                    name="Date"
+                    unit=""
                   />
                   <YAxis
                     dataKey="y"
                     type="number"
-                    name="weight"
-                    unit="kg"
+                    name="Price"
+                    unit="£"
                     tick={{ fill: "white" }}
                   />
-                  <ZAxis
+                  {/* <ZAxis
                     dataKey="z"
                     type="number"
                     range={[64, 144]}
                     name="score"
                     unit="km"
-                  />
+                  /> */}
                   <Tooltip cursor={{ strokeDasharray: "3 3" }} />
                   <Legend />
-                  <Scatter name="A school" data={data01} fill="#8884d8" />
-                  <Scatter name="B school" data={data02} fill="#82ca9d" />
+                  <Scatter name="Event Sale" data={data01} fill="#8884d8" />
+                  {/* <Scatter name="Date" data={data02} fill="#82ca9d" /> */}
                 </ScatterChart>
               </ResponsiveContainer>
             </div>
@@ -283,11 +323,11 @@ const SearchResult = () => {
                   <p className="total-price"> £ 900</p>
                 </div>
                 <div className="cart">
-                  <h4 className="title">Last. House</h4>
+                  <h4 className="title">Last. Hour</h4>
                   <p className="total-price"> £ 900</p>
                 </div>
                 <div className="cart">
-                  <h4 className="title">Last 24 Hrs</h4>
+                  <h4 className="title">Last 24 Hours</h4>
                   <p className="total-price"> £ 900</p>
                 </div>
               </div>
@@ -303,29 +343,57 @@ const SearchResult = () => {
             </div>
             <div className="event-listings-wrapper">
               <ResponsiveContainer width={"100%"} height={300}>
-                <BarChart data={data}>
+                <BarChart data={data01}>
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" tick={{ fill: "white" }} />
-                  <YAxis tick={{ fill: "white" }} />
+                  <XAxis dataKey="x" tick={{ fill: "white" }} />
+                  <YAxis unit="£" tick={{ fill: "white" }} />
                   <Tooltip />
                   <Legend cursor={false} />
 
-                  <Bar dataKey="uv" fill="#82ca9d" />
+                  <Bar dataKey="Event Listing" fill="#82ca9d" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
+            {/* <div className="enevt-cards-disc ">
+              <div className="d-flex event-cardss mt-3 justify-content-center flex-wrap">
+                <div className="cart">
+                  <h4 className="title">Avg. Price</h4>
+                  <p className="total-price"> £ 900</p>
+                </div>
+                <div className="cart">
+                  <h4 className="title">Last. Hour</h4>
+                  <p className="total-price"> £ 900</p>
+                </div>
+              </div>
+            </div> */}
             <div className="enevt-cards-disc">
+              <button
+                className="my-4 my-md-5"
+                onClick={hanldeEventListingPopUPOpened}
+              >
+                {" "}
+                view all event listing
+              </button>
               <div className="d-flex event-cardss flex-wrap">
                 <div className="cart">
                   <h4 className="title">Avg. Price</h4>
                   <p className="total-price"> £ 900</p>
                 </div>
                 <div className="cart">
-                  <h4 className="title">Last. House</h4>
+                  <h4 className="title">Last. Hour</h4>
+                  <p className="total-price"> £ 900</p>
+                </div>
+                <div className="cart">
+                  <h4 className="title">Last 24 Hours</h4>
                   <p className="total-price"> £ 900</p>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <NotFound />
           </div>
         </div>
       </div>
@@ -334,40 +402,108 @@ const SearchResult = () => {
         <React.Fragment>
           <div className="event-sale-overlay" onClick={hanldeClose}></div>
           <div className="event-sale-listing">
-            <div className="event-sale-detail" id="style-1">
-              <span className="closed-popup" onClick={hanldeClose}>
-                <i className="fa-solid fa-xmark"></i>
-              </span>
-              <table className="table table-dark table-hover">
-                <thead>
-                  <tr>
-                    <th> Date </th>
-                    <th> Customer </th>
-                    <th> Sales </th>
-                    <th> Total </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((e, i) => {
-                    return (
-                      <tr key={i}>
-                        <td> 12 Nov 2022 </td>
-                        <td> John </td>
-                        <td> Pending </td>
-                        <td> $2391 </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <th> Date </th>
-                    <th> Customer </th>
-                    <th> Sales </th>
-                    <th> Total </th>
-                  </tr>
-                </tfoot>
-              </table>
+            <div className="event-sale-detail">
+              <div className="d-flex align-items-center my-2">
+                <div className="col-6">
+                  <h2 className="popup-title">Event Sale</h2>
+                </div>
+                <div className="col-6 text-end">
+                  <span className="closed-popup" onClick={hanldeClose}>
+                    <i className="fa-solid fa-xmark"></i>
+                  </span>{" "}
+                </div>
+              </div>
+
+              <div id="style-1">
+                <table className="table table-dark table-hover">
+                  <thead>
+                    <tr>
+                      <th> Date </th>
+                      <th> Customer </th>
+                      <th> Sales </th>
+                      <th> Total </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((e, i) => {
+                      return (
+                        <tr key={i}>
+                          <td> 12 Nov 2022 </td>
+                          <td> John </td>
+                          <td> Pending </td>
+                          <td> £ 2391 </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                  {/* <tfoot>
+                    <tr>
+                      <th> Date </th>
+                      <th> Customer </th>
+                      <th> Sales </th>
+                      <th> Total </th>
+                    </tr>
+                  </tfoot> */}
+                </table>
+              </div>
+            </div>
+          </div>
+        </React.Fragment>
+      )}
+      {evetnListingPop && (
+        <React.Fragment>
+          <div
+            className="event-sale-overlay"
+            onClick={hanldeEventListingPopUPClosed}
+          ></div>
+          <div className="event-sale-listing">
+            <div className="event-sale-detail">
+              <div className="d-flex align-items-center my-2">
+                <div className="col-6">
+                  <h2 className="popup-title">Event Listings</h2>
+                </div>
+                <div className="col-6 text-end">
+                  <span
+                    className="closed-popup"
+                    onClick={hanldeEventListingPopUPClosed}
+                  >
+                    <i className="fa-solid fa-xmark"></i>
+                  </span>{" "}
+                </div>
+              </div>
+
+              <div id="style-1">
+                <table className="table table-dark table-hover">
+                  <thead>
+                    <tr>
+                      <th> Date </th>
+                      <th> Customer </th>
+                      <th> Sales </th>
+                      <th> Total </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((e, i) => {
+                      return (
+                        <tr key={i}>
+                          <td> 12 Nov 2022 </td>
+                          <td> John </td>
+                          <td> Pending </td>
+                          <td> £ 2391 </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                  {/* <tfoot>
+                    <tr>
+                      <th> Date </th>
+                      <th> Customer </th>
+                      <th> Sales </th>
+                      <th> Total </th>
+                    </tr>
+                  </tfoot> */}
+                </table>
+              </div>
             </div>
           </div>
         </React.Fragment>

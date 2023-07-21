@@ -3,6 +3,7 @@ import "./sale-viewer.css";
 
 import masjid from "../../assets/images/faisal-masjid.jpg";
 import { Link } from "react-router-dom";
+import NotFound from "../../components/not-found";
 
 const SaleViewer = () => {
   const [searchResult, setSearchResult] = useState("");
@@ -47,7 +48,7 @@ const SaleViewer = () => {
 
           <div className="col-lg-1  col-md-1 col-6">
             <Link
-              to={`/search?search-result=${searchResult}`}
+              to={`/search?search-result=£{searchResult}`}
               className="search-button text-decoration-none"
             >
               {" "}
@@ -115,7 +116,7 @@ const SaleViewer = () => {
         <div className="row">
           <div className="col">
             <div className="hot-events mt-5">
-              <h4 className="title">Hot Event</h4>
+              <h4 className="title"> Trending Events 🔥</h4>
               <div className="d-flex flex-wrap hot-event-wrapper mt-4">
                 {[1, 1, 1].map((e, i) => {
                   return (
@@ -143,6 +144,11 @@ const SaleViewer = () => {
                 })}
               </div>
             </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <NotFound />
           </div>
         </div>
       </div>

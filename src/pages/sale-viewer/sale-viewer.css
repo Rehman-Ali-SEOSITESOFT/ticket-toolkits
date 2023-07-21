@@ -19,6 +19,9 @@
 .filter-by-wrapper select {
   margin-right: 10px;
 }
+.filter-by-wrapper select {
+  text-transform: capitalize;
+}
 .filter-by-wrapper select:focus,
 .filter-by-wrapper input:focus {
   box-shadow: none;
@@ -268,8 +271,10 @@ section.sale-viewer {
   max-width: 1000px;
   margin: auto;
   max-height: 400px;
-  overflow-x: hidden;
-  padding: 0 2rem 1rem 2rem;
+  /* overflow-x: hidden; */
+  overflow: hidden;
+  /* padding: 0 2rem 1rem 2rem; */
+  padding: 0.5rem 1rem 2rem 2rem;
   background-color: #060606;
   position: fixed;
   left: 0;
@@ -279,6 +284,18 @@ section.sale-viewer {
   z-index: 2;
   border-radius: 10px;
 }
+#style-1 {
+  overflow-x: hidden;
+  height: 100%;
+  padding-bottom: 2rem;
+  padding-right: 1rem;
+}
+.table > thead {
+  position: sticky;
+  top: -1px;
+  z-index: 5;
+}
+
 .event-sale-overlay {
   position: fixed;
   left: 0;
@@ -327,11 +344,11 @@ section.sale-viewer {
   border-radius: 20px;
   margin: auto;
   line-height: 25px;
-  z-index: 2;
+  /* z-index: 2;
   position: sticky;
   top: 9px;
-  float: right;
-  margin-bottom: 18px;
+  float: right; */
+
   cursor: pointer;
 }
 
@@ -339,6 +356,11 @@ section.sale-viewer {
 
 hr.hr-border {
   border-color: #ffffff29;
+}
+
+.table > thead th {
+  background-color: white !important;
+  color: black;
 }
 @media screen and (max-width: 1024px) {
   .hot-event-wrapper .output-card {

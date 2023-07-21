@@ -15,6 +15,7 @@ import {
   ZAxis,
 } from "recharts";
 import "./search.css";
+import NotFound from "../../components/not-found";
 const AddToolkit = () => {
   const [searchResult, setSearchResult] = useState("");
   const [cards, setCarts] = useState([1, 2, 3, 4, 5, 1, 1, 1, 1, 2, 3]);
@@ -151,7 +152,7 @@ const AddToolkit = () => {
 
           <div className="col-lg-1  col-md-1 col-6">
             <Link
-              to={`/search?search-result=${searchResult}`}
+              to={`/search?search-result=£{searchResult}`}
               className="search-button text-decoration-none"
             >
               {" "}
@@ -163,7 +164,8 @@ const AddToolkit = () => {
       <div className="container-xxl">
         <div className="row">
           <div className="col">
-            <div className="search-output-cards  mt-5 d-flex flex-wrap">
+            <NotFound />
+            <div className="search-output-cards  d-flex flex-wrap">
               {/* <div className="output-card">
                 <div className="output-cart-image">
                   <img src={masjid} alt="" className="img-fluid" />
@@ -209,15 +211,6 @@ const AddToolkit = () => {
                   <p className="weekname"> Sunday, 05 nov 2023 03:30 PM </p>
                 </div>
               </div>{" "} */}
-              <div className="not-found">
-                <p className="text-center text-white d-block w-100">
-                  Event not found
-                </p>
-                <button className="add-to-toolkit d-block">
-                  {" "}
-                  Add to Toolkit
-                </button>
-              </div>
             </div>
           </div>
         </div>
@@ -346,7 +339,7 @@ const AddToolkit = () => {
                         <td> 12 Nov 2022 </td>
                         <td> John </td>
                         <td> Pending </td>
-                        <td> $2391 </td>
+                        <td> £2391 </td>
                       </tr>
                     );
                   })}
