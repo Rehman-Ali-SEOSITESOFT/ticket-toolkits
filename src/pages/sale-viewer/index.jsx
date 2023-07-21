@@ -145,6 +145,10 @@ const SaleViewer = () => {
         <div className="row">
           <div className="col">
             <h2 className="sale-view-title">Sales Viewer</h2>
+          </div>
+        </div>
+        <div className="row align-items-center">
+          <div className="col-lg-6 col-md-5 col-12">
             <div className="sale-view-search-input position-relative">
               <input
                 type="text"
@@ -156,9 +160,45 @@ const SaleViewer = () => {
                 <i className="fa-solid fa-magnifying-glass"></i>
               </span>
             </div>
+          </div>
+          <div className="col-lg-6 col-md-7 col-12">
+            <div className="filter-by-wrapper d-flex justify-content-between align-items-center">
+              <h1 className="filter-by"> Filter by: </h1>
+              <select name="" id="" className="form-select">
+                <option value="">row </option>
+                <option value="">row 1</option>
+                <option value="">row 2 </option>
+              </select>
+              <select name="" id="" className="form-select">
+                <option value="">seat type </option>
+                <option value="">seat type 1</option>
+                <option value="">seat type 2</option>
+              </select>
 
-            <div className="search-output-cards mt-5 d-flex flex-wrap">
-              {cards.slice(cardStarted, cardEnded).map((e, i) => {
+              <input type="date" className="form-control" />
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <div className="search-output-cards  mt-5 d-flex flex-wrap">
+              <div className="output-card">
+                <div className="output-cart-image">
+                  <img src={masjid} alt="" className="img-fluid" />
+                </div>
+                <div className="output-cart-content">
+                  <h2 className="title">
+                    miami doplhins vs kansas city chiefs- nfl frankfurt games
+                    2023 miami doplhins vs kansas city chiefs- nfl frankfurt
+                    games 2023
+                  </h2>
+                  <address className="address">
+                    deutsche bank park ( commerzbank arena) frankfurt, germany
+                  </address>
+                  <p className="weekname"> Sunday, 05 nov 2023 03:30 PM </p>
+                </div>
+              </div>
+              {/* {cards.slice(cardStarted, cardEnded).map((e, i) => {
                 return (
                   <div className="output-card" key={i}>
                     <div className="output-cart-image">
@@ -179,9 +219,9 @@ const SaleViewer = () => {
                     </div>
                   </div>
                 );
-              })}
+              })} */}
             </div>
-            <div className="show-more-sales">
+            {/* <div className="show-more-sales">
               {cards.length <= cardEnded ? (
                 <button onClick={hanlderGoBacked}>
                   No More Content Go Back
@@ -189,9 +229,48 @@ const SaleViewer = () => {
               ) : (
                 <button onClick={hanlderShowMoreSales}>Show More</button>
               )}
+            </div> */}
+          </div>
+        </div>
+      </div>
+      <div className="container-xxl">
+        <div className="row">
+          <div className="col">
+            <hr className="hr-border" />
+            <div className="hot-events mt-5">
+              <h4 className="title">Hot Event</h4>
+              <div className="d-flex flex-wrap hot-event-wrapper mt-4">
+                {[1, 1, 1].map((e, i) => {
+                  return (
+                    <div className="output-card" key={i}>
+                      <div className="output-cart-image">
+                        <img src={masjid} alt="" className="img-fluid" />
+                      </div>
+                      <div className="output-cart-content">
+                        <h2 className="title">
+                          miami doplhins vs kansas city chiefs- nfl frankfurt
+                          games 2023 miami doplhins vs kansas city chiefs- nfl
+                          frankfurt games 2023
+                        </h2>
+                        <address className="address">
+                          deutsche bank park ( commerzbank arena) frankfurt,
+                          germany
+                        </address>
+                        <p className="weekname">
+                          {" "}
+                          Sunday, 05 nov 2023 03:30 PM{" "}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="container-xxl">
         <div className="row graphic">
           <div className="col-md-6">
             <div className="d-flex justify-content-between align-items-end mb-5">
@@ -241,15 +320,15 @@ const SaleViewer = () => {
               <div className="d-flex event-cardss flex-wrap">
                 <div className="cart">
                   <h4 className="title">Avg. Price</h4>
-                  <p className="total-price"> $900</p>
+                  <p className="total-price"> £ 900</p>
                 </div>
                 <div className="cart">
                   <h4 className="title">Last. House</h4>
-                  <p className="total-price"> $900</p>
+                  <p className="total-price"> £ 900</p>
                 </div>
                 <div className="cart">
-                  <h4 className="title">Lasr 24 Hrs</h4>
-                  <p className="total-price"> $900</p>
+                  <h4 className="title">Last 24 Hrs</h4>
+                  <p className="total-price"> £ 900</p>
                 </div>
               </div>
             </div>
@@ -279,11 +358,11 @@ const SaleViewer = () => {
               <div className="d-flex event-cardss flex-wrap">
                 <div className="cart">
                   <h4 className="title">Avg. Price</h4>
-                  <p className="total-price"> $900</p>
+                  <p className="total-price"> £ 900</p>
                 </div>
                 <div className="cart">
                   <h4 className="title">Last. House</h4>
-                  <p className="total-price"> $900</p>
+                  <p className="total-price"> £ 900</p>
                 </div>
               </div>
             </div>
@@ -297,7 +376,7 @@ const SaleViewer = () => {
           <div className="event-sale-listing">
             <div className="event-sale-detail" id="style-1">
               <span className="closed-popup" onClick={hanldeClose}>
-                <i class="fa-solid fa-xmark"></i>
+                <i className="fa-solid fa-xmark"></i>
               </span>
               <table className="table table-dark table-hover">
                 <thead>
@@ -331,7 +410,6 @@ const SaleViewer = () => {
               </table>
             </div>
           </div>
-          {/* </div> */}
         </React.Fragment>
       )}
     </section>
