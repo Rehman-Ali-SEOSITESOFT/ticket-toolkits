@@ -7,9 +7,9 @@
   width: 50%;
   overflow: hidden;
 }
-.mulit-output-cart-image {
+/* .mulit-output-cart-image {
   background-color: white;
-}
+} */
 .mulit-output-cart-image img {
   /* height: 250px; */
   height: 300px;
@@ -17,6 +17,9 @@
   width: 100%;
   object-fit: contain;
   padding: 0.5rem 0;
+}
+.mulit-output-cart-image .right-side {
+  background-color: white;
 }
 /* .mulit-output-cart-image > div:hover img {
   transform: scale(1.2);
