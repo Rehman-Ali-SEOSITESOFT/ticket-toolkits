@@ -13,6 +13,7 @@
 .mulit-output-cart-image img {
   height: 250px;
   transition: all 0.5s ease-in-out;
+  width: 100%;
 }
 .mulit-output-cart-image > div:hover img {
   transform: scale(1.2);
