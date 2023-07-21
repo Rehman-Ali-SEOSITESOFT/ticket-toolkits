@@ -4,6 +4,7 @@ import SaleViewer from "./pages/sale-viewer";
 import Login from "./pages/login/Login";
 import Header from "./layout/header";
 import SearchResult from "./pages/search";
+import AddToolkit from "./pages/add-toolkit";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<SaleViewer />} />
         <Route path="/login" element={<Login />} />
         <Route path="/serach" element={<SearchResult />} />
+        <Route path="/add-toolkit" element={<AddToolkit />} />
       </Routes>
     </div>
   );

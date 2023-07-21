@@ -75,7 +75,7 @@ section.sale-viewer {
 }
 .hot-event-wrapper .output-card,
 .search-output-cards .output-card {
-  width: 60%;
+  /* width: 60%; */
   margin: auto;
   margin-bottom: 35px;
   box-shadow: rgb(86 85 85 / 20%) 0px 18px 50px -10px;
@@ -84,6 +84,9 @@ section.sale-viewer {
   width: 32%;
   margin: inherit;
   margin-bottom: 35px;
+}
+.search-output-cards .output-card {
+  width: 100%;
 }
 .hot-event-wrapper .output-card:hover,
 .search-output-cards .output-card:hover {
@@ -180,7 +183,8 @@ section.sale-viewer {
 }
 /*  GRAPHIC */
 .graphic {
-  margin: 100px 0 20px 0 !important;
+  margin: 50px 0 20px 0 !important;
+  /* margin: 100px 0 20px 0 !important; */
 }
 .graphic .heading {
   color: #d4d4d4;
