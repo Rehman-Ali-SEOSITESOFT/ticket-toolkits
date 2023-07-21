@@ -3,6 +3,7 @@ import "./App.css";
 import SaleViewer from "./pages/sale-viewer";
 import Login from "./pages/login/Login";
 import Header from "./layout/header";
+import SearchResult from "./pages/search";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<SaleViewer />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/serach" element={<SearchResult />} />
       </Routes>
     </div>
   );
