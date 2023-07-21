@@ -34,7 +34,7 @@ section.sale-viewer {
   font-size: 35px;
   font-weight: 600;
   margin: auto;
-  text-align: center;
+
   color: #fff;
   margin-bottom: 30px;
 }
@@ -85,6 +85,7 @@ section.sale-viewer {
   margin: inherit;
   margin-bottom: 35px;
 }
+.hot-event-wrapper .output-card:hover,
 .search-output-cards .output-card:hover {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
