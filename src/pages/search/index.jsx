@@ -371,7 +371,7 @@ const SearchResult = () => {
                 onClick={hanldeEventListingPopUPOpened}
               >
                 {" "}
-                view all event listing
+                view all event listings
               </button>
               <div className="d-flex event-cardss flex-wrap">
                 <div className="cart">
