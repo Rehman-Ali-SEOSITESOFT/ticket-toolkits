@@ -164,7 +164,15 @@ const AddToolkit = () => {
       <div className="container-xxl">
         <div className="row">
           <div className="col">
-            <NotFound />
+            <div className="not-found">
+              <p className="text-center text-white d-block h2 mb-4 w-100">
+                No Event found
+              </p>
+              <button className="add-to-toolkit d-block">
+                {" "}
+                Add to Toolkit
+              </button>
+            </div>
             <div className="search-output-cards  d-flex flex-wrap">
               {/* <div className="output-card">
                 <div className="output-cart-image">
