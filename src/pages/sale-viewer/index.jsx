@@ -27,7 +27,7 @@ const SaleViewer = () => {
       <div className="container-xxl">
         <div className="row">
           <div className="col">
-            <h2 className="sale-view-title">Sales Viewer</h2>
+            {/* <h2 className="sale-view-title">Sales Viewer</h2> */}
           </div>
         </div>
         <div className="row align-items-center justify-content-center">
@@ -35,7 +35,7 @@ const SaleViewer = () => {
             <div className="sale-view-search-input position-relative">
               <input
                 type="text"
-                placeholder="Seach by viagogo link"
+                placeholder="search event"
                 value={searchResult}
                 onChange={hanldeChangeInputResult}
               />
