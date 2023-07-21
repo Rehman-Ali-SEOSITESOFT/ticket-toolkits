@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<SaleViewer />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/serach" element={<SearchResult />} />
+        <Route path="/search" element={<SearchResult />} />
         <Route path="/add-toolkit" element={<AddToolkit />} />
       </Routes>
     </div>
