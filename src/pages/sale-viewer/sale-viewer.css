@@ -34,7 +34,7 @@ section.sale-viewer {
   font-size: 35px;
   font-weight: 600;
   margin: auto;
-
+  text-align: center;
   color: #fff;
   margin-bottom: 30px;
 }
@@ -126,6 +126,7 @@ section.sale-viewer {
   margin: 5px 0 10px 0;
   font-size: 20px;
   line-height: 27px;
+  text-align: left;
 }
 
 .output-cart-content .address {
