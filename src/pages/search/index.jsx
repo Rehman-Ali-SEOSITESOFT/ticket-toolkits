@@ -349,8 +349,7 @@ const SearchResult = () => {
                   <YAxis unit="£" tick={{ fill: "white" }} />
                   <Tooltip />
                   <Legend cursor={false} />
-
-                  <Bar dataKey="Event Listing" fill="#82ca9d" />
+                  <Bar dataKey="y" name="Event Listing" fill="#82ca9d" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
