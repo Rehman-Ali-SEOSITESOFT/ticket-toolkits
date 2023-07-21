@@ -203,7 +203,7 @@ const SearchResult = () => {
                     <img src={masjid} alt="" className="img-fluid" />
                   </div>
                   <div className="right-side">
-                    <img src={masjid} alt="" className="img-fluid" />
+                    <img src="https://img.vggcdn.net/svgv2/375965.svg?v=4" alt="" className="img-fluid" />
                   </div>
                 </div>
                 <div className="output-cart-content">
