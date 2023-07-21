@@ -151,7 +151,7 @@ const SearchResult = () => {
 
           <div className="col-lg-1 col-md-1 col-6">
             <Link
-              to={`/serach?search-result=${searchResult}`}
+              to={`/search?search-result=${searchResult}`}
               className="search-button text-decoration-none"
             >
               {" "}
