@@ -18,7 +18,7 @@ const Login = ({ props }) => {
       if (code !== null && (authUser === null || authUser.username === undefined)) {
         setLoader(true);
         axios
-          .get(`http://localhost:53134/api/user/authWithDiscord?code=${code}`)
+          .get(`https://shy-red-parrot-cape.cyclic.app/api/user/authWithDiscord?code=${code}`)
           .then((res) => {
             setLoader(false);
             if (res.data.userList.username !== undefined) {
