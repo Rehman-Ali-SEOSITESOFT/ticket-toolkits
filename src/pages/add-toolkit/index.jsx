@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import masjid from "../../assets/images/faisal-masjid.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Bar,
   BarChart,
@@ -20,7 +20,7 @@ const AddToolkit = () => {
   const [searchResult, setSearchResult] = useState("");
   const [cards, setCarts] = useState([1, 2, 3, 4, 5, 1, 1, 1, 1, 2, 3]);
   const [opedPopUp, setOpedPopUp] = useState(false);
-
+  const navigate = useNavigate();
   const hanldeClose = () => {
     setOpedPopUp(false);
     document.querySelector("body").style.overflow = "auto";
@@ -32,6 +32,12 @@ const AddToolkit = () => {
   const hanldeChangeInputResult = (event) => {
     setSearchResult(event.target.value);
   };
+  useEffect(() => {
+    let user = JSON.parse(localStorage.getItem("authUser"));
+    if (user === null && user?.username === undefined) {
+      navigate("/");
+    }
+  }, []);
   const data = [
     {
       name: " A",
@@ -155,7 +161,6 @@ const AddToolkit = () => {
               to={`/search?search-result=£{searchResult}`}
               className="search-button text-decoration-none"
             >
-              {" "}
               Search
             </Link>
           </div>
@@ -168,10 +173,7 @@ const AddToolkit = () => {
               <p className="text-center text-white d-block h2 mb-4 w-100">
                 No Event found
               </p>
-              <button className="add-to-toolkit d-block">
-                {" "}
-                Add to Toolkit
-              </button>
+              <button className="add-to-toolkit d-block">Add to Toolkit</button>
             </div>
             <div className="search-output-cards  d-flex flex-wrap">
               {/* <div className="output-card">

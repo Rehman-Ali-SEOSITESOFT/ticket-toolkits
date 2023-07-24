@@ -11,10 +11,10 @@ function App() {
   const location = useLocation();
   return (
     <div className="App">
-      {location.pathname === "/login" ? null : <Header />}
+      {location.pathname === "/" ? null : <Header />}
       <Routes>
-        <Route path="/" element={<SaleViewer />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/sales-view" element={<SaleViewer />} />
         <Route path="/search" element={<SearchResult />} />
         <Route path="/add-toolkit" element={<AddToolkit />} />
       </Routes>

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import masjid from "../../assets/images/faisal-masjid.jpg";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import {
   Bar,
   BarChart,
@@ -21,7 +21,13 @@ const SearchResult = () => {
   const [cards, setCarts] = useState([1, 2, 3, 4, 5, 1, 1, 1, 1, 2, 3]);
   const [opedPopUp, setOpedPopUp] = useState(false);
   const [evetnListingPop, setEvetnListingPop] = useState(false);
-
+  const navigate = useNavigate();
+  useEffect(()=>{
+    let user= JSON.parse(localStorage.getItem('authUser'));
+    if(user === null && user?.username  === undefined){
+      navigate('/')
+    }
+   },[])
   const hanldeClose = () => {
     setOpedPopUp(false);
     document.querySelector("body").style.overflow = "auto";
