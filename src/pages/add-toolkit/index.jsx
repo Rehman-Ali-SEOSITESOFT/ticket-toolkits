@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import masjid from "../../assets/images/faisal-masjid.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import {
