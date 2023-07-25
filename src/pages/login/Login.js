@@ -29,7 +29,7 @@ const Login = ({ props }) => {
               localStorage.setItem("authUser", JSON.stringify(obj));
               navigate("/sales-view");
             }else{
-              toast('Please try again login with Discord!', {
+              toast('Unauthorized!', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
