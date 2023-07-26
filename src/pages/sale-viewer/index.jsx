@@ -44,7 +44,7 @@ const SaleViewer = () => {
             <div className="sale-view-search-input position-relative">
               <input
                 type="text"
-                placeholder="search event"
+                placeholder="search by viagogo link"
                 value={searchResult}
                 onChange={hanldeChangeInputResult}
               />
@@ -56,10 +56,9 @@ const SaleViewer = () => {
 
           <div className="col-lg-1  col-md-1 col-6">
             <Link
-              to={`/search?search-result=£{searchResult}`}
+              to={`/search?query=${searchResult}`}
               className="search-button text-decoration-none"
             >
-              {" "}
               Search
             </Link>
           </div>

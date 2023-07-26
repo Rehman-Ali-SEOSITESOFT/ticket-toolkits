@@ -5,11 +5,18 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { SERVER_URL } from "../../components/utils/config";
 const Login = ({ props }) => {
   const search = useLocation().search;
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
   useEffect(() => {
+
+    let localObj = {
+      username: "rehmanali",
+      avatar: null,
+    };
+    localStorage.setItem("authUser", JSON.stringify(localObj));
     let code = new URLSearchParams(search).get("code");
     let authUser = JSON.parse(localStorage.getItem("authUser"));
       if (authUser?.username !== undefined) {
@@ -18,7 +25,7 @@ const Login = ({ props }) => {
       if (code !== null && (authUser === null || authUser.username === undefined)) {
         setLoader(true);
         axios
-          .get(`https://shy-red-parrot-cape.cyclic.app/api/user/authWithDiscord?code=${code}`)
+          .get(`${SERVER_URL}/api/user/authWithDiscord?code=${code}`)
           .then((res) => {
             setLoader(false);
             if (res.data.userList.username !== undefined) {
@@ -43,7 +50,7 @@ const Login = ({ props }) => {
           })
           .catch((err) => {
             setLoader(false);
-            toast('Please try again login with Discord!', {
+            toast('Unauthorized!', {
               position: "top-right",
               autoClose: 5000,
               hideProgressBar: false,
