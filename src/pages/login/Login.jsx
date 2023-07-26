@@ -12,11 +12,11 @@ const Login = ({ props }) => {
   const [loader, setLoader] = useState(false);
   useEffect(() => {
 
-    let localObj = {
-      username: "rehmanali",
-      avatar: null,
-    };
-    localStorage.setItem("authUser", JSON.stringify(localObj));
+    // let localObj = {
+    //   username: "rehmanali",
+    //   avatar: null,
+    // };
+    // localStorage.setItem("authUser", JSON.stringify(localObj));
     let code = new URLSearchParams(search).get("code");
     let authUser = JSON.parse(localStorage.getItem("authUser"));
       if (authUser?.username !== undefined) {
