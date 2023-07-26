@@ -201,57 +201,9 @@ const SearchResult = () => {
       let search_query = q[q.length - 1].slice(2, 100);
       setLoader(true);
       axios
-        .get(`${SERVER_URL}/api/liveSale/search-event?query=${search_query}`)
-        .then((res) => {
-          console.log(res.data.data, "res.data.data.success======");
-          if (res.data.success === 0) {
-            setIsNotFound(true);
-            toast("Not found!", {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              type: "error",
-            });
-          } else {
-            setQueryData(res.data.data);
-            setIsNotFound(false);
-            // let grapArr = []
-            // let totalsales = [...res.data.data.previouSales, ...res.data.data.recentSales];
-            // for(var s=0; s < totalsales.length; s++){
-            //   console.log( "month======")
-            // }
-          }
-          setLoader(false);
-        })
-        .catch((err) => {
-          setLoader(false);
-          toast("Invalid request.Please try again!", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            type: "error",
-          });
-        });
-    } else {
-      setIsNotFound(true);
-    }
-  }, []);
-
-  const onClickSearch = () => {
-    navigate(`/search?query=${searchResult}`);
-    let q = searchResult.split("/");
-    let search_query = q[q.length - 1].slice(2, 100);
-    setLoader(true);
-    axios
       .get(`${SERVER_URL}/api/liveSale/search-event?query=${search_query}`)
       .then((res) => {
-        if (res.data.data.success === 0) {
+        if (res.data.success === 0) {
           setIsNotFound(true);
           toast("Not found!", {
             position: "top-right",
@@ -290,6 +242,107 @@ const SearchResult = () => {
               console.log(res.data.data, "event listing");
               setEventListing(res.data.data);
               setEventListinLoader(false);
+              // let grap2Arr = [];
+              // let totalsales2 = [
+              //   ...res.data.data.previousSales,
+              //   ...res.data.data.recentSales,
+              // ];
+              // console.log(totalsales2, "total salwes2");
+              // for (var l = 0; l < totalsales2.length; l++) {
+              //   let obj = {
+              //     x: totalsales2[l].time_checked,
+              //     y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
+              //   };
+              //   grapArr.push(obj);
+              // }
+              // setEventSaleGraphData(grapArr);
+            })
+            .catch((err) => {
+              console.log("erro in event listing");
+              setEventListing({});
+              setEventListinLoader(false);
+            });
+        }
+        setLoader(false);
+      })
+      .catch((err) => {
+        setLoader(false);
+        toast("Invalid request.Please try again!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          type: "error",
+        });
+      });
+    } else {
+      setIsNotFound(true);
+    }
+  }, []);
+
+  const onClickSearch = () => {
+    navigate(`/search?query=${searchResult}`);
+    let q = searchResult.split("/");
+    let search_query = q[q.length - 1].slice(2, 100);
+    setLoader(true);
+    axios
+      .get(`${SERVER_URL}/api/liveSale/search-event?query=${search_query}`)
+      .then((res) => {
+        if (res.data.success === 0) {
+          setIsNotFound(true);
+          toast("Not found!", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            type: "error",
+          });
+        } else {
+          setQueryData(res.data.data);
+          setIsNotFound(false);
+          let grapArr = [];
+          let totalsales = [
+            ...res.data.data.previousSales,
+            ...res.data.data.recentSales,
+          ];
+          console.log(totalsales, "total salwes");
+          for (var s = 0; s < totalsales.length; s++) {
+            let obj = {
+              x: totalsales[s].time_checked,
+              y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
+            };
+            grapArr.push(obj);
+          }
+          setEventSaleGraphData(grapArr);
+
+          // get event listing
+          setEventListinLoader(true);
+          axios
+            .get(
+              `${SERVER_URL}/api/listings/event-listing?query=${search_query}`
+            )
+            .then((res) => {
+              console.log(res.data.data, "event listing");
+              setEventListing(res.data.data);
+              setEventListinLoader(false);
+              // let grap2Arr = [];
+              // let totalsales2 = [
+              //   ...res.data.data.previousSales,
+              //   ...res.data.data.recentSales,
+              // ];
+              // console.log(totalsales2, "total salwes2");
+              // for (var l = 0; l < totalsales2.length; l++) {
+              //   let obj = {
+              //     x: totalsales2[l].time_checked,
+              //     y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
+              //   };
+              //   grapArr.push(obj);
+              // }
+              // setEventSaleGraphData(grapArr);
             })
             .catch((err) => {
               console.log("erro in event listing");
@@ -478,13 +531,12 @@ const SearchResult = () => {
                   <div>
                     <h2 className="heading">Previous Sale</h2>
                     <p className="recordss">
-                      {" "}
                       {queryData?.total_sales ? queryData?.total_sales : 0} Sale
                       (s) found
                     </p>
                   </div>
                   <h2 className="text-right time-right">
-                    last updated:{" "}
+                    last updated:
                     {queryData?.time_checked
                       ? queryData?.time_checked[
                           queryData?.time_checked.length - 1
@@ -530,8 +582,10 @@ const SearchResult = () => {
                     <div className="cart">
                       <h4 className="title">Avg. Price</h4>
                       <p className="total-price">
-                        
-                        £ {queryData?.average ? queryData?.average?.toFixed(2) : 0}
+                        £{" "}
+                        {queryData?.average
+                          ? queryData?.average?.toFixed(2)
+                          : 0}
                       </p>
                     </div>
                     <div className="cart">
@@ -549,51 +603,85 @@ const SearchResult = () => {
                 <div className="d-flex justify-content-between align-items-end mb-5 mt-md-0 mt-3">
                   <div>
                     <h2 className="heading">Event Listings</h2>
-                    <p className="recordss"> 1475 listing (s) found</p>
+                    <p className="recordss"> {eventListing?.recentSales ? [...eventListing?.recentSales, ...eventListing?.previousSales].length : 0} listing (s) found</p>
                   </div>
                   <h2 className="text-right time-right">
-                    last updated: 21 :30 PM
+                    last updated: {eventListing?.time_checked ? eventListing?.time_checked : "01:10 PM"}
                   </h2>
                 </div>
                 <div className="event-listings-wrapper">
                   {eventListingLoader ? (
                     <h2 className="heading">Loading...</h2>
                   ) : (
+                    // <ResponsiveContainer width={"100%"} height={300}>
+                    //   <BarChart data={data01}>
+                    //     <CartesianGrid strokeDasharray="3 3" />
+                    //     <XAxis dataKey="x" tick={{ fill: "white" }} />
+                    //     <YAxis unit="£" tick={{ fill: "white" }} />
+                    //     <Tooltip />
+                    //     <Legend cursor={false} />
+                    //     <Bar dataKey="y" name="Event Listing" fill="#82ca9d" />
+                    //   </BarChart>
+                    // </ResponsiveContainer>
                     <ResponsiveContainer width={"100%"} height={300}>
-                      <BarChart data={data01}>
+                      <ScatterChart>
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="x" tick={{ fill: "white" }} />
-                        <YAxis unit="£" tick={{ fill: "white" }} />
-                        <Tooltip />
-                        <Legend cursor={false} />
-                        <Bar dataKey="y" name="Event Listing" fill="#82ca9d" />
-                      </BarChart>
+                        <XAxis
+                          tick={{ fill: "#121823" }}
+                          dataKey="x"
+                          name="Date"
+                          unit=""
+                        />
+                        <YAxis
+                          dataKey="y"
+                          type="number"
+                          name="Price"
+                          unit="£"
+                          tick={{ fill: "white" }}
+                        />
+
+                        <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                        <Legend />
+                        {/* <Scatter name="Event Sale" data={data01} fill="#8884d8" /> */}
+                        <Scatter
+                          name="Event Listing"
+                          data={eventSaleGraphData}
+                          fill="#82ca9d"
+                        />
+                        {/* <Scatter name="Date" data={data02} fill="#82ca9d" /> */}
+                      </ScatterChart>
                     </ResponsiveContainer>
                   )}
                 </div>
                 {/* <div className="enevt-cards-disc ">
-            <div className="d-flex event-cardss mt-3 justify-content-center flex-wrap">
-              <div className="cart">
-                <h4 className="title">Avg. Price</h4>
-                <p className="total-price"> £ 900</p>
-              </div>
-              <div className="cart">
-                <h4 className="title">Last. Hour</h4>
-                <p className="total-price"> £ 900</p>
-              </div>
-            </div>
-          </div> */}
+                  <div className="d-flex event-cardss mt-3 justify-content-center flex-wrap">
+                    <div className="cart">
+                      <h4 className="title">Avg. Price</h4>
+                      <p className="total-price"> £ 900</p>
+                    </div>
+                    <div className="cart">
+                      <h4 className="title">Last. Hour</h4>
+                      <p className="total-price"> £ 900</p>
+                    </div>
+                  </div>
+                </div> */}
                 <div className="enevt-cards-disc">
                   <button
                     className="my-4 my-md-5"
                     onClick={hanldeEventListingPopUPOpened}
                   >
-                    view all event listings
+                    view all recent event listings
                   </button>
                   <div className="d-flex event-cardss flex-wrap">
                     <div className="cart">
                       <h4 className="title">Avg. Price</h4>
-                      <p className="total-price"> £ {eventListing?.average ? eventListing?.average.toFixed(2): 0}</p>
+                      <p className="total-price">
+                        {" "}
+                        £{" "}
+                        {eventListing?.average
+                          ? eventListing?.average.toFixed(2)
+                          : 0}
+                      </p>
                     </div>
                     <div className="cart">
                       <h4 className="title">Last. Hour</h4>
@@ -698,20 +786,22 @@ const SearchResult = () => {
                 <table className="table table-dark table-hover">
                   <thead>
                     <tr>
-                      <th> Date </th>
-                      <th> Customer </th>
-                      <th> Sales </th>
-                      <th> Total </th>
+                      <th> Event Name </th>
+                      <th> Venue Name </th>
+                      <th> Event Date </th>
+                      <th> Price </th>
+                      <th> Quantity </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((e, i) => {
+                    {eventListing?.recentSales.map((e, i) => {
                       return (
                         <tr key={i}>
-                          <td> 12 Nov 2022 </td>
-                          <td> John </td>
-                          <td> Pending </td>
-                          <td> £ 2391 </td>
+                          <td> event name </td>
+                          <td> venue name </td>
+                          <td> event date </td>
+                          <td> {e.Price} </td>
+                          <td> {e.Quantity} </td>
                         </tr>
                       );
                     })}
