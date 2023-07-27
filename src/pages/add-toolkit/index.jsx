@@ -12,7 +12,11 @@ const AddToolkit = () => {
   };
   useEffect(() => {
     // let user = JSON.parse(localStorage.getItem("authUser"));
-    let user = JSON.parse(Cookies.get("authUser"));
+    if (Cookies.get("authUser") !== undefined) {
+      JSON.parse(Cookies.get("authUser"));
+    } else {
+      user = null;
+    }
     if (user === null && user?.username === undefined) {
       navigate("/");
     }

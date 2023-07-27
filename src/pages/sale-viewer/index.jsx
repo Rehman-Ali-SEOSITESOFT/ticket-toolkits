@@ -11,7 +11,12 @@ const SaleViewer = () => {
   const navigate = useNavigate();
    useEffect(()=>{
     // let user= JSON.parse(localStorage.getItem('authUser'));
-    let user= JSON.parse(Cookies.get('authUser'));
+    let user = {};
+    if (Cookies.get("authUser") !== undefined) {
+      JSON.parse(Cookies.get("authUser"));
+    } else {
+      user = null;
+    }
     if(user === null && user?.username  === undefined){
       navigate('/')
     }
