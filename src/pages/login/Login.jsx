@@ -20,7 +20,7 @@ const Login = ({ props }) => {
     // localStorage.setItem("authUser", JSON.stringify(localObj));
     let code = new URLSearchParams(search).get("code");
     // let authUser = JSON.parse(localStorage.getItem("authUser"));
-    let authUser = JSON.parse(Cookies.get("authUser"));
+    let authUser = JSON.parse(Cookies?.get("authUser"));
       if (authUser?.username !== undefined) {
         navigate("/sales-view");
       }
