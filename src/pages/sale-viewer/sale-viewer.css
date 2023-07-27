@@ -362,6 +362,11 @@ hr.hr-border {
   background-color: white !important;
   color: black;
 }
+
+.error-text{
+  color: red;
+  /* padding-left: 10px; */
+}
 @media screen and (max-width: 1024px) {
   .hot-event-wrapper .output-card {
     width: 48%;

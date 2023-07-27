@@ -26,8 +26,6 @@ const SearchResult = () => {
   const [searchResult, setSearchResult] = useState("");
   const search = useLocation().search;
   let query = new URLSearchParams(search).get("query");
-
-  const [cards, setCarts] = useState([1, 2, 3, 4, 5, 1, 1, 1, 1, 2, 3]);
   const [opedPopUp, setOpedPopUp] = useState(false);
   const [evetnListingPop, setEvetnListingPop] = useState(false);
   const [queryData, setQueryData] = useState({});
@@ -35,6 +33,10 @@ const SearchResult = () => {
   const [loader, setLoader] = useState(false);
   const [eventListing, setEventListing] = useState({});
   const [eventListingLoader, setEventListinLoader] = useState(false);
+  const [lastHourSale, setlastHourSale] = useState([]);
+  const [last24HourSale, setLast24HourSale] = useState([]);
+  const [error, setError] = useState("")
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,140 +62,52 @@ const SearchResult = () => {
     setEvetnListingPop(true);
   };
   const hanldeChangeInputResult = (event) => {
+    if(event.target.value.length > 0 &&  (!event.target.value.includes('www.viagogo.co.uk') || !event.target.value.includes('E-'))){
+      setError("Invalid vaigogo url. Please use valid one!")
+     }else if (event.target.value.length == "0"){
+      setError("")
+     }else{
+      setError("")
+     }
     setSearchResult(event.target.value);
+
   };
 
-  const data = [
-    {
-      name: " A",
-      uv: 4000,
-    },
-    {
-      name: " B",
-      uv: 3000,
-    },
-    {
-      name: " C",
-      uv: 2000,
-    },
-    {
-      name: " D",
-      uv: 2780,
-    },
-    {
-      name: " E",
-      uv: 1890,
-    },
-    {
-      name: " F",
-      uv: 2390,
-    },
-    {
-      name: " G",
-      uv: 3490,
-    },
-  ];
-
-  const data02 = [
-    {
-      x: 10,
-      y: 50,
-      z: 10,
-    },
-    {
-      x: 40,
-      y: 100,
-      z: 260,
-    },
-    {
-      x: 70,
-      y: 150,
-      z: 400,
-    },
-    {
-      x: 100,
-      y: 250,
-      z: 280,
-    },
-    {
-      x: 130,
-      y: 230,
-      z: 500,
-    },
-    {
-      x: 150,
-      y: 350,
-      z: 200,
-    },
-  ];
   const [eventSaleGraphData, setEventSaleGraphData] = useState([]);
-  const data01 = [
-    {
-      x: "Jan",
-      y: 200,
-      z: 240,
-    },
-    {
-      x: "Jan",
-      y: 300,
-      z: 240,
-    },
-    {
-      x: "Feb",
-      y: 290,
-      z: 220,
-    },
-    {
-      x: "Mar",
-      y: 290,
-      z: 250,
-    },
-    {
-      x: "April",
-      y: 250,
-      z: 210,
-    },
-    {
-      x: "May",
-      y: 280,
-      z: 260,
-    },
-    {
-      x: "Jun",
-      y: 220,
-      z: 230,
-    },
-    {
-      x: "Jul",
-      y: 220,
-      z: 230,
-    },
-    {
-      x: "Aug",
-      y: 220,
-      z: 230,
-    },
-    {
-      x: "Sep",
-      y: 220,
-      z: 230,
-    },
-    {
-      x: "Oct",
-      y: 220,
-      z: 230,
-    },
-    {
-      x: "Nov",
-      y: 220,
-      z: 230,
-    },
-    {
-      x: "Dec",
-      y: 220,
-      z: 230,
-    },
-  ];
+  const [eventListingGraphData, setEventListingGraphData] = useState([]);
+
+  // Function to find data from the last hour
+  const findLastHourData = (dataArray) => {
+    // Get the current date and time
+    const currentTime = new Date();
+
+    // Subtract one hour from the current date and time
+    const lastHourTime = new Date(currentTime.getTime() - 60 * 60 * 1000);
+
+    // Filter the array to include only objects with dates within the last hour
+    const lastHourData = dataArray.filter(
+      (item) => new Date(item.date) > lastHourTime
+    );
+
+    return lastHourData;
+  };
+
+    // Function to find data from the last hour
+    const findLast24HourData = (dataArray) => {
+      // Get the current date and time
+      const currentTime = new Date();
+  
+      // Subtract one hour from the current date and time
+      const lastHourTime = new Date(currentTime.getTime() - 60 * 60 * 1000 * 24);
+  
+      // Filter the array to include only objects with dates within the last hour
+      const lastHourData = dataArray.filter(
+        (item) => new Date(item.date) > lastHourTime
+      );
+  
+      return lastHourData;
+    };
+  
 
   useEffect(() => {
     if (query) {
@@ -201,82 +115,98 @@ const SearchResult = () => {
       let search_query = q[q.length - 1].slice(2, 100);
       setLoader(true);
       axios
-      .get(`${SERVER_URL}/api/liveSale/search-event?query=${search_query}`)
-      .then((res) => {
-        if (res.data.success === 0) {
-          setIsNotFound(true);
-          toast("Not found!", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            type: "error",
-          });
-        } else {
-          setQueryData(res.data.data);
-          setIsNotFound(false);
-          let grapArr = [];
-          let totalsales = [
-            ...res.data.data.previousSales,
-            ...res.data.data.recentSales,
-          ];
-          console.log(totalsales, "total salwes");
-          for (var s = 0; s < totalsales.length; s++) {
-            let obj = {
-              x: totalsales[s].time_checked,
-              y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
-            };
-            grapArr.push(obj);
-          }
-          setEventSaleGraphData(grapArr);
+        .get(`${SERVER_URL}/api/liveSale/search-event?query=${search_query}`)
+        .then((res) => {
+          if (res.data.success === 0) {
+            setIsNotFound(true);
+          } else {
+            setQueryData(res.data.data);
+            setIsNotFound(false);
+            let grapArr = [];
+            let lastHourArr = [];
+            let totalsales = [
+              ...res.data.data.previousSales,
+              ...res.data.data.recentSales,
+            ];
+            for (var s = 0; s < totalsales.length; s++) {
+              let obj = {
+                x: totalsales[s].time_checked,
+                y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
+              };
+              // split date and make format that we used
+              let date = totalsales[s].time_checked;
+              let d = date.split(" ");
+              let dateReverse = d[0]
+                .split("/")
+                .sort((a, b) => b - a)
+                .join("-");
+            
+              let objDate = {
+                x: dateReverse + "T" + d[1],
+                y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
+              };
+              grapArr.push(obj);
+              lastHourArr.push(objDate);
+            }
+            setEventSaleGraphData(grapArr);
+            // Call the function to get the data from the last hour
+            const lastHourData = findLastHourData(lastHourArr);
+            const last24HourData = findLast24HourData(lastHourArr);
+            let sum = 0;
+            let sum2 = 0; 
+            for(var h= 0; h < lastHourData; h++){
+               sum += lastHourData[h].y
+             }
+             for(var h1= 0; h1 < last24HourData; h1++){
+              sum2 += last24HourData[h1].y
+            }
+            setLast24HourSale(sum2);
+            setlastHourSale(sum)
+  
+           
 
-          // get event listing
-          setEventListinLoader(true);
-          axios
-            .get(
-              `${SERVER_URL}/api/listings/event-listing?query=${search_query}`
-            )
-            .then((res) => {
-              console.log(res.data.data, "event listing");
-              setEventListing(res.data.data);
-              setEventListinLoader(false);
-              // let grap2Arr = [];
-              // let totalsales2 = [
-              //   ...res.data.data.previousSales,
-              //   ...res.data.data.recentSales,
-              // ];
-              // console.log(totalsales2, "total salwes2");
-              // for (var l = 0; l < totalsales2.length; l++) {
-              //   let obj = {
-              //     x: totalsales2[l].time_checked,
-              //     y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
-              //   };
-              //   grapArr.push(obj);
-              // }
-              // setEventSaleGraphData(grapArr);
-            })
-            .catch((err) => {
-              console.log("erro in event listing");
-              setEventListing({});
-              setEventListinLoader(false);
-            });
-        }
-        setLoader(false);
-      })
-      .catch((err) => {
-        setLoader(false);
-        toast("Invalid request.Please try again!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          type: "error",
+            // get event listing
+            setEventListinLoader(true);
+            axios
+              .get(
+                `${SERVER_URL}/api/listings/event-listing?query=${search_query}`
+              )
+              .then((res) => {
+                setEventListing(res.data.data);
+
+                let grap2Arr = [];
+                let totalsales2 = [
+                  // ...res.data.data.previousSales,
+                  ...res.data.data.recentSales,
+                ];
+
+                for (var v = 0; v < totalsales2.length; v++) {
+                  let obj2 = {
+                    x: totalsales2[v]["Event Date"],
+                    y: totalsales2[v]?.Price
+                      ? parseInt(
+                          totalsales2[v].Price.slice(1, 100).split(".")[0]
+                        )
+                      : 0,
+                  };
+
+                  grap2Arr.push(obj2);
+                }
+
+                setEventListingGraphData(grap2Arr);
+                setEventListinLoader(false);
+              })
+              .catch((err) => {
+                setEventListing({});
+                setEventListinLoader(false);
+              });
+          }
+          setLoader(false);
+        })
+        .catch((err) => {
+          setLoader(false);
+         
         });
-      });
     } else {
       setIsNotFound(true);
     }
@@ -292,32 +222,49 @@ const SearchResult = () => {
       .then((res) => {
         if (res.data.success === 0) {
           setIsNotFound(true);
-          toast("Not found!", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            type: "error",
-          });
         } else {
           setQueryData(res.data.data);
           setIsNotFound(false);
           let grapArr = [];
+          let lastHourArr = [];
           let totalsales = [
             ...res.data.data.previousSales,
             ...res.data.data.recentSales,
           ];
-          console.log(totalsales, "total salwes");
           for (var s = 0; s < totalsales.length; s++) {
             let obj = {
               x: totalsales[s].time_checked,
               y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
             };
+            // split date and make format that we used
+            let date = totalsales[s].time_checked;
+            let d = date.split(" ");
+            let dateReverse = d[0]
+              .split("/")
+              .sort((a, b) => b - a)
+              .join("-");
+          
+            let objDate = {
+              x: dateReverse + "T" + d[1],
+              y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
+            };
             grapArr.push(obj);
+            lastHourArr.push(objDate);
           }
           setEventSaleGraphData(grapArr);
+          // Call the function to get the data from the last hour
+          const lastHourData = findLastHourData(lastHourArr);
+          const last24HourData = findLast24HourData(lastHourArr);
+          let sum = 0;
+          let sum2 = 0; 
+          for(var h= 0; h < lastHourData; h++){
+             sum += lastHourData[h].y
+           }
+           for(var h1= 0; h1 < last24HourData; h1++){
+            sum2 += last24HourData[h1].y
+          }
+          setLast24HourSale(sum2);
+          setlastHourSale(sum)
 
           // get event listing
           setEventListinLoader(true);
@@ -326,26 +273,29 @@ const SearchResult = () => {
               `${SERVER_URL}/api/listings/event-listing?query=${search_query}`
             )
             .then((res) => {
-              console.log(res.data.data, "event listing");
               setEventListing(res.data.data);
+
+              let grap2Arr = [];
+              let totalsales2 = [
+                // ...res.data.data.previousSales,
+                ...res.data.data.recentSales,
+              ];
+
+              for (var v = 0; v < totalsales2.length; v++) {
+                let obj2 = {
+                  x: totalsales2[v]["Event Date"],
+                  y: totalsales2[v]?.Price
+                    ? parseInt(totalsales2[v].Price.slice(1, 100).split(".")[0])
+                    : 0,
+                };
+
+                grap2Arr.push(obj2);
+              }
+
+              setEventListingGraphData(grap2Arr);
               setEventListinLoader(false);
-              // let grap2Arr = [];
-              // let totalsales2 = [
-              //   ...res.data.data.previousSales,
-              //   ...res.data.data.recentSales,
-              // ];
-              // console.log(totalsales2, "total salwes2");
-              // for (var l = 0; l < totalsales2.length; l++) {
-              //   let obj = {
-              //     x: totalsales2[l].time_checked,
-              //     y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
-              //   };
-              //   grapArr.push(obj);
-              // }
-              // setEventSaleGraphData(grapArr);
             })
             .catch((err) => {
-              console.log("erro in event listing");
               setEventListing({});
               setEventListinLoader(false);
             });
@@ -366,7 +316,7 @@ const SearchResult = () => {
       });
   };
 
-  console.log(eventSaleGraphData, "=================");
+
   return (
     <section className="search-viewer">
       <ToastContainer />
@@ -388,7 +338,7 @@ const SearchResult = () => {
             </div>
             <div className="row align-items-center justify-content-center">
               <div className="col-lg-11 col-md-5 col-6">
-                <div className="sale-view-search-input position-relative">
+                <div style={error !== "" ? {outline: '1px solid red'}: null} className="sale-view-search-input position-relative">
                   <input
                     type="text"
                     placeholder="search by viagogo link"
@@ -410,6 +360,7 @@ const SearchResult = () => {
                 </button>
               </div>
             </div>
+            <p className="error-text">{error}</p>
           </div>
           <div className="container-xxl">
             <div className="row">
@@ -437,7 +388,7 @@ const SearchResult = () => {
             </div>
             <div className="row align-items-center">
               <div className="col-lg-5 col-md-5 col-6">
-                <div className="sale-view-search-input position-relative">
+                <div style={error !== "" ? {outline: '1px solid red'}: null} className="sale-view-search-input position-relative">
                   <input
                     type="text"
                     placeholder="Seach by viagogo link"
@@ -476,6 +427,7 @@ const SearchResult = () => {
                 </div>
               </div>
             </div>
+            <p className="error-text">{error}</p>
           </div>
 
           <div className="container-xxl">
@@ -509,15 +461,21 @@ const SearchResult = () => {
                     </div>
                     <div className="output-cart-content">
                       <h2 className="title">
-                        miami doplhins vs kansas city chiefs- nfl frankfurt
-                        games 2023 miami doplhins vs kansas city chiefs- nfl
-                        frankfurt games 2023
+                        {queryData?.event_name !== null
+                          ? queryData?.event_name
+                          : ""}
                       </h2>
                       <address className="address">
-                        deutsche bank park ( commerzbank arena) frankfurt,
-                        germany
+                        {queryData?.event_title !== null
+                          ? queryData?.event_title
+                          : ""}
                       </address>
-                      <p className="weekname">Sunday, 05 nov 2023 03:30 PM</p>
+                      <p className="weekname">
+                        {" "}
+                        {queryData?.event_date !== null
+                          ? queryData?.event_date
+                          : ""}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -590,11 +548,11 @@ const SearchResult = () => {
                     </div>
                     <div className="cart">
                       <h4 className="title">Last. Hour</h4>
-                      <p className="total-price"> £ 900</p>
+                      <p className="total-price"> £ {lastHourSale}</p>
                     </div>
                     <div className="cart">
                       <h4 className="title">Last 24 Hours</h4>
-                      <p className="total-price"> £ 900</p>
+                      <p className="total-price"> £ {last24HourSale}</p>
                     </div>
                   </div>
                 </div>
@@ -603,10 +561,22 @@ const SearchResult = () => {
                 <div className="d-flex justify-content-between align-items-end mb-5 mt-md-0 mt-3">
                   <div>
                     <h2 className="heading">Event Listings</h2>
-                    <p className="recordss"> {eventListing?.recentSales ? [...eventListing?.recentSales, ...eventListing?.previousSales].length : 0} listing (s) found</p>
+                    <p className="recordss">
+                      {" "}
+                      {eventListing?.recentSales
+                        ? [
+                            ...eventListing?.recentSales,
+                            ...eventListing?.previousSales,
+                          ].length
+                        : 0}{" "}
+                      listing (s) found
+                    </p>
                   </div>
                   <h2 className="text-right time-right">
-                    last updated: {eventListing?.time_checked ? eventListing?.time_checked : "01:10 PM"}
+                    last updated:{" "}
+                    {eventListing?.time_checked
+                      ? eventListing?.time_checked
+                      : "01:10 PM"}
                   </h2>
                 </div>
                 <div className="event-listings-wrapper">
@@ -645,7 +615,7 @@ const SearchResult = () => {
                         {/* <Scatter name="Event Sale" data={data01} fill="#8884d8" /> */}
                         <Scatter
                           name="Event Listing"
-                          data={eventSaleGraphData}
+                          data={eventListingGraphData}
                           fill="#82ca9d"
                         />
                         {/* <Scatter name="Date" data={data02} fill="#82ca9d" /> */}
@@ -736,9 +706,9 @@ const SearchResult = () => {
                     {queryData?.recentSales.map((e, i) => {
                       return (
                         <tr key={i}>
-                          <td> name </td>
-                          <td>venue </td>
-                          <td> date </td>
+                          <td>{e["Event Name"]}</td>
+                          <td>{e["Venue Name"]}</td>
+                          <td> {e["Event Date"]} </td>
                           <td> {e.Price} </td>
                           <td> {e.Quantity} </td>
                           <td> {e.time_checked} </td>
@@ -797,11 +767,11 @@ const SearchResult = () => {
                     {eventListing?.recentSales.map((e, i) => {
                       return (
                         <tr key={i}>
-                          <td> event name </td>
-                          <td> venue name </td>
-                          <td> event date </td>
-                          <td> {e.Price} </td>
-                          <td> {e.Quantity} </td>
+                          <td>{e["Event Name"]}</td>
+                          <td>{e["Venue Name"]}</td>
+                          <td>{e["Event Date"]}</td>
+                          <td>{e.Price} </td>
+                          <td>{e.Quantity} </td>
                         </tr>
                       );
                     })}

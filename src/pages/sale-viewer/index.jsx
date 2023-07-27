@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./sale-viewer.css";
-
 import masjid from "../../assets/images/faisal-masjid.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import NotFound from "../../components/not-found";
@@ -10,6 +9,7 @@ const SaleViewer = () => {
   const [cards, setCarts] = useState([1, 2, 3, 4, 5, 1, 1, 1, 1, 2, 3]);
   const [cardStarted, setCardStarted] = useState(0);
   const [cardEnded, setCardEnded] = useState(5);
+  const [error, setError] = useState("")
   const navigate = useNavigate();
    useEffect(()=>{
     let user= JSON.parse(localStorage.getItem('authUser'));
@@ -20,6 +20,13 @@ const SaleViewer = () => {
 
 
   const hanldeChangeInputResult = (event) => {
+    if(event.target.value.length > 0 &&  (!event.target.value.includes('www.viagogo.co.uk') || !event.target.value.includes('E-'))){
+      setError("Invalid vaigogo url. Please use valid one!")
+     }else if (event.target.value.length == "0"){
+      setError("")
+     }else{
+      setError("")
+     }
     setSearchResult(event.target.value);
   };
 
@@ -41,7 +48,7 @@ const SaleViewer = () => {
         </div>
         <div className="row align-items-center justify-content-center">
           <div className="col-lg-11 col-md-5 col-6">
-            <div className="sale-view-search-input position-relative">
+            <div className="sale-view-search-input position-relative" style={error !== "" ? {outline: '1px solid red'}: null}>
               <input
                 type="text"
                 placeholder="search by viagogo link"
@@ -52,6 +59,7 @@ const SaleViewer = () => {
                 <i className="fa-solid fa-magnifying-glass"></i>
               </span>
             </div>
+           
           </div>
 
           <div className="col-lg-1  col-md-1 col-6">
@@ -62,6 +70,7 @@ const SaleViewer = () => {
               Search
             </Link>
           </div>
+          <p className="error-text">{error}</p>
         </div>
         <div className="row">
           <div className="col">
