@@ -215,9 +215,9 @@ const SearchResult = () => {
   }, []);
 
   const onClickSearch = () => {
-    if(searchResult?.length > 0 &&  (!searchResult.includes('www.viagogo.co.uk') || !searchResult.includes('E-'))){
+    if(searchResult.length > 0 &&  (!searchResult.includes('www.viagogo.co.uk') || !searchResult.includes('E-'))){
       setError("Invalid viagogo url. Please use valid one!")
-     }else if (searchResult.value.length == "0"){
+     }else if (searchResult.length == "0"){
       setError("Invalid viagogo url. Please use valid one!")
      }else{
       setError("")
