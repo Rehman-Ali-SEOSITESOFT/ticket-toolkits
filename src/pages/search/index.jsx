@@ -62,13 +62,7 @@ const SearchResult = () => {
     setEvetnListingPop(true);
   };
   const hanldeChangeInputResult = (event) => {
-    if(event.target.value.length > 0 &&  (!event.target.value.includes('www.viagogo.co.uk') || !event.target.value.includes('E-'))){
-      setError("Invalid vaigogo url. Please use valid one!")
-     }else if (event.target.value.length == "0"){
-      setError("")
-     }else{
-      setError("")
-     }
+    setError("");
     setSearchResult(event.target.value);
 
   };
@@ -213,107 +207,115 @@ const SearchResult = () => {
   }, []);
 
   const onClickSearch = () => {
-    navigate(`/search?query=${searchResult}`);
-    let q = searchResult.split("/");
-    let search_query = q[q.length - 1].slice(2, 100);
-    setLoader(true);
-    axios
-      .get(`${SERVER_URL}/api/liveSale/search-event?query=${search_query}`)
-      .then((res) => {
-        if (res.data.success === 0) {
-          setIsNotFound(true);
-        } else {
-          setQueryData(res.data.data);
-          setIsNotFound(false);
-          let grapArr = [];
-          let lastHourArr = [];
-          let totalsales = [
-            ...res.data.data.previousSales,
-            ...res.data.data.recentSales,
-          ];
-          for (var s = 0; s < totalsales.length; s++) {
-            let obj = {
-              x: totalsales[s].time_checked,
-              y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
-            };
-            // split date and make format that we used
-            let date = totalsales[s].time_checked;
-            let d = date.split(" ");
-            let dateReverse = d[0]
-              .split("/")
-              .sort((a, b) => b - a)
-              .join("-");
-          
-            let objDate = {
-              x: dateReverse + "T" + d[1],
-              y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
-            };
-            grapArr.push(obj);
-            lastHourArr.push(objDate);
+    if(searchResult.length > 0 &&  (!searchResult.includes('www.viagogo.co.uk') || !searchResult.includes('E-'))){
+      setError("Invalid viagogo url. Please use valid one!")
+     }else if (searchResult.value.length == "0"){
+      setError("Invalid viagogo url. Please use valid one!")
+     }else{
+      setError("")
+      navigate(`/search?query=${searchResult}`);
+      let q = searchResult.split("/");
+      let search_query = q[q.length - 1].slice(2, 100);
+      setLoader(true);
+      axios
+        .get(`${SERVER_URL}/api/liveSale/search-event?query=${search_query}`)
+        .then((res) => {
+          if (res.data.success === 0) {
+            setIsNotFound(true);
+          } else {
+            setQueryData(res.data.data);
+            setIsNotFound(false);
+            let grapArr = [];
+            let lastHourArr = [];
+            let totalsales = [
+              ...res.data.data.previousSales,
+              ...res.data.data.recentSales,
+            ];
+            for (var s = 0; s < totalsales.length; s++) {
+              let obj = {
+                x: totalsales[s].time_checked,
+                y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
+              };
+              // split date and make format that we used
+              let date = totalsales[s].time_checked;
+              let d = date.split(" ");
+              let dateReverse = d[0]
+                .split("/")
+                .sort((a, b) => b - a)
+                .join("-");
+            
+              let objDate = {
+                x: dateReverse + "T" + d[1],
+                y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
+              };
+              grapArr.push(obj);
+              lastHourArr.push(objDate);
+            }
+            setEventSaleGraphData(grapArr);
+            // Call the function to get the data from the last hour
+            const lastHourData = findLastHourData(lastHourArr);
+            const last24HourData = findLast24HourData(lastHourArr);
+            let sum = 0;
+            let sum2 = 0; 
+            for(var h= 0; h < lastHourData; h++){
+               sum += lastHourData[h].y
+             }
+             for(var h1= 0; h1 < last24HourData; h1++){
+              sum2 += last24HourData[h1].y
+            }
+            setLast24HourSale(sum2);
+            setlastHourSale(sum)
+  
+            // get event listing
+            setEventListinLoader(true);
+            axios
+              .get(
+                `${SERVER_URL}/api/listings/event-listing?query=${search_query}`
+              )
+              .then((res) => {
+                setEventListing(res.data.data);
+  
+                let grap2Arr = [];
+                let totalsales2 = [
+                  // ...res.data.data.previousSales,
+                  ...res.data.data.recentSales,
+                ];
+  
+                for (var v = 0; v < totalsales2.length; v++) {
+                  let obj2 = {
+                    x: totalsales2[v]["Event Date"],
+                    y: totalsales2[v]?.Price
+                      ? parseInt(totalsales2[v].Price.slice(1, 100).split(".")[0])
+                      : 0,
+                  };
+  
+                  grap2Arr.push(obj2);
+                }
+  
+                setEventListingGraphData(grap2Arr);
+                setEventListinLoader(false);
+              })
+              .catch((err) => {
+                setEventListing({});
+                setEventListinLoader(false);
+              });
           }
-          setEventSaleGraphData(grapArr);
-          // Call the function to get the data from the last hour
-          const lastHourData = findLastHourData(lastHourArr);
-          const last24HourData = findLast24HourData(lastHourArr);
-          let sum = 0;
-          let sum2 = 0; 
-          for(var h= 0; h < lastHourData; h++){
-             sum += lastHourData[h].y
-           }
-           for(var h1= 0; h1 < last24HourData; h1++){
-            sum2 += last24HourData[h1].y
-          }
-          setLast24HourSale(sum2);
-          setlastHourSale(sum)
-
-          // get event listing
-          setEventListinLoader(true);
-          axios
-            .get(
-              `${SERVER_URL}/api/listings/event-listing?query=${search_query}`
-            )
-            .then((res) => {
-              setEventListing(res.data.data);
-
-              let grap2Arr = [];
-              let totalsales2 = [
-                // ...res.data.data.previousSales,
-                ...res.data.data.recentSales,
-              ];
-
-              for (var v = 0; v < totalsales2.length; v++) {
-                let obj2 = {
-                  x: totalsales2[v]["Event Date"],
-                  y: totalsales2[v]?.Price
-                    ? parseInt(totalsales2[v].Price.slice(1, 100).split(".")[0])
-                    : 0,
-                };
-
-                grap2Arr.push(obj2);
-              }
-
-              setEventListingGraphData(grap2Arr);
-              setEventListinLoader(false);
-            })
-            .catch((err) => {
-              setEventListing({});
-              setEventListinLoader(false);
-            });
-        }
-        setLoader(false);
-      })
-      .catch((err) => {
-        setLoader(false);
-        toast("Invalid request.Please try again!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          type: "error",
+          setLoader(false);
+        })
+        .catch((err) => {
+          setLoader(false);
+          toast("Invalid request.Please try again!", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            type: "error",
+          });
         });
-      });
+     }
+   
   };
 
 

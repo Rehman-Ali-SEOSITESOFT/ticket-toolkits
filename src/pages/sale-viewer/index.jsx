@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./sale-viewer.css";
 import masjid from "../../assets/images/faisal-masjid.jpg";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import NotFound from "../../components/not-found";
 
 const SaleViewer = () => {
   const [searchResult, setSearchResult] = useState("");
-  const [cards, setCarts] = useState([1, 2, 3, 4, 5, 1, 1, 1, 1, 2, 3]);
-  const [cardStarted, setCardStarted] = useState(0);
-  const [cardEnded, setCardEnded] = useState(5);
   const [error, setError] = useState("")
   const navigate = useNavigate();
    useEffect(()=>{
@@ -20,23 +17,22 @@ const SaleViewer = () => {
 
 
   const hanldeChangeInputResult = (event) => {
-    if(event.target.value.length > 0 &&  (!event.target.value.includes('www.viagogo.co.uk') || !event.target.value.includes('E-'))){
-      setError("Invalid vaigogo url. Please use valid one!")
-     }else if (event.target.value.length == "0"){
-      setError("")
-     }else{
-      setError("")
-     }
     setSearchResult(event.target.value);
+    setError("")
   };
 
-  const hanlderShowMoreSales = () => {
-    setCardEnded(cardEnded + 5);
-  };
-  const hanlderGoBacked = () => {
-    setCardEnded(5);
-    window.scrollTo(0, 0);
-  };
+
+
+  const onClickSearch = (e) =>{
+    if(searchResult.length > 0 &&  (!searchResult.includes('www.viagogo.co.uk') || !searchResult.includes('E-'))){
+      setError("Invalid viagogo url. Please use valid one!")
+     }else if (searchResult.length == "0"){
+      setError("Invalid viagogo url. Please use valid one!")
+     }else{
+      setError("")
+      navigate(`/search?query=${searchResult}`)
+     }
+  }
 
   return (
     <section className="sale-viewer">
@@ -63,12 +59,12 @@ const SaleViewer = () => {
           </div>
 
           <div className="col-lg-1  col-md-1 col-6">
-            <Link
-              to={`/search?query=${searchResult}`}
-              className="search-button text-decoration-none"
+            <button
+             onClick={(e) => onClickSearch(e)}
+             className="search-button text-decoration-none"
             >
               Search
-            </Link>
+            </button>
           </div>
           <p className="error-text">{error}</p>
         </div>
