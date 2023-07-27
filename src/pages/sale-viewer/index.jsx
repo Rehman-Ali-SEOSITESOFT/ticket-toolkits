@@ -3,6 +3,7 @@ import "./sale-viewer.css";
 import masjid from "../../assets/images/faisal-masjid.jpg";
 import { useNavigate } from "react-router-dom";
 import NotFound from "../../components/not-found";
+import Cookies from "js-cookie";
 
 const SaleViewer = () => {
   const [searchResult, setSearchResult] = useState("");

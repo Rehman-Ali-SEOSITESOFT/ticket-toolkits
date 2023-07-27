@@ -21,7 +21,8 @@ import { SERVER_URL } from "../../components/utils/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NotFoundImage from "../../assets/images/not-found.jpg";
-import moment from "moment";
+import Cookies from "js-cookie";
+
 const SearchResult = () => {
   const [searchResult, setSearchResult] = useState("");
   const search = useLocation().search;

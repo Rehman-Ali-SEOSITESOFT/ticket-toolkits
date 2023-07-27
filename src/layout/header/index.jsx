@@ -2,21 +2,21 @@ import React, { useEffect, useState } from "react";
 import icon from "../../assets/images/blackmoon.png";
 import usericon from "../../assets/images/user-icon.png";
 import { useNavigate } from 'react-router-dom';
-
+import Cookies from "js-cookie";
 import "./style.css";
 import { Link } from "react-router-dom";
 const Header = () => {
   const [userData, setUserData] = useState({});
   const navigate = useNavigate();
   useEffect(() =>{
-   let data = JSON.parse(localStorage.getItem('authUser'));
+   let data = JSON.parse(Cookies.get('authUser'));
    setUserData(data)
   }, [])
   
 
   const onClickLogout = (e) =>{
     e.preventDefault();
-    localStorage.removeItem("authUser");
+    Cookies.remove("authUser");
     navigate('/')
   }
   
