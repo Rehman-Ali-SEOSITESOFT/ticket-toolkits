@@ -19,8 +19,8 @@ const Login = ({ props }) => {
     // };
     // localStorage.setItem("authUser", JSON.stringify(localObj));
     let code = new URLSearchParams(search).get("code");
-    let authUser = JSON.parse(localStorage.getItem("authUser"));
-    // let authUser = JSON.parse(Cookies.get("authUser"));
+    // let authUser = JSON.parse(localStorage.getItem("authUser"));
+    let authUser = JSON.parse(Cookies.get("authUser"));
       if (authUser?.username !== undefined) {
         navigate("/sales-view");
       }
@@ -35,7 +35,7 @@ const Login = ({ props }) => {
                 username: res.data.userList.username,
                 avatar: res.data.userList.avatar,
               };
-              localStorage.setItem("authUser", JSON.stringify(obj));
+              // localStorage.setItem("authUser", JSON.stringify(obj));
               Cookies.set('authUser', JSON.stringify(obj), { expires: 3 })
               navigate("/sales-view");
             }else{

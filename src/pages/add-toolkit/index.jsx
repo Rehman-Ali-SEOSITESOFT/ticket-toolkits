@@ -33,8 +33,8 @@ const AddToolkit = () => {
     setSearchResult(event.target.value);
   };
   useEffect(() => {
-    let user = JSON.parse(localStorage.getItem("authUser"));
-    // let user = JSON.parse(Cookies.get("authUser"));
+    // let user = JSON.parse(localStorage.getItem("authUser"));
+    let user = JSON.parse(Cookies.get("authUser"));
     if (user === null && user?.username === undefined) {
       navigate("/");
     }
