@@ -6,6 +6,7 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { SERVER_URL } from "../../components/utils/config";
+import Cookies from 'js-cookie';
 const Login = ({ props }) => {
   const search = useLocation().search;
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Login = ({ props }) => {
     // localStorage.setItem("authUser", JSON.stringify(localObj));
     let code = new URLSearchParams(search).get("code");
     let authUser = JSON.parse(localStorage.getItem("authUser"));
+    // let authUser = JSON.parse(Cookies.get("authUser"));
       if (authUser?.username !== undefined) {
         navigate("/sales-view");
       }
@@ -34,6 +36,7 @@ const Login = ({ props }) => {
                 avatar: res.data.userList.avatar,
               };
               localStorage.setItem("authUser", JSON.stringify(obj));
+              Cookies.set('authUser', JSON.stringify(obj), { expires: 3 })
               navigate("/sales-view");
             }else{
               toast('Unauthorized!', {

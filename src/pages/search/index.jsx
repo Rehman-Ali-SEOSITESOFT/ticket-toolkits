@@ -41,6 +41,7 @@ const SearchResult = () => {
 
   useEffect(() => {
     let user = JSON.parse(localStorage.getItem("authUser"));
+    // let user = JSON.parse(Cookies.get("authUser"));
     if (user === null && user?.username === undefined) {
       navigate("/");
     }
