@@ -15,6 +15,7 @@ const Login = ({ props }) => {
     // let localObj = {
     //   username: "rehmanali",
     //   avatar: null,
+    //   token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwOTc3NjI1NDQ5MTI5NzM4NDYiLCJpYXQiOjE2OTA1NDM5ODN9.7jlvfU26TGQQqwqVDTuwmK7vG8AM3QjNyq8u4dEfZ1w"
     // };
     // Cookies.set("authUser", JSON.stringify(localObj), { expires: 3 });
 

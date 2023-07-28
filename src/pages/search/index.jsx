@@ -37,21 +37,11 @@ const SearchResult = () => {
   const [lastHourSale, setlastHourSale] = useState([]);
   const [last24HourSale, setLast24HourSale] = useState([]);
   const [error, setError] = useState("")
-
+  const [token, setToken] = useState("")
   const navigate = useNavigate();
 
   useEffect(() => {
     // let user = JSON.parse(localStorage.getItem("authUser"));
-    let user = {};
-
-    if (Cookies.get("authUser") !== undefined) {
-      user = JSON.parse(Cookies.get("authUser"));
-    } else {
-      user = null;
-    }
-    if (user === null && user?.username === undefined) {
-      navigate("/");
-    }
   }, []);
   const hanldeClose = () => {
     setOpedPopUp(false);
@@ -112,12 +102,26 @@ const SearchResult = () => {
   
 
   useEffect(() => {
+    let user = {};
+
+    if (Cookies.get("authUser") !== undefined) {
+      user = JSON.parse(Cookies.get("authUser"));
+      setToken(user.token)
+    } else {
+      user = null;
+    }
+    if (user === null && user?.username === undefined) {
+      navigate("/");
+    }
+  
     if (query) {
       let q = query?.split("/");
       let search_query = q[q.length - 1].slice(2, 100);
       setLoader(true);
+     
+      const config = { headers: { 'x-auth-token': user.token } };
       axios
-        .get(`${SERVER_URL}/api/liveSale/search-event?query=${search_query}`)
+        .get(`${SERVER_URL}/api/liveSale/search-event?query=${search_query}`, config)
         .then((res) => {
           if (res.data.success === 0) {
             setIsNotFound(true);
@@ -163,15 +167,14 @@ const SearchResult = () => {
               sum2 += last24HourData[h1].y
             }
             setLast24HourSale(sum2);
-            setlastHourSale(sum)
+            setlastHourSale(sum);
   
-           
-
             // get event listing
             setEventListinLoader(true);
             axios
               .get(
-                `${SERVER_URL}/api/listings/event-listing?query=${search_query}`
+                `${SERVER_URL}/api/listings/event-listing?query=${search_query}`,
+                config
               )
               .then((res) => {
                 setEventListing(res.data.data);
@@ -225,8 +228,10 @@ const SearchResult = () => {
       let q = searchResult.split("/");
       let search_query = q[q.length - 1].slice(2, 100);
       setLoader(true);
+
+      const config = { headers: { 'x-auth-token': token } };
       axios
-        .get(`${SERVER_URL}/api/liveSale/search-event?query=${search_query}`)
+        .get(`${SERVER_URL}/api/liveSale/search-event?query=${search_query}`, config)
         .then((res) => {
           if (res.data.success === 0) {
             setIsNotFound(true);
@@ -278,7 +283,8 @@ const SearchResult = () => {
             setEventListinLoader(true);
             axios
               .get(
-                `${SERVER_URL}/api/listings/event-listing?query=${search_query}`
+                `${SERVER_URL}/api/listings/event-listing?query=${search_query}`,
+                config
               )
               .then((res) => {
                 setEventListing(res.data.data);
@@ -325,7 +331,7 @@ const SearchResult = () => {
      }
    
   };
-
+console.log("token================", token)
 
   return (
     <section className="search-viewer">
