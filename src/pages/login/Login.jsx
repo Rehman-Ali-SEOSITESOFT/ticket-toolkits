@@ -12,11 +12,11 @@ const Login = ({ props }) => {
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
   useEffect(() => {
-    let localObj = {
-      username: "rehmanali",
-      avatar: null,
-    };
-    Cookies.set("authUser", JSON.stringify(localObj), { expires: 3 });
+    // let localObj = {
+    //   username: "rehmanali",
+    //   avatar: null,
+    // };
+    // Cookies.set("authUser", JSON.stringify(localObj), { expires: 3 });
 
     let code = new URLSearchParams(search).get("code");
     // let authUser = JSON.parse(localStorage.getItem("authUser"));
