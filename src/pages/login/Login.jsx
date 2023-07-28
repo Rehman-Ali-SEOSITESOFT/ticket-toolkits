@@ -12,20 +12,21 @@ const Login = ({ props }) => {
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
   useEffect(() => {
-    // let localObj = {
-    //   username: "rehmanali",
-    //   avatar: null,
-    // };
-    // localStorage.setItem("authUser", JSON.stringify(localObj));
+    let localObj = {
+      username: "rehmanali",
+      avatar: null,
+    };
+    Cookies.set("authUser", JSON.stringify(localObj), { expires: 3 });
+
     let code = new URLSearchParams(search).get("code");
     // let authUser = JSON.parse(localStorage.getItem("authUser"));
     let authUser = {};
     if (Cookies.get("authUser") !== undefined) {
-      JSON.parse(Cookies.get("authUser"));
+      authUser= JSON.parse(Cookies.get("authUser"));
     } else {
       authUser = null;
     }
-
+  console.log("authUser", authUser)
     if (authUser?.username !== undefined) {
       navigate("/sales-view");
     }
@@ -42,6 +43,7 @@ const Login = ({ props }) => {
             let obj = {
               username: res.data.userList.username,
               avatar: res.data.userList.avatar,
+              token: res.data.token
             };
             // localStorage.setItem("authUser", JSON.stringify(obj));
             Cookies.set("authUser", JSON.stringify(obj), { expires: 3 });

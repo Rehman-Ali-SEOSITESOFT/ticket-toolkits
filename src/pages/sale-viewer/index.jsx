@@ -13,7 +13,7 @@ const SaleViewer = () => {
     // let user= JSON.parse(localStorage.getItem('authUser'));
     let user = {};
     if (Cookies.get("authUser") !== undefined) {
-      JSON.parse(Cookies.get("authUser"));
+      user = JSON.parse(Cookies.get("authUser"));
     } else {
       user = null;
     }
