@@ -40,7 +40,8 @@ const Login = ({ props }) => {
         .get(`${SERVER_URL}/api/user/authWithDiscord?code=${code}`)
         .then((res) => {
           setLoader(false);
-          if (res.data.userList.username !== undefined) {
+       
+          if (res.data.success === 1) {
             let obj = {
               username: res.data.userList.username,
               avatar: res.data.userList.avatar,
@@ -50,6 +51,15 @@ const Login = ({ props }) => {
             Cookies.set("authUser", JSON.stringify(obj), { expires: 3 });
             navigate("/sales-view");
           } else {
+
+            axios.post(`${SERVER_URL}/api/liveSale/add-failure`, {
+              username: authUser.username,
+              content: "Not allow access"
+            }, config)
+            .then(res => {
+              console.log("res=====", res)
+            })
+            .catch(err =>  console.log(err))
             toast("Unauthorized!", {
               position: "top-right",
               autoClose: 5000,

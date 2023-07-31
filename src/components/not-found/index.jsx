@@ -1,23 +1,42 @@
 import React , {useState}from "react";
 import "./add-suggest.css"
 import Cookies from "js-cookie";
+import axios from 'axios';
+import { SERVER_URL } from "../utils/config";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const NotFound = () => {
    const [value, setValue] = useState("")
-  const  sendMessage = () => {
+  
+   const  sendMessage = () => {
     const user = JSON.parse(Cookies.get('authUser'))
-    
-    const request = new XMLHttpRequest();
-    request.open("POST", "https://discord.com/api/webhooks/1134798748199948338/WWgXd7-dUrP1FHJuT9k_reWmBtYTDyUcxQuLwNDsidgxZvtoxPkVqVn2E1ZVdIja4uIR");
-
-    request.setRequestHeader('Content-type', 'application/json');
-
-    const params = {
+    const config = { headers: { 'x-auth-token': user.token } };
+    axios.post(`${SERVER_URL}/api/liveSale/add-suggestion`, {
       username: user.username,
-      avatar_url: user.avatar,
       content: value
-    }
-
-    request.send(JSON.stringify(params));
+    }, config)
+    .then(res => {
+      console.log("res=====", res)
+      hanldeEventListingPopUPClosed()
+      toast("send successfully", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        type: "success",
+      });
+    })
+    .catch(err =>  toast("server error, try again!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      type: "error",
+    }))
   }
   const [evetnListingPop, setEvetnListingPop] = useState(false);
  
@@ -31,6 +50,7 @@ const NotFound = () => {
   };
   return (
     <div className="not-found">
+      <ToastContainer/>
       <p className="text-center text-white d-block h2 mb-4 w-100">
         Add Your Suggestion
       </p>
