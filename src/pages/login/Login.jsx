@@ -52,23 +52,24 @@ const Login = ({ props }) => {
             navigate("/sales-view");
           } else {
                  console.log("else working................")
-            axios.post(`${SERVER_URL}/api/liveSale/add-failure`, {
-              username: res.data.userList.username,
-              content: "Not allow access"
-            })
-            .then(res => {
-              console.log("res=====else", res)
-              toast("Unauthorized!", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                type: "error",
-              });
-            })
-            .catch(err =>  console.log(err))
+            // axios.post(`${SERVER_URL}/api/liveSale/add-failure`, {
+            //   username: res.data.userList.username,
+            //   content: "Not allow access"
+            // })
+            // .then(res => {
+            //   console.log("res=====else", res)
+              
+            // })
+            // .catch(err =>  console.log(err))
+            toast("Unauthorized!", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              type: "error",
+            });
            
           }
         })
