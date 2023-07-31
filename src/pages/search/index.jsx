@@ -737,13 +737,13 @@ const SearchResult = () => {
                     <tr>
                       <th> Event Name </th>
                       <th> Venue </th>
-                      <th> Event Data </th>
+                      <th> Event Date </th>
                       <th> Price </th>
                       <th> Quantity </th>
                       <th> Row </th>
                       <th> Seats </th>
                       <th> Section </th>
-                      <th> Time Checked </th>
+                   
                     </tr>
                   </thead>
                   <tbody>
@@ -755,7 +755,6 @@ const SearchResult = () => {
                           <td> {queryData?.event_date} </td>
                           <td> {e.Price} </td>
                           <td> {e.Quantity} </td>
-                          <td> {e.time_checked} </td>
                           <td> {e.Row} </td>
                           <td> {e.Seats} </td>
                           <td> {e.Section} </td>
@@ -808,17 +807,21 @@ const SearchResult = () => {
                       <th> Event Date </th>
                       <th> Price </th>
                       <th> Quantity </th>
+                      <th> Row </th>
+                      <th> Section </th>
                     </tr>
                   </thead>
                   <tbody>
                     {eventListing?.recentSales.map((e, i) => {
                       return (
                         <tr key={i}>
-                          <td>{e["Event Name"]}</td>
-                          <td>{e["Venue Name"]}</td>
-                          <td>{e["Event Date"]}</td>
+                           <td>{queryData?.event_name}</td>
+                          <td>{queryData?.event_title}</td>
+                          <td> {queryData?.event_date} </td>
                           <td>{e.Price} </td>
                           <td>{e.Quantity} </td>
+                          <td>{e.Row} </td>
+                          <td>{e.Section} </td>
                         </tr>
                       );
                     })}

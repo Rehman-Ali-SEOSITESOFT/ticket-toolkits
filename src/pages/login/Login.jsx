@@ -27,7 +27,7 @@ const Login = ({ props }) => {
     } else {
       authUser = null;
     }
-  console.log("authUser", authUser)
+
     if (authUser?.username !== undefined) {
       navigate("/sales-view");
     }
