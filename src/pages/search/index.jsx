@@ -22,7 +22,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NotFoundImage from "../../assets/images/not-found.jpg";
 import Cookies from "js-cookie";
-
+import html2canvas from 'html2canvas';
 const SearchResult = () => {
   const [searchResult, setSearchResult] = useState("");
   const search = useLocation().search;
@@ -331,7 +331,31 @@ const SearchResult = () => {
      }
    
   };
-console.log("token================", token)
+
+
+  const onClickAddToToolkitBtn = () =>{
+    const config = { headers: { 'x-auth-token': token } };
+    let q = query?.split("/");
+    let search_query = q[q.length - 1].slice(2, 100);
+    axios.post(`${SERVER_URL}/api/liveSale/add-event`, {eventId:search_query }, config)
+    .then(res =>
+      toast("Added successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        type: "success",
+      })
+      )
+    .catch(err => console.log("search_query", err))
+  }
+
+
+
+
+
 
   return (
     <section className="search-viewer">
@@ -385,7 +409,7 @@ console.log("token================", token)
                   <p className="text-center text-white d-block h2 mb-4 w-100">
                     No Event found
                   </p>
-                  <button className="add-to-toolkit d-block">
+                  <button className="add-to-toolkit d-block" onClick={() => onClickAddToToolkitBtn()}>
                     Add to Toolkit
                   </button>
                 </div>
@@ -421,6 +445,7 @@ console.log("token================", token)
                 <button
                   className="search-button text-decoration-none"
                   onClick={() => onClickSearch()}
+       
                 >
                   Search
                 </button>
@@ -714,7 +739,10 @@ console.log("token================", token)
                       <th> Venue </th>
                       <th> Event Data </th>
                       <th> Price </th>
-                      <th> Qauntity </th>
+                      <th> Quantity </th>
+                      <th> Row </th>
+                      <th> Seats </th>
+                      <th> Section </th>
                       <th> Time Checked </th>
                     </tr>
                   </thead>
@@ -722,12 +750,15 @@ console.log("token================", token)
                     {queryData?.recentSales.map((e, i) => {
                       return (
                         <tr key={i}>
-                          <td>{e["Event Name"]}</td>
-                          <td>{e["Venue Name"]}</td>
-                          <td> {e["Event Date"]} </td>
+                          <td>{queryData?.event_name}</td>
+                          <td>{queryData?.event_title}</td>
+                          <td> {queryData?.event_date} </td>
                           <td> {e.Price} </td>
                           <td> {e.Quantity} </td>
                           <td> {e.time_checked} </td>
+                          <td> {e.Row} </td>
+                          <td> {e.Seats} </td>
+                          <td> {e.Section} </td>
                         </tr>
                       );
                     })}
