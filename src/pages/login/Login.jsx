@@ -55,7 +55,7 @@ const Login = ({ props }) => {
             axios.post(`${SERVER_URL}/api/liveSale/add-failure`, {
               username: authUser.username,
               content: "Not allow access"
-            }, config)
+            })
             .then(res => {
               console.log("res=====", res)
             })
