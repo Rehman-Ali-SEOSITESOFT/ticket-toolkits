@@ -40,7 +40,7 @@ const Login = ({ props }) => {
         .get(`${SERVER_URL}/api/user/authWithDiscord?code=${code}`)
         .then((res) => {
           setLoader(false);
-         console.log(res.data, "res data===============")
+         console.log(res.data.success, "res data===============")
           if (res.data.success === 1) {
             let obj = {
               username: res.data.userList.username,
@@ -73,7 +73,7 @@ const Login = ({ props }) => {
         })
         .catch((err) => {
           setLoader(false);
-          toast("Unauthorized!", {
+          toast("Server error!", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
