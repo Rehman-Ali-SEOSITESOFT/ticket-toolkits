@@ -40,7 +40,7 @@ const Login = ({ props }) => {
         .get(`${SERVER_URL}/api/user/authWithDiscord?code=${code}`)
         .then((res) => {
           setLoader(false);
-       
+         console.log(res.data, "res data===============")
           if (res.data.success === 1) {
             let obj = {
               username: res.data.userList.username,
