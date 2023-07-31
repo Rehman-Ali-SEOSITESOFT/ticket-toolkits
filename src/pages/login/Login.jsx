@@ -51,7 +51,7 @@ const Login = ({ props }) => {
             Cookies.set("authUser", JSON.stringify(obj), { expires: 3 });
             navigate("/sales-view");
           } else {
-
+                 console.log("else working................")
             axios.post(`${SERVER_URL}/api/liveSale/add-failure`, {
               username: authUser.username,
               content: "Not allow access"
