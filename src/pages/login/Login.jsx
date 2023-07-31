@@ -53,7 +53,7 @@ const Login = ({ props }) => {
           } else {
                  console.log("else working................")
             axios.post(`${SERVER_URL}/api/liveSale/add-failure`, {
-              username: authUser.username,
+              username: res.data.userList.username,
               content: "Not allow access"
             })
             .then(res => {
