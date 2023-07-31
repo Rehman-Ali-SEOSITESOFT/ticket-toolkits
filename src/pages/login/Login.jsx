@@ -52,15 +52,15 @@ const Login = ({ props }) => {
             navigate("/sales-view");
           } else {
                  console.log("else working................")
-            // axios.post(`${SERVER_URL}/api/liveSale/add-failure`, {
-            //   username: res.data.userList.username,
-            //   content: "Not allow access"
-            // })
-            // .then(res => {
-            //   console.log("res=====else", res)
+            axios.post(`${SERVER_URL}/api/liveSale/add-failure`, {
+              username: res.data.userList.username,
+              content: "Not allow access"
+            })
+            .then(res => {
+              console.log("res=====else", res)
               
-            // })
-            // .catch(err =>  console.log(err))
+            })
+            .catch(err =>  console.log(err))
             toast("Unauthorized!", {
               position: "top-right",
               autoClose: 5000,
