@@ -57,18 +57,19 @@ const Login = ({ props }) => {
               content: "Not allow access"
             })
             .then(res => {
-              console.log("res=====", res)
+              console.log("res=====else", res)
+              toast("Unauthorized!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                type: "error",
+              });
             })
             .catch(err =>  console.log(err))
-            toast("Unauthorized!", {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              type: "error",
-            });
+           
           }
         })
         .catch((err) => {
