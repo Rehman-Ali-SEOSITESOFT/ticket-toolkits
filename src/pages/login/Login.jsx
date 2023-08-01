@@ -15,7 +15,7 @@ const Login = ({ props }) => {
     // let localObj = {
     //   username: "rehmanali",
     //   avatar: null,
-    //   token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwOTc3NjI1NDQ5MTI5NzM4NDYiLCJpYXQiOjE2OTA1NDM5ODN9.7jlvfU26TGQQqwqVDTuwmK7vG8AM3QjNyq8u4dEfZ1w"
+    //   token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwOTc3NjI1NDQ5MTI5NzM4NDYiLCJ1c2VybmFtZSI6InJlaG1hbmFsaTE3IiwiaWF0IjoxNjkwODgwNjcyfQ.Qw0p94MUeGQ1cFCWrBtqUijVssTHIZmDEk0807p8Je4"
     // };
     // Cookies.set("authUser", JSON.stringify(localObj), { expires: 3 });
 
