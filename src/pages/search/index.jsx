@@ -338,16 +338,29 @@ const SearchResult = () => {
     let q = query?.split("/");
     let search_query = q[q.length - 1].slice(2, 100);
     axios.post(`${SERVER_URL}/api/liveSale/add-event`, {eventId:search_query }, config)
-    .then(res =>
-      toast(res.data.message, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        type: "success",
-      })
+    .then(res =>{
+      if(res.data.succes === 1  ){
+        toast(res.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          type: "success",
+        })
+       }else{
+        toast(res.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          type: "error",
+        })
+       }
+    } 
       )
     .catch(err => console.log("search_query", err))
   }
