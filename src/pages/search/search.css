@@ -52,7 +52,7 @@
     height: 320px;
     min-width: 900px;
     width: 100%;
-    overflow: scroll;
+    /* overflow: scroll; */
   }
   .popup-title {
     font-size: 20px;

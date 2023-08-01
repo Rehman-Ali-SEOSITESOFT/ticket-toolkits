@@ -62,7 +62,7 @@ const SaleViewer = () => {
           <div className="col"></div>
         </div>
         <div className="row align-items-center justify-content-center">
-          <div className="col-lg-11 col-md-10 col-8">
+          <div className="col-lg-11 col-md-10 col-7">
             <div
               className="sale-view-search-input position-relative"
               style={error !== "" ? { outline: "1px solid red" } : null}
@@ -79,7 +79,7 @@ const SaleViewer = () => {
             </div>
           </div>
 
-          <div className="col-lg-1  col-md-2 col-4">
+          <div className="col-lg-1  col-md-2 col-2">
             <button
               onClick={(e) => onClickSearch(e)}
               className="search-button text-decoration-none"

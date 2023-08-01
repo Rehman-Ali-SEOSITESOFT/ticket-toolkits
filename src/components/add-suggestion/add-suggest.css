@@ -23,3 +23,8 @@
   color: black;
   background-color: #7bc9ba;
 }
+.not-found {
+  padding: 100px 0;
+  text-align: center;
+  margin: auto;
+}
