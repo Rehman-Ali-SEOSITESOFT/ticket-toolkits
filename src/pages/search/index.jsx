@@ -489,6 +489,11 @@ const SearchResult = () => {
                     <option value="">seat type 1</option>
                     <option value="">seat type 2</option>
                   </select>
+                  <select name="" id="" className="form-select">
+                    <option value="">price </option>
+                    <option value="">seat type 1</option>
+                    <option value="">seat type 2</option>
+                  </select>
 
                   <input type="date" className="form-control" />
                 </div>
