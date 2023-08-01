@@ -337,7 +337,7 @@ const SearchResult = () => {
     const config = { headers: { 'x-auth-token': token } };
     let q = query?.split("/");
     let search_query = q[q.length - 1].slice(2, 100);
-    axios.post(`${SERVER_URL}/api/liveSale/add-event`, {eventId:search_query }, config)
+    axios.post(`${SERVER_URL}/api/liveSale/add-event`, {eventId:search_query, query: query }, config)
     .then(res =>{
       if(res.data.success === 1  ){
         toast(res.data.message, {
