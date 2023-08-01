@@ -739,9 +739,9 @@ const SearchResult = () => {
                 <table className="table table-dark table-hover">
                   <thead>
                     <tr>
-                      <th> Event Name </th>
+                      {/* <th> Event Name </th>
                       <th> Venue </th>
-                      <th> Event Date </th>
+                      <th> Event Date </th> */}
                       <th> Price </th>
                       <th> Quantity </th>
                       <th> Row </th>
@@ -754,9 +754,9 @@ const SearchResult = () => {
                     {queryData?.recentSales.map((e, i) => {
                       return (
                         <tr key={i}>
-                          <td>{queryData?.event_name}</td>
+                          {/* <td>{queryData?.event_name}</td>
                           <td>{queryData?.event_title}</td>
-                          <td> {queryData?.event_date} </td>
+                          <td> {queryData?.event_date} </td> */}
                           <td> {e.Price} </td>
                           <td> {e.Quantity} </td>
                           <td> {e.Row} </td>
@@ -798,9 +798,9 @@ const SearchResult = () => {
                 <table className="table table-dark table-hover">
                   <thead>
                     <tr>
-                      <th> Event Name </th>
+                      {/* <th> Event Name </th>
                       <th> Venue Name </th>
-                      <th> Event Date </th>
+                      <th> Event Date </th> */}
                       <th> Price </th>
                       <th> Quantity </th>
                       <th> Row </th>
@@ -811,9 +811,9 @@ const SearchResult = () => {
                     {eventListing?.recentSales.map((e, i) => {
                       return (
                         <tr key={i}>
-                          <td>{queryData?.event_name}</td>
+                          {/* <td>{queryData?.event_name}</td>
                           <td>{queryData?.event_title}</td>
-                          <td> {queryData?.event_date} </td>
+                          <td> {queryData?.event_date} </td> */}
                           <td>{e.Price} </td>
                           <td>{e.Quantity} </td>
                           <td>{e.Row} </td>
