@@ -650,16 +650,6 @@ const SearchResult = () => {
                   {eventListingLoader ? (
                     <h2 className="heading">Loading...</h2>
                   ) : (
-                    // <ResponsiveContainer width={"100%"} height={300}>
-                    //   <BarChart data={data01}>
-                    //     <CartesianGrid strokeDasharray="3 3" />
-                    //     <XAxis dataKey="x" tick={{ fill: "white" }} />
-                    //     <YAxis unit="£" tick={{ fill: "white" }} />
-                    //     <Tooltip />
-                    //     <Legend cursor={false} />
-                    //     <Bar dataKey="y" name="Event Listing" fill="#82ca9d" />
-                    //   </BarChart>
-                    // </ResponsiveContainer>
                     <ResponsiveContainer width={"100%"} height={300}>
                       <ScatterChart>
                         <CartesianGrid strokeDasharray="3 3" />
@@ -690,18 +680,7 @@ const SearchResult = () => {
                     </ResponsiveContainer>
                   )}
                 </div>
-                {/* <div className="enevt-cards-disc ">
-                  <div className="d-flex event-cardss mt-3 justify-content-center flex-wrap">
-                    <div className="cart">
-                      <h4 className="title">Avg. Price</h4>
-                      <p className="total-price"> £ 900</p>
-                    </div>
-                    <div className="cart">
-                      <h4 className="title">Last. Hour</h4>
-                      <p className="total-price"> £ 900</p>
-                    </div>
-                  </div>
-                </div> */}
+
                 <div className="enevt-cards-disc">
                   <button
                     className="my-4 my-md-5"
@@ -713,8 +692,7 @@ const SearchResult = () => {
                     <div className="cart">
                       <h4 className="title">Avg. Price</h4>
                       <p className="total-price">
-                        {" "}
-                        £{" "}
+                        £
                         {eventListing?.average
                           ? eventListing?.average.toFixed(2)
                           : 0}
@@ -769,6 +747,7 @@ const SearchResult = () => {
                       <th> Row </th>
                       <th> Seats </th>
                       <th> Section </th>
+                      <th> Time Checked </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -783,6 +762,7 @@ const SearchResult = () => {
                           <td> {e.Row} </td>
                           <td> {e.Seats} </td>
                           <td> {e.Section} </td>
+                          <td> {e.time_checked} </td>
                         </tr>
                       );
                     })}
