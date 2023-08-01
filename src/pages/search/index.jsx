@@ -339,7 +339,7 @@ const SearchResult = () => {
     let search_query = q[q.length - 1].slice(2, 100);
     axios.post(`${SERVER_URL}/api/liveSale/add-event`, {eventId:search_query }, config)
     .then(res =>{
-      if(res.data.succes === 1  ){
+      if(res.data.success === 1  ){
         toast(res.data.message, {
           position: "top-right",
           autoClose: 5000,
