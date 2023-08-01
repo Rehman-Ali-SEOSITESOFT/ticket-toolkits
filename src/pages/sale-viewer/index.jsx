@@ -45,7 +45,7 @@ const SaleViewer = () => {
 
 
   const onClickSearch = (e) =>{
-    if(searchResult.length > 0 &&  (!searchResult.includes('www.viagogo.co.uk') || !searchResult.includes('E-'))){
+    if(searchResult.length > 0 &&  (!searchResult.includes('www.viagogo') || !searchResult.includes('E-'))){
       setError("Invalid Viagogo Url")
      }else if (searchResult.length == "0"){
       setError("Invalid Viagogo Url")

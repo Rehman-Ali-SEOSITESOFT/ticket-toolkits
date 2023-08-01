@@ -218,7 +218,7 @@ const SearchResult = () => {
   }, []);
 
   const onClickSearch = () => {
-    if(searchResult.length > 0 &&  (!searchResult.includes('www.viagogo.co.uk') || !searchResult.includes('E-'))){
+    if(searchResult.length > 0 &&  (!searchResult.includes('www.viagogo') || !searchResult.includes('E-'))){
       setError("Invalid Viagogo Url")
      }else if (searchResult.length == "0"){
       setError("Invalid Viagogo Url")
@@ -337,6 +337,7 @@ const SearchResult = () => {
     const config = { headers: { 'x-auth-token': token } };
     let q = query?.split("/");
     let search_query = q[q.length - 1].slice(2, 100);
+    console.log(query, "query=========")
     axios.post(`${SERVER_URL}/api/liveSale/add-event`, {eventId:search_query, query: query }, config)
     .then(res =>{
       if(res.data.success === 1  ){
