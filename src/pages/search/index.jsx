@@ -15,7 +15,7 @@ import {
   ZAxis,
 } from "recharts";
 import "./search.css";
-import NotFound from "../../components/not-found";
+import AddSuggestion from "../../components/add-suggestion";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils/config";
 import { ToastContainer, toast } from "react-toastify";
@@ -219,9 +219,9 @@ const SearchResult = () => {
 
   const onClickSearch = () => {
     if(searchResult.length > 0 &&  (!searchResult.includes('www.viagogo.co.uk') || !searchResult.includes('E-'))){
-      setError("Invalid viagogo url. Please use valid one!")
+      setError("Invalid Viagogo Url")
      }else if (searchResult.length == "0"){
-      setError("Invalid viagogo url. Please use valid one!")
+      setError("Invalid Viagogo Url")
      }else{
       setError("")
       navigate(`/search?query=${searchResult}`);
@@ -339,7 +339,7 @@ const SearchResult = () => {
     let search_query = q[q.length - 1].slice(2, 100);
     axios.post(`${SERVER_URL}/api/liveSale/add-event`, {eventId:search_query }, config)
     .then(res =>
-      toast("Added successfully!", {
+      toast(res.data.message, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -708,7 +708,7 @@ const SearchResult = () => {
             </div>
             <div className="row">
               <div className="col">
-                <NotFound />
+                <AddSuggestion />
               </div>
             </div>
           </div>

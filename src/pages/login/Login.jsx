@@ -75,7 +75,7 @@ const Login = ({ props }) => {
         })
         .catch((err) => {
           setLoader(false);
-          toast("Server error!", {
+          toast("server error, try again!", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,

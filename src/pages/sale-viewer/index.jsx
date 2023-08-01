@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./sale-viewer.css";
-import masjid from "../../assets/images/faisal-masjid.jpg";
 import { useNavigate } from "react-router-dom";
-import NotFound from "../../components/not-found";
+import AddSuggestion from "../../components/add-suggestion";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils/config";
@@ -47,9 +46,9 @@ const SaleViewer = () => {
 
   const onClickSearch = (e) =>{
     if(searchResult.length > 0 &&  (!searchResult.includes('www.viagogo.co.uk') || !searchResult.includes('E-'))){
-      setError("Invalid viagogo url. Please use valid one!")
+      setError("Invalid Viagogo Url")
      }else if (searchResult.length == "0"){
-      setError("Invalid viagogo url. Please use valid one!")
+      setError("Invalid Viagogo Url")
      }else{
       setError("")
       navigate(`/search?query=${searchResult}`)
@@ -178,7 +177,7 @@ const SaleViewer = () => {
         </div>
         <div className="row">
           <div className="col">
-            <NotFound />
+            <AddSuggestion />
           </div>
         </div>
       </div>
