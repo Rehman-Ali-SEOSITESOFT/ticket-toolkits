@@ -797,7 +797,6 @@ const SearchResult = () => {
                   </span>
                 </div>
               </div>
-
               <div id="style-1">
                 <table className="table table-dark table-hover">
                   <thead>
