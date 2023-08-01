@@ -23,7 +23,7 @@ const Login = ({ props }) => {
     // let authUser = JSON.parse(localStorage.getItem("authUser"));
     let authUser = {};
     if (Cookies.get("authUser") !== undefined) {
-      authUser= JSON.parse(Cookies.get("authUser"));
+      authUser = JSON.parse(Cookies.get("authUser"));
     } else {
       authUser = null;
     }
@@ -40,26 +40,26 @@ const Login = ({ props }) => {
         .get(`${SERVER_URL}/api/user/authWithDiscord?code=${code}`)
         .then((res) => {
           setLoader(false);
-         console.log(res.data.success, "res data===============")
+          console.log(res.data.success, "res data===============");
           if (res.data.success === 1) {
             let obj = {
               username: res.data.userList.username,
               avatar: res.data.userList.avatar,
-              token: res.data.token
+              token: res.data.token,
             };
             Cookies.set("authUser", JSON.stringify(obj), { expires: 3 });
             navigate("/sales-view");
           } else {
-                 console.log("else working................")
-            axios.post(`${SERVER_URL}/api/liveSale/add-failure`, {
-              username: res.data.userList.username,
-              content: "Not allow access"
-            })
-            .then(res => {
-              console.log("res=====else", res)
-              
-            })
-            .catch(err =>  console.log(err))
+            console.log("else working................");
+            axios
+              .post(`${SERVER_URL}/api/liveSale/add-failure`, {
+                username: res.data.userList.username,
+                content: "Not allow access",
+              })
+              .then((res) => {
+                console.log("res=====else", res);
+              })
+              .catch((err) => console.log(err));
             toast("Unauthorized!", {
               position: "top-right",
               autoClose: 5000,
@@ -69,7 +69,6 @@ const Login = ({ props }) => {
               draggable: true,
               type: "error",
             });
-           
           }
         })
         .catch((err) => {
@@ -89,7 +88,7 @@ const Login = ({ props }) => {
   }, []);
 
   const onClickBtn = (e) => {
-   window.location.href =
+    window.location.href =
       "https://discord.com/api/oauth2/authorize?client_id=1131475096729567294&redirect_uri=https%3A%2F%2Ftoolkit-00.vercel.app&response_type=code&scope=identify%20guilds%20guilds.members.read";
   };
 

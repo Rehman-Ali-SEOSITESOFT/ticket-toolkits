@@ -22,7 +22,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NotFoundImage from "../../assets/images/not-found.jpg";
 import Cookies from "js-cookie";
-import html2canvas from 'html2canvas';
+import html2canvas from "html2canvas";
 const SearchResult = () => {
   const [searchResult, setSearchResult] = useState("");
   const search = useLocation().search;
@@ -36,8 +36,8 @@ const SearchResult = () => {
   const [eventListingLoader, setEventListinLoader] = useState(false);
   const [lastHourSale, setlastHourSale] = useState([]);
   const [last24HourSale, setLast24HourSale] = useState([]);
-  const [error, setError] = useState("")
-  const [token, setToken] = useState("")
+  const [error, setError] = useState("");
+  const [token, setToken] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,7 +62,6 @@ const SearchResult = () => {
   const hanldeChangeInputResult = (event) => {
     setError("");
     setSearchResult(event.target.value);
-
   };
 
   const [eventSaleGraphData, setEventSaleGraphData] = useState([]);
@@ -84,44 +83,46 @@ const SearchResult = () => {
     return lastHourData;
   };
 
-    // Function to find data from the last hour
-    const findLast24HourData = (dataArray) => {
-      // Get the current date and time
-      const currentTime = new Date();
-  
-      // Subtract one hour from the current date and time
-      const lastHourTime = new Date(currentTime.getTime() - 60 * 60 * 1000 * 24);
-  
-      // Filter the array to include only objects with dates within the last hour
-      const lastHourData = dataArray.filter(
-        (item) => new Date(item.date) > lastHourTime
-      );
-  
-      return lastHourData;
-    };
-  
+  // Function to find data from the last hour
+  const findLast24HourData = (dataArray) => {
+    // Get the current date and time
+    const currentTime = new Date();
+
+    // Subtract one hour from the current date and time
+    const lastHourTime = new Date(currentTime.getTime() - 60 * 60 * 1000 * 24);
+
+    // Filter the array to include only objects with dates within the last hour
+    const lastHourData = dataArray.filter(
+      (item) => new Date(item.date) > lastHourTime
+    );
+
+    return lastHourData;
+  };
 
   useEffect(() => {
     let user = {};
 
     if (Cookies.get("authUser") !== undefined) {
       user = JSON.parse(Cookies.get("authUser"));
-      setToken(user.token)
+      setToken(user.token);
     } else {
       user = null;
     }
     if (user === null && user?.username === undefined) {
       navigate("/");
     }
-  
+
     if (query) {
       let q = query?.split("/");
       let search_query = q[q.length - 1].slice(2, 100);
       setLoader(true);
-     
-      const config = { headers: { 'x-auth-token': user.token } };
+
+      const config = { headers: { "x-auth-token": user.token } };
       axios
-        .get(`${SERVER_URL}/api/liveSale/search-event?query=${search_query}`, config)
+        .get(
+          `${SERVER_URL}/api/liveSale/search-event?query=${search_query}`,
+          config
+        )
         .then((res) => {
           if (res.data.success === 0) {
             setIsNotFound(true);
@@ -146,7 +147,7 @@ const SearchResult = () => {
                 .split("/")
                 .sort((a, b) => b - a)
                 .join("-");
-            
+
               let objDate = {
                 x: dateReverse + "T" + d[1],
                 y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
@@ -159,16 +160,16 @@ const SearchResult = () => {
             const lastHourData = findLastHourData(lastHourArr);
             const last24HourData = findLast24HourData(lastHourArr);
             let sum = 0;
-            let sum2 = 0; 
-            for(var h= 0; h < lastHourData; h++){
-               sum += lastHourData[h].y
-             }
-             for(var h1= 0; h1 < last24HourData; h1++){
-              sum2 += last24HourData[h1].y
+            let sum2 = 0;
+            for (var h = 0; h < lastHourData; h++) {
+              sum += lastHourData[h].y;
+            }
+            for (var h1 = 0; h1 < last24HourData; h1++) {
+              sum2 += last24HourData[h1].y;
             }
             setLast24HourSale(sum2);
             setlastHourSale(sum);
-  
+
             // get event listing
             setEventListinLoader(true);
             axios
@@ -210,7 +211,6 @@ const SearchResult = () => {
         })
         .catch((err) => {
           setLoader(false);
-         
         });
     } else {
       setIsNotFound(true);
@@ -218,20 +218,26 @@ const SearchResult = () => {
   }, []);
 
   const onClickSearch = () => {
-    if(searchResult.length > 0 &&  (!searchResult.includes('www.viagogo') || !searchResult.includes('E-'))){
-      setError("Invalid Viagogo Url")
-     }else if (searchResult.length == "0"){
-      setError("Invalid Viagogo Url")
-     }else{
-      setError("")
+    if (
+      searchResult.length > 0 &&
+      (!searchResult.includes("www.viagogo") || !searchResult.includes("E-"))
+    ) {
+      setError("Invalid Viagogo Url");
+    } else if (searchResult.length == "0") {
+      setError("Invalid Viagogo Url");
+    } else {
+      setError("");
       navigate(`/search?query=${searchResult}`);
       let q = searchResult.split("/");
       let search_query = q[q.length - 1].slice(2, 100);
       setLoader(true);
 
-      const config = { headers: { 'x-auth-token': token } };
+      const config = { headers: { "x-auth-token": token } };
       axios
-        .get(`${SERVER_URL}/api/liveSale/search-event?query=${search_query}`, config)
+        .get(
+          `${SERVER_URL}/api/liveSale/search-event?query=${search_query}`,
+          config
+        )
         .then((res) => {
           if (res.data.success === 0) {
             setIsNotFound(true);
@@ -256,7 +262,7 @@ const SearchResult = () => {
                 .split("/")
                 .sort((a, b) => b - a)
                 .join("-");
-            
+
               let objDate = {
                 x: dateReverse + "T" + d[1],
                 y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
@@ -269,16 +275,16 @@ const SearchResult = () => {
             const lastHourData = findLastHourData(lastHourArr);
             const last24HourData = findLast24HourData(lastHourArr);
             let sum = 0;
-            let sum2 = 0; 
-            for(var h= 0; h < lastHourData; h++){
-               sum += lastHourData[h].y
-             }
-             for(var h1= 0; h1 < last24HourData; h1++){
-              sum2 += last24HourData[h1].y
+            let sum2 = 0;
+            for (var h = 0; h < lastHourData; h++) {
+              sum += lastHourData[h].y;
+            }
+            for (var h1 = 0; h1 < last24HourData; h1++) {
+              sum2 += last24HourData[h1].y;
             }
             setLast24HourSale(sum2);
-            setlastHourSale(sum)
-  
+            setlastHourSale(sum);
+
             // get event listing
             setEventListinLoader(true);
             axios
@@ -288,24 +294,26 @@ const SearchResult = () => {
               )
               .then((res) => {
                 setEventListing(res.data.data);
-  
+
                 let grap2Arr = [];
                 let totalsales2 = [
                   // ...res.data.data.previousSales,
                   ...res.data.data.recentSales,
                 ];
-  
+
                 for (var v = 0; v < totalsales2.length; v++) {
                   let obj2 = {
                     x: totalsales2[v]["Event Date"],
                     y: totalsales2[v]?.Price
-                      ? parseInt(totalsales2[v].Price.slice(1, 100).split(".")[0])
+                      ? parseInt(
+                          totalsales2[v].Price.slice(1, 100).split(".")[0]
+                        )
                       : 0,
                   };
-  
+
                   grap2Arr.push(obj2);
                 }
-  
+
                 setEventListingGraphData(grap2Arr);
                 setEventListinLoader(false);
               })
@@ -328,47 +336,44 @@ const SearchResult = () => {
             type: "error",
           });
         });
-     }
-   
+    }
   };
 
-
-  const onClickAddToToolkitBtn = () =>{
-    const config = { headers: { 'x-auth-token': token } };
+  const onClickAddToToolkitBtn = () => {
+    const config = { headers: { "x-auth-token": token } };
     let q = query?.split("/");
     let search_query = q[q.length - 1].slice(2, 100);
-    axios.post(`${SERVER_URL}/api/liveSale/add-event`, {eventId:search_query, query: query }, config)
-    .then(res =>{
-      if(res.data.success === 1  ){
-        toast(res.data.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          type: "success",
-        })
-       }else{
-        toast(res.data.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          type: "error",
-        })
-       }
-    } 
+    axios
+      .post(
+        `${SERVER_URL}/api/liveSale/add-event`,
+        { eventId: search_query, query: query },
+        config
       )
-    .catch(err => console.log("search_query", err))
-  }
-
-
-
-
-
+      .then((res) => {
+        if (res.data.success === 1) {
+          toast(res.data.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            type: "success",
+          });
+        } else {
+          toast(res.data.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            type: "error",
+          });
+        }
+      })
+      .catch((err) => console.log("search_query", err));
+  };
 
   return (
     <section className="search-viewer">
@@ -391,7 +396,10 @@ const SearchResult = () => {
             </div>
             <div className="row align-items-center justify-content-center">
               <div className="col-lg-11 col-md-5 col-6">
-                <div style={error !== "" ? {outline: '1px solid red'}: null} className="sale-view-search-input position-relative">
+                <div
+                  style={error !== "" ? { outline: "1px solid red" } : null}
+                  className="sale-view-search-input position-relative"
+                >
                   <input
                     type="text"
                     placeholder="search by viagogo link"
@@ -422,7 +430,10 @@ const SearchResult = () => {
                   <p className="text-center text-white d-block h2 mb-4 w-100">
                     No Event found
                   </p>
-                  <button className="add-to-toolkit d-block" onClick={() => onClickAddToToolkitBtn()}>
+                  <button
+                    className="add-to-toolkit d-block"
+                    onClick={() => onClickAddToToolkitBtn()}
+                  >
                     Add to Toolkit
                   </button>
                 </div>
@@ -441,7 +452,10 @@ const SearchResult = () => {
             </div>
             <div className="row align-items-center">
               <div className="col-lg-5 col-md-5 col-6">
-                <div style={error !== "" ? {outline: '1px solid red'}: null} className="sale-view-search-input position-relative">
+                <div
+                  style={error !== "" ? { outline: "1px solid red" } : null}
+                  className="sale-view-search-input position-relative"
+                >
                   <input
                     type="text"
                     placeholder="Seach by viagogo link"
@@ -458,7 +472,6 @@ const SearchResult = () => {
                 <button
                   className="search-button text-decoration-none"
                   onClick={() => onClickSearch()}
-       
                 >
                   Search
                 </button>
@@ -637,16 +650,6 @@ const SearchResult = () => {
                   {eventListingLoader ? (
                     <h2 className="heading">Loading...</h2>
                   ) : (
-                    // <ResponsiveContainer width={"100%"} height={300}>
-                    //   <BarChart data={data01}>
-                    //     <CartesianGrid strokeDasharray="3 3" />
-                    //     <XAxis dataKey="x" tick={{ fill: "white" }} />
-                    //     <YAxis unit="£" tick={{ fill: "white" }} />
-                    //     <Tooltip />
-                    //     <Legend cursor={false} />
-                    //     <Bar dataKey="y" name="Event Listing" fill="#82ca9d" />
-                    //   </BarChart>
-                    // </ResponsiveContainer>
                     <ResponsiveContainer width={"100%"} height={300}>
                       <ScatterChart>
                         <CartesianGrid strokeDasharray="3 3" />
@@ -677,18 +680,7 @@ const SearchResult = () => {
                     </ResponsiveContainer>
                   )}
                 </div>
-                {/* <div className="enevt-cards-disc ">
-                  <div className="d-flex event-cardss mt-3 justify-content-center flex-wrap">
-                    <div className="cart">
-                      <h4 className="title">Avg. Price</h4>
-                      <p className="total-price"> £ 900</p>
-                    </div>
-                    <div className="cart">
-                      <h4 className="title">Last. Hour</h4>
-                      <p className="total-price"> £ 900</p>
-                    </div>
-                  </div>
-                </div> */}
+
                 <div className="enevt-cards-disc">
                   <button
                     className="my-4 my-md-5"
@@ -700,8 +692,7 @@ const SearchResult = () => {
                     <div className="cart">
                       <h4 className="title">Avg. Price</h4>
                       <p className="total-price">
-                        {" "}
-                        £{" "}
+                        £
                         {eventListing?.average
                           ? eventListing?.average.toFixed(2)
                           : 0}
@@ -756,7 +747,7 @@ const SearchResult = () => {
                       <th> Row </th>
                       <th> Seats </th>
                       <th> Section </th>
-                   
+                      <th> Time Checked </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -771,11 +762,11 @@ const SearchResult = () => {
                           <td> {e.Row} </td>
                           <td> {e.Seats} </td>
                           <td> {e.Section} </td>
+                          <td> {e.time_checked} </td>
                         </tr>
                       );
                     })}
                   </tbody>
-                 
                 </table>
               </div>
             </div>
@@ -820,7 +811,7 @@ const SearchResult = () => {
                     {eventListing?.recentSales.map((e, i) => {
                       return (
                         <tr key={i}>
-                           <td>{queryData?.event_name}</td>
+                          <td>{queryData?.event_name}</td>
                           <td>{queryData?.event_title}</td>
                           <td> {queryData?.event_date} </td>
                           <td>{e.Price} </td>
@@ -831,7 +822,6 @@ const SearchResult = () => {
                       );
                     })}
                   </tbody>
-                 
                 </table>
               </div>
             </div>
