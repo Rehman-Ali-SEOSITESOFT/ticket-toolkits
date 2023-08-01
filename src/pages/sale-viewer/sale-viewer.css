@@ -363,7 +363,7 @@ hr.hr-border {
   color: black;
 }
 
-.error-text{
+.error-text {
   color: red;
   /* padding-left: 10px; */
 }
@@ -395,6 +395,7 @@ hr.hr-border {
   }
   .event-sale-listing .event-sale-detail {
     width: 95%;
+    overflow: scroll;
   }
   .filter-by {
     min-width: 80px;
@@ -439,9 +440,10 @@ hr.hr-border {
     width: 100%;
   }
   .graphic p.recordss {
-    padding: 5px 10px;
+    padding: 5px 8px;
+    font-size: 12px;
   }
   .graphic .time-right {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
