@@ -60,8 +60,7 @@ const SaleViewer = () => {
       <div className="container-xxl">
         <div className="row">
           <div className="col">
-            {/* <h2 className="sale-view-title">Sales Viewer</h2> */}
-          </div>
+           </div>
         </div>
         <div className="row align-items-center justify-content-center">
           <div className="col-lg-11 col-md-5 col-6">
@@ -91,55 +90,6 @@ const SaleViewer = () => {
         </div>
         <div className="row">
           <div className="col">
-            {/* <div className="search-output-cards  mt-5 d-flex flex-wrap"> */}
-            {/* <div className="output-card">
-                <div className="output-cart-image">
-                  <img src={masjid} alt="" className="img-fluid" />
-                </div>
-                <div className="output-cart-content">
-                  <h2 className="title">
-                    miami doplhins vs kansas city chiefs- nfl frankfurt games
-                    2023 miami doplhins vs kansas city chiefs- nfl frankfurt
-                    games 2023
-                  </h2>
-                  <address className="address">
-                    deutsche bank park ( commerzbank arena) frankfurt, germany
-                  </address>
-                  <p className="weekname"> Sunday, 05 nov 2023 03:30 PM </p>
-                </div> */}
-            {/* </div> */}
-            {/* {cards.slice(cardStarted, cardEnded).map((e, i) => {
-                return (
-                  <div className="output-card" key={i}>
-                    <div className="output-cart-image">
-                      <img src={masjid} alt="" className="img-fluid" />
-                    </div>
-                    <div className="output-cart-content">
-                      <h2 className="title">
-                        miami doplhins vs kansas city chiefs- nfl frankfurt
-                        games 2023 miami doplhins vs kansas city chiefs- nfl
-                        frankfurt games 2023
-                      </h2>
-                      <address className="address">
-                        {" "}
-                        deutsche bank park ( commerzbank arena) frankfurt,
-                        germany
-                      </address>
-                      <p className="weekname"> Sunday, 05 nov 2023 03:30 PM </p>
-                    </div>
-                  </div>
-                );
-              })} */}
-            {/* </div> */}
-            {/* <div className="show-more-sales">
-              {cards.length <= cardEnded ? (
-                <button onClick={hanlderGoBacked}>
-                  No More Content Go Back
-                </button>
-              ) : (
-                <button onClick={hanlderShowMoreSales}>Show More</button>
-              )}
-            </div> */}
           </div>
         </div>
       </div>

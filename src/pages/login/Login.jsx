@@ -47,7 +47,6 @@ const Login = ({ props }) => {
               avatar: res.data.userList.avatar,
               token: res.data.token
             };
-            // localStorage.setItem("authUser", JSON.stringify(obj));
             Cookies.set("authUser", JSON.stringify(obj), { expires: 3 });
             navigate("/sales-view");
           } else {
@@ -90,9 +89,7 @@ const Login = ({ props }) => {
   }, []);
 
   const onClickBtn = (e) => {
-    // window.location.href =
-    //   "https://discord.com/api/oauth2/authorize?client_id=1131475096729567294&redirect_uri=http%3A%2F%2Flocalhost%3A3000&response_type=code&scope=identify%20guilds%20guilds.members.read";
-    window.location.href =
+   window.location.href =
       "https://discord.com/api/oauth2/authorize?client_id=1131475096729567294&redirect_uri=https%3A%2F%2Ftoolkit-00.vercel.app&response_type=code&scope=identify%20guilds%20guilds.members.read";
   };
 

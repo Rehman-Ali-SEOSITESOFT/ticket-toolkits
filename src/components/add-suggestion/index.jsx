@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 const AddSuggestion = () => {
   const [value, setValue] = useState("");
   const [evetnListingPop, setEvetnListingPop] = useState(false);
- 
+
   const sendMessage = () => {
     const user = JSON.parse(Cookies.get("authUser"));
     const config = { headers: { "x-auth-token": user.token } };
