@@ -37,7 +37,7 @@
 }
 
 .pop-responsivechange {
-  position: fixed;
+  display: flex;
   align-items: center;
 }
 @media screen and (max-width: 992px) {
