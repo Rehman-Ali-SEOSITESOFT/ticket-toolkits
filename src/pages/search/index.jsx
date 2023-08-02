@@ -76,6 +76,8 @@ const SearchResult = () => {
 
   const [eventSaleGraphData, setEventSaleGraphData] = useState([]);
   const [eventListingGraphData, setEventListingGraphData] = useState([]);
+  const [filterEventSaleGraphData, setFilterEventSaleGraphData] = useState([]);
+
 
   // Function to find data from the last hour
   const findLastHourData = (dataArray) => {
@@ -397,11 +399,20 @@ const SearchResult = () => {
       })
       .catch((err) => console.log("search_query", err));
   };
-
+  const onClickReset = (e) =>{
+   
+  e.preventDefault();
+  setIsFilter(false);
+  setFilterDate("");
+  setFilterRow("");
+  setFilterSeat("");
+  setfilterPrice(0);
+  setFilterEventSaleGraphData([]);
+  }
   const onFilter = (e) => {
     e.preventDefault();
-    setIsFilter(!isFilter);
-    if (!isFilter) {
+    setIsFilter(true);
+    
       let allSales = [...queryData?.previousSales, ...queryData?.recentSales];
 
       let uArr = [];
@@ -426,16 +437,21 @@ const SearchResult = () => {
           item.Seats.split(" ").includes(filterSeat) ||
           new Date(item.time_checked) === new Date(filterDate)
       );
-      let num = "24 - 25";
-      console.log(filterArr, num.split(" ").includes(filterSeat));
-    } else {
-      setFilterDate("");
-      setFilterRow("");
-      setFilterSeat("");
-      setfilterPrice(0);
-    }
+     
+      let grapArr = [];
+      for (let s = 0; s < filterArr.length; s++) {
+        let obj = {
+          x: filterArr[s].time_checked,
+          y: parseInt(filterArr[s].Price.slice(1, 100).split(".")[0]),
+        };
+        grapArr.push(obj);
+      }
+      setFilterEventSaleGraphData(grapArr);
+    
+      console.log(filterArr, "filterArr")
+   
   };
-
+  console.log(filterEventSaleGraphData, "graph")
   return (
     <section className="search-viewer">
       <ToastContainer />
@@ -556,7 +572,7 @@ const SearchResult = () => {
                       onChange={(e) => setFilterRow(e.target.value)}
                       className="form-select"
                     >
-                      <option value="" selected>
+                      <option value="" selected={filterRow === "" ? true : false}>
                         row
                       </option>
                       <option value="A">Row A</option>
@@ -592,7 +608,7 @@ const SearchResult = () => {
                       onChange={(e) => setFilterSeat(e.target.value)}
                       className="form-select"
                     >
-                      <option value={""} selected>
+                      <option value={""} selected={filterSeat === "" ? true : false}>
                         seat type
                       </option>
                       {seatArr.map((item, index) => (
@@ -607,12 +623,11 @@ const SearchResult = () => {
                       onChange={(e) => setfilterPrice(e.target.value)}
                       className="form-select"
                     >
-                      <option value={0} selected>
+                      <option value={0} selected={filterPrice === 0 ? true : false}>
                         price
                       </option>
                       {priceArr.map((item, index) => (
                         <option value={item.seat} key={index}>
-                          {" "}
                           £ {item.seat}
                         </option>
                       ))}
@@ -633,7 +648,7 @@ const SearchResult = () => {
                     </button>
                     {isFilter && (
                     <button
-                      onClick={(e) => onFilter(e)}
+                      onClick={(e) => onClickReset(e)}
                       className="search-button text-decoration-none"
                     >
                       Reset
