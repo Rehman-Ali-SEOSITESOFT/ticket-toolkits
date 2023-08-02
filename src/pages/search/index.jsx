@@ -47,10 +47,10 @@ const SearchResult = () => {
   const [seatArr, setSeatArr] = useState([]);
   const [priceArr, setPriceArr] = useState([]);
   const [filterRow, setFilterRow] = useState("");
-  const [filterSeat, setFilterSeat] = useState(0);
+  const [filterSeat, setFilterSeat] = useState("");
   const [filterPrice, setfilterPrice] = useState(0);
   const [filterDate, setFilterDate] = useState("");
-
+  const [isFilter, setIsFilter] = useState(false);
   const navigate = useNavigate();
 
   const hanldeClose = () => {
@@ -97,7 +97,7 @@ const SearchResult = () => {
   const findLast24HourData = (dataArray) => {
     // Get the current date and time
     const currentTime = new Date();
-   
+
     // Subtract one hour from the current date and time
     const lastHourTime = new Date(currentTime.getTime() - 60 * 60 * 1000 * 24);
 
@@ -105,13 +105,11 @@ const SearchResult = () => {
     const lastHourData = dataArray.filter(
       (item) => new Date(item.x) > new Date(lastHourTime)
     );
-  
 
     return lastHourData;
   };
 
   useEffect(() => {
-
     let user = {};
     if (Cookies.get("authUser") !== undefined) {
       user = JSON.parse(Cookies.get("authUser"));
@@ -123,14 +121,14 @@ const SearchResult = () => {
       navigate("/");
     }
     let seats = [];
-    for(var s = 0 ; s < 500; s++){
+    for (var s = 0; s < 500; s++) {
       let obj_s = {
-         seat: s + 1
-      }
-      seats.push(obj_s)
+        seat: s + 1,
+      };
+      seats.push(obj_s);
     }
     setSeatArr(seats);
-    setPriceArr(seats)
+    setPriceArr(seats);
 
     if (query) {
       let q = query?.split("/");
@@ -400,12 +398,44 @@ const SearchResult = () => {
       .catch((err) => console.log("search_query", err));
   };
 
+  const onFilter = (e) => {
+    e.preventDefault();
+    setIsFilter(!isFilter);
+    if (!isFilter) {
+      let allSales = [...queryData?.previousSales, ...queryData?.recentSales];
 
-  console.log(filterDate)
-  console.log(filterPrice)
-  console.log(filterSeat)
-  console.log(filterRow)
- 
+      let uArr = [];
+      for (var t = 0; t < allSales.length; t++) {
+        let date = allSales[t].time_checked;
+        let d = date.split(" ");
+        let dateReverse = d[0]
+          .split("/")
+          .sort((a, b) => b - a)
+          .join("-");
+
+        let objDate = {
+          ...allSales[t],
+          time_checked: dateReverse + "T" + d[1],
+        };
+        uArr.push(objDate);
+      }
+      let filterArr = uArr.filter(
+        (item) =>
+          item.Price.slice(1, 100).split(".")[0] === filterPrice ||
+          item.Row.toLowerCase() == filterRow.toLowerCase() ||
+          item.Seats.split(" ").includes(filterSeat) ||
+          new Date(item.time_checked) === new Date(filterDate)
+      );
+      let num = "24 - 25";
+      console.log(filterArr, num.split(" ").includes(filterSeat));
+    } else {
+      setFilterDate("");
+      setFilterRow("");
+      setFilterSeat("");
+      setfilterPrice(0);
+    }
+  };
+
   return (
     <section className="search-viewer">
       <ToastContainer />
@@ -520,27 +550,96 @@ const SearchResult = () => {
                 <div className="filter-box-new">
                   <div className="filter-by-wrapper d-flex justify-content-between align-items-center">
                     <h1 className="filter-by"> Filter by: </h1>
-                    <select name="" id="" className="form-select">
-                      <option value="">row </option>
-                      <option value="">row 1</option>
-                      <option value="">row 2 </option>
+                    <select
+                      name=""
+                      id=""
+                      onChange={(e) => setFilterRow(e.target.value)}
+                      className="form-select"
+                    >
+                      <option value="" selected>
+                        row
+                      </option>
+                      <option value="A">Row A</option>
+                      <option value="B">Row B</option>
+                      <option value="C">Row C</option>
+                      <option value="D">Row D</option>
+                      <option value="E">Row E</option>
+                      <option value="F">Row F</option>
+                      <option value="G">Row G</option>
+                      <option value="H">Row H</option>
+                      <option value="I">Row I</option>
+                      <option value="J">Row J</option>
+                      <option value="K">Row K</option>
+                      <option value="L">Row L</option>
+                      <option value="M">Row M</option>
+                      <option value="N">Row N</option>
+                      <option value="O">Row O</option>
+                      <option value="P">Row P</option>
+                      <option value="Q">Row Q</option>
+                      <option value="R">Row R</option>
+                      <option value="S">Row S</option>
+                      <option value="T">Row T</option>
+                      <option value="U">Row U</option>
+                      <option value="V">Row V</option>
+                      <option value="W">Row W</option>
+                      <option value="X">Row X</option>
+                      <option value="Y">Row Y</option>
+                      <option value="Z">Row Z</option>
                     </select>
-                    <select name="" id="" className="form-select">
-                      <option value="">seat type </option>
-                      <option value="">seat type 1</option>
-                      <option value="">seat type 2</option>
+                    <select
+                      name=""
+                      id=""
+                      onChange={(e) => setFilterSeat(e.target.value)}
+                      className="form-select"
+                    >
+                      <option value={""} selected>
+                        seat type
+                      </option>
+                      {seatArr.map((item, index) => (
+                        <option value={item.seat} key={index}>
+                          seat {item.seat}
+                        </option>
+                      ))}
                     </select>
-                    <select name="" id="" className="form-select">
-                      <option value="">price </option>
-                      <option value="">seat type 1</option>
-                      <option value="">seat type 2</option>
+                    <select
+                      name=""
+                      id=""
+                      onChange={(e) => setfilterPrice(e.target.value)}
+                      className="form-select"
+                    >
+                      <option value={0} selected>
+                        price
+                      </option>
+                      {priceArr.map((item, index) => (
+                        <option value={item.seat} key={index}>
+                          {" "}
+                          £ {item.seat}
+                        </option>
+                      ))}
                     </select>
 
-                    <input type="date" className="form-control" />
+                    <input
+                      type="date"
+                      onChange={(e) => setFilterDate(e.target.value)}
+                      className="form-control"
+                    />
                   </div>
-                  <button className="search-button text-decoration-none">
-                    Filter
-                  </button>
+              
+                    <button
+                      onClick={(e) => onFilter(e)}
+                      className="search-button text-decoration-none"
+                    >
+                      Filter
+                    </button>
+                    {isFilter && (
+                    <button
+                      onClick={(e) => onFilter(e)}
+                      className="search-button text-decoration-none"
+                    >
+                      Reset
+                    </button>
+                  )  }
+                 
                 </div>
               </div>
             </div>
@@ -770,33 +869,57 @@ const SearchResult = () => {
                     <SocialAccountDetail
                       icon={facebook}
                       title="Followers"
-                      value={queryData?.facebook_followers ? queryData?.facebook_followers : 0 }
+                      value={
+                        queryData?.facebook_followers
+                          ? queryData?.facebook_followers
+                          : 0
+                      }
                     />
                     <SocialAccountDetail
                       icon={instagram}
                       title="Followers"
-                      value={queryData?.instagram_followers ? queryData?.instagram_followers : 0}
+                      value={
+                        queryData?.instagram_followers
+                          ? queryData?.instagram_followers
+                          : 0
+                      }
                     />
                     <SocialAccountDetail
                       icon={spotify}
                       title="Listeners"
-                      value={queryData?.monthly_spotify_listeners ? queryData?.monthly_spotify_listeners : 0}
+                      value={
+                        queryData?.monthly_spotify_listeners
+                          ? queryData?.monthly_spotify_listeners
+                          : 0
+                      }
                     />
 
                     <SocialAccountDetail
                       icon={youtube}
                       title="Listeners"
-                      value={queryData?.monthly_youTube_listeners ? queryData?.monthly_youTube_listeners : 0}
+                      value={
+                        queryData?.monthly_youTube_listeners
+                          ? queryData?.monthly_youTube_listeners
+                          : 0
+                      }
                     />
                     <SocialAccountDetail
                       icon={tiktok}
                       title="Followers"
-                      value={queryData?.tiktok_followers ? queryData?.tiktok_followers: 0}
+                      value={
+                        queryData?.tiktok_followers
+                          ? queryData?.tiktok_followers
+                          : 0
+                      }
                     />
                     <SocialAccountDetail
                       icon={youtube}
                       title="Followers"
-                      value={queryData?.youtube_followers ? queryData?.youtube_followers : 0}
+                      value={
+                        queryData?.youtube_followers
+                          ? queryData?.youtube_followers
+                          : 0
+                      }
                     />
                   </div>
                 </ul>
