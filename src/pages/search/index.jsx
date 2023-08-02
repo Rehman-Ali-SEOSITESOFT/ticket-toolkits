@@ -23,6 +23,12 @@ import "react-toastify/dist/ReactToastify.css";
 import NotFoundImage from "../../assets/images/not-found.jpg";
 import Cookies from "js-cookie";
 import html2canvas from "html2canvas";
+import facebook from "../../assets/images/facebook.png";
+import instagram from "../../assets/images/instagram.png";
+import spotify from "../../assets/images/spotify.png";
+import youtube from "../../assets/images/youtube.png";
+import tiktok from "../../assets/images/tik-tok.png";
+import SocialAccountDetail from "../../components/social";
 const SearchResult = () => {
   const [searchResult, setSearchResult] = useState("");
   const search = useLocation().search;
@@ -378,6 +384,7 @@ const SearchResult = () => {
   return (
     <section className="search-viewer">
       <ToastContainer />
+
       {loader ? (
         <div className="container">
           <div className="row">
@@ -594,13 +601,12 @@ const SearchResult = () => {
 
                       <Tooltip cursor={{ strokeDasharray: "3 3" }} />
                       <Legend />
-                      {/* <Scatter name="Event Sale" data={data01} fill="#8884d8" /> */}
+
                       <Scatter
                         name="Event Sale"
                         data={eventSaleGraphData}
                         fill="#8884d8"
                       />
-                      {/* <Scatter name="Date" data={data02} fill="#82ca9d" /> */}
                     </ScatterChart>
                   </ResponsiveContainer>
                 </div>
@@ -674,13 +680,11 @@ const SearchResult = () => {
 
                         <Tooltip cursor={{ strokeDasharray: "3 3" }} />
                         <Legend />
-                        {/* <Scatter name="Event Sale" data={data01} fill="#8884d8" /> */}
                         <Scatter
                           name="Event Listing"
                           data={eventListingGraphData}
                           fill="#82ca9d"
                         />
-                        {/* <Scatter name="Date" data={data02} fill="#82ca9d" /> */}
                       </ScatterChart>
                     </ResponsiveContainer>
                   )}
@@ -713,6 +717,148 @@ const SearchResult = () => {
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div className="row pt-5">
+              <div className="col-lg-7 m-auto">
+                <ul className="social-account-detail">
+                  <div className="d-flex justify-content-between">
+                    <SocialAccountDetail
+                      icon={facebook}
+                      title="Followers"
+                      value={`989.3k`}
+                    />
+                    <SocialAccountDetail
+                      icon={instagram}
+                      title="Followers"
+                      value={`275k`}
+                    />
+                    <SocialAccountDetail
+                      icon={spotify}
+                      title="Listeners"
+                      value={`181k`}
+                    />{" "}
+                  </div>
+                  <div className="d-flex justify-content-between">
+                    <SocialAccountDetail
+                      icon={youtube}
+                      title="Listeners"
+                      value={`844k`}
+                    />{" "}
+                    <SocialAccountDetail
+                      icon={tiktok}
+                      title="Followers"
+                      value={0}
+                    />{" "}
+                    <SocialAccountDetail
+                      icon={youtube}
+                      title="Followers"
+                      value={`121k`}
+                    />
+                  </div>
+
+                  {/* <div className="d-flex justify-content-between flex-wrap two-side">
+                    <SocialAccountDetail
+                      icon={facebook}
+                      title="Followers"
+                      value={`989.3k`}
+                    />
+                    <SocialAccountDetail
+                      icon={instagram}
+                      title="Followers"
+                      value={`275k`}
+                    />
+                    <SocialAccountDetail
+                      icon={spotify}
+                      title="Listeners"
+                      value={`181k`}
+                    />{" "}
+                    <SocialAccountDetail
+                      icon={tiktok}
+                      title="Followers"
+                      value={0}
+                    />{" "}
+                    <SocialAccountDetail
+                      icon={youtube}
+                      title="Listeners"
+                      value={`844k`}
+                    />{" "}
+                    <SocialAccountDetail
+                      icon={youtube}
+                      title="Followers"
+                      value={`121k`}
+                    />
+                  </div> */}
+                  {/* 
+                  <h2 className="text-white fs-lg py-4 ">Version no 3</h2>
+                  <div className="width-100">
+                    <SocialAccountDetail
+                      icon={facebook}
+                      title="Followers"
+                      value={`989.3k`}
+                    />
+                    <SocialAccountDetail
+                      icon={instagram}
+                      title="Followers"
+                      value={`275k`}
+                    />
+                    <SocialAccountDetail
+                      icon={spotify}
+                      title="Listeners"
+                      value={`181k`}
+                    />{" "}
+                    <SocialAccountDetail
+                      icon={tiktok}
+                      title="Followers"
+                      value={0}
+                    />{" "}
+                    <SocialAccountDetail
+                      icon={youtube}
+                      title="Listeners"
+                      value={`844k`}
+                    />{" "}
+                    <SocialAccountDetail
+                      icon={youtube}
+                      title="Followers"
+                      value={`121k`}
+                    />
+                  </div>
+                  <h2 className="text-white fs-lg py-4 ">Version no 4</h2>
+                  <div className="d-flex justify-content-between">
+                    <SocialAccountDetail
+                      icon={facebook}
+                      title="Followers"
+                      value={`989.3k`}
+                    />
+                    <SocialAccountDetail
+                      icon={instagram}
+                      title="Followers"
+                      value={`275k`}
+                    />
+                    <SocialAccountDetail
+                      icon={spotify}
+                      title="Listeners"
+                      value={`181k`}
+                    />{" "}
+                  </div>
+                  <div className="width-100">
+                    <SocialAccountDetail
+                      icon={tiktok}
+                      title="Followers"
+                      value={0}
+                    />{" "}
+                    <SocialAccountDetail
+                      icon={youtube}
+                      title="Listeners"
+                      value={`844k`}
+                    />{" "}
+                    <SocialAccountDetail
+                      icon={youtube}
+                      title="Followers"
+                      value={`121k`}
+                    />
+                  </div> */}
+                </ul>
               </div>
             </div>
             <div className="row">
