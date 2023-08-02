@@ -83,7 +83,7 @@ const SearchResult = () => {
 
     // Filter the array to include only objects with dates within the last hour
     const lastHourData = dataArray.filter(
-      (item) => new Date(item.x) >  new Date(lastHourTime)
+      (item) => new Date(item.x) > new Date(lastHourTime)
     );
 
     return lastHourData;
@@ -93,15 +93,15 @@ const SearchResult = () => {
   const findLast24HourData = (dataArray) => {
     // Get the current date and time
     const currentTime = new Date();
-    console.log(dataArray, "dataArrary=======")
+    console.log(dataArray, "dataArrary=======");
     // Subtract one hour from the current date and time
     const lastHourTime = new Date(currentTime.getTime() - 60 * 60 * 1000 * 24);
-    console.log(lastHourTime, "lastHourTime=======")
+    console.log(lastHourTime, "lastHourTime=======");
     // Filter the array to include only objects with dates within the last hour
     const lastHourData = dataArray.filter(
       (item) => new Date(item.x) > new Date(lastHourTime)
     );
-    console.log(lastHourData, "final=======")
+    console.log(lastHourData, "final=======");
 
     return lastHourData;
   };
@@ -166,7 +166,7 @@ const SearchResult = () => {
             // Call the function to get the data from the last hour
             const lastHourData = findLastHourData(lastHourArr);
             const last24HourData = findLast24HourData(lastHourArr);
-          
+
             // let sum = 0;
             // let sum2 = 0;
             // for (var h = 0; h < lastHourData; h++) {
@@ -175,7 +175,7 @@ const SearchResult = () => {
             // for (var h1 = 0; h1 < last24HourData; h1++) {
             //   sum2 += last24HourData[h1].y;
             // }
-          
+
             setLast24HourSale(last24HourData);
             setlastHourSale(lastHourData);
 
@@ -294,7 +294,6 @@ const SearchResult = () => {
             // setLast24HourSale(sum2);
             // setlastHourSale(sum);
 
-            
             setLast24HourSale(last24HourData);
             setlastHourSale(lastHourData);
 
@@ -624,18 +623,26 @@ const SearchResult = () => {
                     <div className="cart">
                       <h4 className="title">Avg. Price</h4>
                       <p className="total-price">
-                        £{" "}
+                        £
                         {queryData?.average
                           ? queryData?.average?.toFixed(2)
                           : 0}
                       </p>
                     </div>
                     <div className="cart">
-                      <h4 className="title">Amount of Sales<br/>(Last. Hour)</h4>
+                      <h4 className="title">
+                        Amount of Sales
+                        <br />
+                        (Last. Hour)
+                      </h4>
                       <p className="total-price">{lastHourSale?.length}</p>
                     </div>
                     <div className="cart">
-                      <h4 className="title">Amount of Sales<br/>(Last 24 Hours)</h4>
+                      <h4 className="title">
+                        Amount of Sales
+                        <br />
+                        (Last 24 Hours)
+                      </h4>
                       <p className="total-price">{last24HourSale?.length}</p>
                     </div>
                   </div>
@@ -651,12 +658,12 @@ const SearchResult = () => {
                             ...eventListing?.recentSales,
                             ...eventListing?.previousSales,
                           ].length
-                        : 0}{" "}
+                        : 0}
                       listing (s) found
                     </p>
                   </div>
                   <h2 className="text-right time-right">
-                    last updated:{" "}
+                    last updated:
                     {eventListing?.time_checked
                       ? eventListing?.time_checked
                       : "01:10 PM"}
@@ -731,34 +738,34 @@ const SearchResult = () => {
                     <SocialAccountDetail
                       icon={facebook}
                       title="Followers"
-                      value={`989.3k`}
+                      value={queryData?.facebook_followers}
                     />
                     <SocialAccountDetail
                       icon={instagram}
                       title="Followers"
-                      value={`275k`}
+                      value={queryData?.instagram_followers}
                     />
                     <SocialAccountDetail
                       icon={spotify}
                       title="Listeners"
-                      value={`181k`}
-                    />{" "}
+                      value={queryData?.monthly_spotify_listeners}
+                    />
                   </div>
                   <div className="d-flex justify-content-between">
                     <SocialAccountDetail
                       icon={youtube}
                       title="Listeners"
-                      value={`844k`}
-                    />{" "}
+                      value={queryData?.monthly_youTube_listeners}
+                    />
                     <SocialAccountDetail
                       icon={tiktok}
                       title="Followers"
-                      value={0}
-                    />{" "}
+                      value={queryData?.tiktok_followers}
+                    />
                     <SocialAccountDetail
                       icon={youtube}
                       title="Followers"
-                      value={`121k`}
+                      value={queryData?.youtube_followers}
                     />
                   </div>
 
@@ -777,17 +784,17 @@ const SearchResult = () => {
                       icon={spotify}
                       title="Listeners"
                       value={`181k`}
-                    />{" "}
+                    />
                     <SocialAccountDetail
                       icon={tiktok}
                       title="Followers"
                       value={0}
-                    />{" "}
+                    />
                     <SocialAccountDetail
                       icon={youtube}
                       title="Listeners"
                       value={`844k`}
-                    />{" "}
+                    />
                     <SocialAccountDetail
                       icon={youtube}
                       title="Followers"
@@ -811,17 +818,17 @@ const SearchResult = () => {
                       icon={spotify}
                       title="Listeners"
                       value={`181k`}
-                    />{" "}
+                    />
                     <SocialAccountDetail
                       icon={tiktok}
                       title="Followers"
                       value={0}
-                    />{" "}
+                    />
                     <SocialAccountDetail
                       icon={youtube}
                       title="Listeners"
                       value={`844k`}
-                    />{" "}
+                    />
                     <SocialAccountDetail
                       icon={youtube}
                       title="Followers"
@@ -844,19 +851,19 @@ const SearchResult = () => {
                       icon={spotify}
                       title="Listeners"
                       value={`181k`}
-                    />{" "}
+                    />
                   </div>
                   <div className="width-100">
                     <SocialAccountDetail
                       icon={tiktok}
                       title="Followers"
                       value={0}
-                    />{" "}
+                    />
                     <SocialAccountDetail
                       icon={youtube}
                       title="Listeners"
                       value={`844k`}
-                    />{" "}
+                    />
                     <SocialAccountDetail
                       icon={youtube}
                       title="Followers"
