@@ -25,9 +25,8 @@
 }
 .filter-by-wrapper select {
   margin-right: 10px;
-}
-.filter-by-wrapper select {
   text-transform: capitalize;
+  width: 50%;
 }
 .filter-by-wrapper select:focus,
 .filter-by-wrapper input:focus {
@@ -189,6 +188,9 @@ section.sale-viewer {
 }
 .search-button {
   padding: 0.5rem 1rem;
+}
+.filter-box-new .search-button {
+  margin-left: 10px !important;
 }
 .search-button:hover {
   background-color: #121823;
@@ -449,10 +451,13 @@ hr.hr-border {
     flex-wrap: wrap;
     gap: 10px;
   }
-  .filter-by,
-  .filter-box-new .search-button {
+  .filter-by {
     width: 100%;
+  }
+  .filter-box-new .search-button {
     margin-top: 10px;
+    width: 45%;
+    margin-left: 0 !important;
   }
   .filter-box-new .filter-by-wrapper select,
   .filter-box-new .filter-by-wrapper input {
