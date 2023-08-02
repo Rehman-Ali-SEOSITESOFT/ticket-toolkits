@@ -414,19 +414,19 @@ const SearchResult = () => {
     setIsFilter(true);
     
       let allSales = [...queryData?.previousSales, ...queryData?.recentSales];
-
+       console.log("allSales====", allSales)
       let uArr = [];
       for (var t = 0; t < allSales.length; t++) {
         let date = allSales[t].time_checked;
         let d = date.split(" ");
+        
         let dateReverse = d[0]
           .split("/")
-          .sort((a, b) => b - a)
-          .join("-");
+         .reverse().join("-")
 
         let objDate = {
           ...allSales[t],
-          time_checked: dateReverse + "T" + d[1],
+          time_checked: dateReverse,
         };
         uArr.push(objDate);
       }
@@ -435,7 +435,7 @@ const SearchResult = () => {
           item.Price.slice(1, 100).split(".")[0] === filterPrice ||
           item.Row.toLowerCase() == filterRow.toLowerCase() ||
           item.Seats.split(" ").includes(filterSeat) ||
-          new Date(item.time_checked) === new Date(filterDate)
+          item.time_checked == filterDate
       );
      
       let grapArr = [];
@@ -448,8 +448,10 @@ const SearchResult = () => {
       }
       setFilterEventSaleGraphData(grapArr);
     
-      console.log(filterArr, "filterArr")
-   
+      // console.log(new Date("2023-02-22"), "1st date")
+      // console.log(filterDate, "2nd Date")
+      // console.log(filterDate == "2023-02-22", "3rd Date")
+      // console.log(uArr)
   };
   console.log(filterEventSaleGraphData, "graph")
   return (
@@ -635,6 +637,7 @@ const SearchResult = () => {
 
                     <input
                       type="date"
+                      value={filterDate}
                       onChange={(e) => setFilterDate(e.target.value)}
                       className="form-control"
                     />
@@ -755,7 +758,7 @@ const SearchResult = () => {
 
                       <Scatter
                         name="Event Sale"
-                        data={eventSaleGraphData}
+                        data={isFilter === false ? eventSaleGraphData : filterEventSaleGraphData}
                         fill="#8884d8"
                       />
                     </ScatterChart>
