@@ -31,15 +31,23 @@ ul.social-account-detail {
   margin: 0 15px;
   color: white;
 }
-.social-account-detail .two-side .item {
-  width: 48%;
-  justify-content: space-between;
-  background: #000000ab;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  border: transparent;
+
+@media screen and (max-width: 700px) {
+  .social-account-detail .item {
+    width: 48%;
+  }
 }
 
-.social-account-detail .width-100 .item {
-  width: 100%;
-  justify-content: space-between;
+@media screen and (max-width: 440px) {
+  .social-account-detail .item {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .social-account-detail .item .title {
+    width: calc(100% - 60px);
+    text-align: left;
+  }
+  .social-account-detail .item .value {
+    width: 30px;
+  }
 }

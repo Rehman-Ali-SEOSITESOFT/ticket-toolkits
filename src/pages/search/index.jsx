@@ -734,7 +734,7 @@ const SearchResult = () => {
             <div className="row pt-5">
               <div className="col-lg-7 m-auto">
                 <ul className="social-account-detail">
-                  <div className="d-flex justify-content-between">
+                  <div className="d-flex justify-content-between flex-wrap">
                     <SocialAccountDetail
                       icon={facebook}
                       title="Followers"
@@ -750,8 +750,7 @@ const SearchResult = () => {
                       title="Listeners"
                       value={queryData?.monthly_spotify_listeners}
                     />
-                  </div>
-                  <div className="d-flex justify-content-between">
+
                     <SocialAccountDetail
                       icon={youtube}
                       title="Listeners"
@@ -768,108 +767,6 @@ const SearchResult = () => {
                       value={queryData?.youtube_followers}
                     />
                   </div>
-
-                  {/* <div className="d-flex justify-content-between flex-wrap two-side">
-                    <SocialAccountDetail
-                      icon={facebook}
-                      title="Followers"
-                      value={`989.3k`}
-                    />
-                    <SocialAccountDetail
-                      icon={instagram}
-                      title="Followers"
-                      value={`275k`}
-                    />
-                    <SocialAccountDetail
-                      icon={spotify}
-                      title="Listeners"
-                      value={`181k`}
-                    />
-                    <SocialAccountDetail
-                      icon={tiktok}
-                      title="Followers"
-                      value={0}
-                    />
-                    <SocialAccountDetail
-                      icon={youtube}
-                      title="Listeners"
-                      value={`844k`}
-                    />
-                    <SocialAccountDetail
-                      icon={youtube}
-                      title="Followers"
-                      value={`121k`}
-                    />
-                  </div> */}
-                  {/* 
-                  <h2 className="text-white fs-lg py-4 ">Version no 3</h2>
-                  <div className="width-100">
-                    <SocialAccountDetail
-                      icon={facebook}
-                      title="Followers"
-                      value={`989.3k`}
-                    />
-                    <SocialAccountDetail
-                      icon={instagram}
-                      title="Followers"
-                      value={`275k`}
-                    />
-                    <SocialAccountDetail
-                      icon={spotify}
-                      title="Listeners"
-                      value={`181k`}
-                    />
-                    <SocialAccountDetail
-                      icon={tiktok}
-                      title="Followers"
-                      value={0}
-                    />
-                    <SocialAccountDetail
-                      icon={youtube}
-                      title="Listeners"
-                      value={`844k`}
-                    />
-                    <SocialAccountDetail
-                      icon={youtube}
-                      title="Followers"
-                      value={`121k`}
-                    />
-                  </div>
-                  <h2 className="text-white fs-lg py-4 ">Version no 4</h2>
-                  <div className="d-flex justify-content-between">
-                    <SocialAccountDetail
-                      icon={facebook}
-                      title="Followers"
-                      value={`989.3k`}
-                    />
-                    <SocialAccountDetail
-                      icon={instagram}
-                      title="Followers"
-                      value={`275k`}
-                    />
-                    <SocialAccountDetail
-                      icon={spotify}
-                      title="Listeners"
-                      value={`181k`}
-                    />
-                  </div>
-                  <div className="width-100">
-                    <SocialAccountDetail
-                      icon={tiktok}
-                      title="Followers"
-                      value={0}
-                    />
-                    <SocialAccountDetail
-                      icon={youtube}
-                      title="Listeners"
-                      value={`844k`}
-                    />
-                    <SocialAccountDetail
-                      icon={youtube}
-                      title="Followers"
-                      value={`121k`}
-                    />
-                  </div> */}
                 </ul>
               </div>
             </div>
