@@ -476,88 +476,71 @@ const SearchResult = () => {
         </>
       ) : (
         <>
-          <div className="container">
+          <div className="container-xxl">
             <div className="row">
               <div className="col">
                 <h2 className="sale-view-title">Event Viewer</h2>
               </div>
             </div>
             <div className="row align-items-center flex-wrap">
-              <div className="col-lg-5 col-md-4 col-9">
-                <div
-                  style={error !== "" ? { outline: "1px solid red" } : null}
-                  className="sale-view-search-input position-relative"
-                >
-                  <input
-                    type="text"
-                    placeholder="Seach by viagogo link"
-                    value={searchResult}
-                    onChange={hanldeChangeInputResult}
-                  />
-                  <span className="sale-search-icon">
-                    <i className="fa-solid fa-magnifying-glass"></i>
-                  </span>
+              <div className="col-lg-5 col-12">
+                <div className="d-flex justify-content-between">
+                  <div
+                    style={error !== "" ? { outline: "1px solid red" } : null}
+                    className="sale-view-search-input position-relative"
+                  >
+                    <input
+                      type="text"
+                      placeholder="Seach by viagogo link"
+                      value={searchResult}
+                      onChange={hanldeChangeInputResult}
+                    />
+                    <span className="sale-search-icon">
+                      <i className="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                  </div>
+                  <button
+                    className="search-button text-decoration-none"
+                    onClick={() => onClickSearch()}
+                  >
+                    Search
+                  </button>
                 </div>
               </div>
 
-              <div className="col-lg-1 col-md-2 col-3">
+              {/* <div className="col-lg-1 col-md-2 col-3">
                 <button
                   className="search-button text-decoration-none"
                   onClick={() => onClickSearch()}
                 >
                   Search
                 </button>
-              </div>
-              <div className="col-lg-6 col-md-6 col-12">
-                <div className="filter-by-wrapper d-flex justify-content-between align-items-center">
-                  <h1 className="filter-by"> Filter by: </h1>
-                  <select name="" id="" onChange={(e) => setFilterRow(e.target.value)} className="form-select">
-                    <option value="" disabled selected>row </option>
-                    <option value="A">Row A</option>
-                    <option value="B">Row B</option>
-                    <option value="C">Row C</option>
-                    <option value="D">Row D</option>
-                    <option value="E">Row E</option>
-                    <option value="F">Row F</option>
-                    <option value="G">Row G</option>
-                    <option value="H">Row H</option>
-                    <option value="I">Row I</option>
-                    <option value="J">Row J</option>
-                    <option value="K">Row K</option>
-                    <option value="L">Row L</option>
-                    <option value="M">Row M</option>
-                    <option value="N">Row N</option>
-                    <option value="O">Row O</option>
-                    <option value="P">Row P</option>
-                    <option value="Q">Row Q</option>
-                    <option value="R">Row R</option>
-                    <option value="S">Row S</option>
-                    <option value="T">Row T</option>
-                    <option value="U">Row U</option>
-                    <option value="V">Row V</option>
-                    <option value="W">Row W</option>
-                    <option value="X">Row X</option>
-                    <option value="Y">Row Y</option>
-                    <option value="Z">Row Z</option>
-                  
-                  </select>
-                  <select name="" id="" onChange={(e) => setFilterSeat(e.target.value)} className="form-select">
-                    <option value="" disabled selected >seat type </option>
-                    {seatArr.map((item, index) => 
-                    <option value={item.seat} key={index}>seat {item.seat}</option>
-                      
-                    )}
-                    
-                  </select>
-                  <select name="" id="" onChange={(e) => setfilterPrice(e.target.value)} className="form-select">
-                    <option value="" disabled selected>price </option>
-                    {priceArr.map((item, index) => 
-                    <option value={item.seat} key={index}> £ {item.seat}</option>
-                      
-                    )}
-                  </select>
+              </div> */}
+              <div className="col-lg-7 pt-lg-0 pt-2  col-12 ">
+                <div className="filter-box-new">
+                  <div className="filter-by-wrapper d-flex justify-content-between align-items-center">
+                    <h1 className="filter-by"> Filter by: </h1>
+                    <select name="" id="" className="form-select">
+                      <option value="">row </option>
+                      <option value="">row 1</option>
+                      <option value="">row 2 </option>
+                    </select>
+                    <select name="" id="" className="form-select">
+                      <option value="">seat type </option>
+                      <option value="">seat type 1</option>
+                      <option value="">seat type 2</option>
+                    </select>
+                    <select name="" id="" className="form-select">
+                      <option value="">price </option>
+                      <option value="">seat type 1</option>
+                      <option value="">seat type 2</option>
+                    </select>
 
-                  <input type="date" onChange={(e) => setFilterDate(e.target.value)} className="form-control" />
+                    <input type="date" className="form-control" />
+                  </div>
+                  <button className="search-button text-decoration-none">
+                    Filter
+                  </button>
                 </div>
               </div>
             </div>
@@ -783,7 +766,7 @@ const SearchResult = () => {
             <div className="row pt-5">
               <div className="col-lg-7 m-auto">
                 <ul className="social-account-detail">
-                  <div className="d-flex justify-content-between">
+                  <div className="d-flex justify-content-between flex-wrap">
                     <SocialAccountDetail
                       icon={facebook}
                       title="Followers"
@@ -799,8 +782,7 @@ const SearchResult = () => {
                       title="Listeners"
                       value={queryData?.monthly_spotify_listeners ? queryData?.monthly_spotify_listeners : 0}
                     />
-                  </div>
-                  <div className="d-flex justify-content-between">
+
                     <SocialAccountDetail
                       icon={youtube}
                       title="Listeners"
@@ -817,108 +799,6 @@ const SearchResult = () => {
                       value={queryData?.youtube_followers ? queryData?.youtube_followers : 0}
                     />
                   </div>
-
-                  {/* <div className="d-flex justify-content-between flex-wrap two-side">
-                    <SocialAccountDetail
-                      icon={facebook}
-                      title="Followers"
-                      value={`989.3k`}
-                    />
-                    <SocialAccountDetail
-                      icon={instagram}
-                      title="Followers"
-                      value={`275k`}
-                    />
-                    <SocialAccountDetail
-                      icon={spotify}
-                      title="Listeners"
-                      value={`181k`}
-                    />
-                    <SocialAccountDetail
-                      icon={tiktok}
-                      title="Followers"
-                      value={0}
-                    />
-                    <SocialAccountDetail
-                      icon={youtube}
-                      title="Listeners"
-                      value={`844k`}
-                    />
-                    <SocialAccountDetail
-                      icon={youtube}
-                      title="Followers"
-                      value={`121k`}
-                    />
-                  </div> */}
-                  {/* 
-                  <h2 className="text-white fs-lg py-4 ">Version no 3</h2>
-                  <div className="width-100">
-                    <SocialAccountDetail
-                      icon={facebook}
-                      title="Followers"
-                      value={`989.3k`}
-                    />
-                    <SocialAccountDetail
-                      icon={instagram}
-                      title="Followers"
-                      value={`275k`}
-                    />
-                    <SocialAccountDetail
-                      icon={spotify}
-                      title="Listeners"
-                      value={`181k`}
-                    />
-                    <SocialAccountDetail
-                      icon={tiktok}
-                      title="Followers"
-                      value={0}
-                    />
-                    <SocialAccountDetail
-                      icon={youtube}
-                      title="Listeners"
-                      value={`844k`}
-                    />
-                    <SocialAccountDetail
-                      icon={youtube}
-                      title="Followers"
-                      value={`121k`}
-                    />
-                  </div>
-                  <h2 className="text-white fs-lg py-4 ">Version no 4</h2>
-                  <div className="d-flex justify-content-between">
-                    <SocialAccountDetail
-                      icon={facebook}
-                      title="Followers"
-                      value={`989.3k`}
-                    />
-                    <SocialAccountDetail
-                      icon={instagram}
-                      title="Followers"
-                      value={`275k`}
-                    />
-                    <SocialAccountDetail
-                      icon={spotify}
-                      title="Listeners"
-                      value={`181k`}
-                    />
-                  </div>
-                  <div className="width-100">
-                    <SocialAccountDetail
-                      icon={tiktok}
-                      title="Followers"
-                      value={0}
-                    />
-                    <SocialAccountDetail
-                      icon={youtube}
-                      title="Listeners"
-                      value={`844k`}
-                    />
-                    <SocialAccountDetail
-                      icon={youtube}
-                      title="Followers"
-                      value={`121k`}
-                    />
-                  </div> */}
                 </ul>
               </div>
             </div>
