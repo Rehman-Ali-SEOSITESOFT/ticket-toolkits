@@ -1,0 +1,45 @@
+ul.social-account-detail {
+  padding: 0;
+  margin: 0;
+}
+.social-account-detail .icon {
+  width: 30px;
+}
+.social-account-detail .item {
+  /* background-color: rgb(255, 255, 255); */
+  padding: 1rem;
+  /* background: #000000ab; */
+  /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+  width: 32%;
+  text-align: center;
+
+  min-width: 200px;
+  border-radius: 5px;
+  transition: all 0.5s ease-in-out;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #7bc9ba2b;
+}
+.social-account-detail .item .title,
+.social-account-detail .item .value {
+  font-size: 15px;
+  font-weight: 500;
+  color: #7bc9ba;
+}
+.social-account-detail .item .title {
+  margin: 0 15px;
+  color: white;
+}
+.social-account-detail .two-side .item {
+  width: 48%;
+  justify-content: space-between;
+  background: #000000ab;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border: transparent;
+}
+
+.social-account-detail .width-100 .item {
+  width: 100%;
+  justify-content: space-between;
+}
