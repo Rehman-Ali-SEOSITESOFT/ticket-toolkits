@@ -77,7 +77,7 @@ const SearchResult = () => {
 
     // Filter the array to include only objects with dates within the last hour
     const lastHourData = dataArray.filter(
-      (item) => new Date(item.date) > lastHourTime
+      (item) => new Date(item.x) >  new Date(lastHourTime)
     );
 
     return lastHourData;
@@ -87,14 +87,15 @@ const SearchResult = () => {
   const findLast24HourData = (dataArray) => {
     // Get the current date and time
     const currentTime = new Date();
-
+    console.log(dataArray, "dataArrary=======")
     // Subtract one hour from the current date and time
     const lastHourTime = new Date(currentTime.getTime() - 60 * 60 * 1000 * 24);
-
+    console.log(lastHourTime, "lastHourTime=======")
     // Filter the array to include only objects with dates within the last hour
     const lastHourData = dataArray.filter(
-      (item) => new Date(item.date) > lastHourTime
+      (item) => new Date(item.x) > new Date(lastHourTime)
     );
+    console.log(lastHourData, "final=======")
 
     return lastHourData;
   };
@@ -159,16 +160,18 @@ const SearchResult = () => {
             // Call the function to get the data from the last hour
             const lastHourData = findLastHourData(lastHourArr);
             const last24HourData = findLast24HourData(lastHourArr);
-            let sum = 0;
-            let sum2 = 0;
-            for (var h = 0; h < lastHourData; h++) {
-              sum += lastHourData[h].y;
-            }
-            for (var h1 = 0; h1 < last24HourData; h1++) {
-              sum2 += last24HourData[h1].y;
-            }
-            setLast24HourSale(sum2);
-            setlastHourSale(sum);
+          
+            // let sum = 0;
+            // let sum2 = 0;
+            // for (var h = 0; h < lastHourData; h++) {
+            //   sum += lastHourData[h].y;
+            // }
+            // for (var h1 = 0; h1 < last24HourData; h1++) {
+            //   sum2 += last24HourData[h1].y;
+            // }
+          
+            setLast24HourSale(last24HourData);
+            setlastHourSale(lastHourData);
 
             // get event listing
             setEventListinLoader(true);
@@ -274,16 +277,20 @@ const SearchResult = () => {
             // Call the function to get the data from the last hour
             const lastHourData = findLastHourData(lastHourArr);
             const last24HourData = findLast24HourData(lastHourArr);
-            let sum = 0;
-            let sum2 = 0;
-            for (var h = 0; h < lastHourData; h++) {
-              sum += lastHourData[h].y;
-            }
-            for (var h1 = 0; h1 < last24HourData; h1++) {
-              sum2 += last24HourData[h1].y;
-            }
-            setLast24HourSale(sum2);
-            setlastHourSale(sum);
+            // let sum = 0;
+            // let sum2 = 0;
+            // for (var h = 0; h < lastHourData; h++) {
+            //   sum += lastHourData[h].y;
+            // }
+            // for (var h1 = 0; h1 < last24HourData; h1++) {
+            //   sum2 += last24HourData[h1].y;
+            // }
+            // setLast24HourSale(sum2);
+            // setlastHourSale(sum);
+
+            
+            setLast24HourSale(last24HourData);
+            setlastHourSale(lastHourData);
 
             // get event listing
             setEventListinLoader(true);
@@ -543,7 +550,6 @@ const SearchResult = () => {
                           : ""}
                       </address>
                       <p className="weekname">
-                        {" "}
                         {queryData?.event_date !== null
                           ? queryData?.event_date
                           : ""}
@@ -619,12 +625,12 @@ const SearchResult = () => {
                       </p>
                     </div>
                     <div className="cart">
-                      <h4 className="title">Last. Hour</h4>
-                      <p className="total-price"> £ {lastHourSale}</p>
+                      <h4 className="title">Amount of Sales<br/>(Last. Hour)</h4>
+                      <p className="total-price">{lastHourSale?.length}</p>
                     </div>
                     <div className="cart">
-                      <h4 className="title">Last 24 Hours</h4>
-                      <p className="total-price"> £ {last24HourSale}</p>
+                      <h4 className="title">Amount of Sales<br/>(Last 24 Hours)</h4>
+                      <p className="total-price">{last24HourSale?.length}</p>
                     </div>
                   </div>
                 </div>
@@ -634,7 +640,6 @@ const SearchResult = () => {
                   <div>
                     <h2 className="heading">Event Listings</h2>
                     <p className="recordss">
-                      {" "}
                       {eventListing?.recentSales
                         ? [
                             ...eventListing?.recentSales,
