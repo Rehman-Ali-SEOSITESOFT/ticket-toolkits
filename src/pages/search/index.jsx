@@ -161,24 +161,21 @@ const SearchResult = () => {
               let obj = {
                 x: totalsales[s].time_checked.split(" ")[0] + " " + totalsales[s].time_checked.split(" ")[1].split(":")[0] +  ":" + totalsales[s].time_checked.split(" ")[1].split(":")[1]  ,
                 y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
-                z: totalsales[s].Section
+                z: totalsales[s].Section,
               };
               // split date and make format that we used
               let date = totalsales[s].time_checked;
               let d = date.split(" ");
-              let dateReverse = d[0]
-              .split("/")
-              .reverse().join("-")
+              let dateReverse = d[0].split("/").reverse().join("-");
 
               let objDate = {
                 x: dateReverse + "T" + d[1],
                 y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
-               
               };
-              let secObj={
-                sec: totalsales[s].Section
-              }
-              sectionArr.push(secObj)
+              let secObj = {
+                sec: totalsales[s].Section,
+              };
+              sectionArr.push(secObj);
               grapArr.push(obj);
               lastHourArr.push(objDate);
             }
@@ -288,28 +285,28 @@ const SearchResult = () => {
               let obj = {
                 x: totalsales[s].time_checked.split(" ")[0] + " " + totalsales[s].time_checked.split(" ")[1].split(":")[0] +  ":" + totalsales[s].time_checked.split(" ")[1].split(":")[1]  ,
                 y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
-                z: totalsales[s].Section
+                z: totalsales[s].Section,
               };
               // split date and make format that we used
               let date = totalsales[s].time_checked;
               let d = date.split(" ");
-              let dateReverse = d[0]
-              .split("/")
-              .reverse().join("-")
+              let dateReverse = d[0].split("/").reverse().join("-");
 
               let objDate = {
                 x: dateReverse + "T" + d[1],
                 y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
               };
-              let secObj={
-                sec: totalsales[s].Section
-              }
-              sectionArr.push(secObj)
+              let secObj = {
+                sec: totalsales[s].Section,
+              };
+              sectionArr.push(secObj);
               grapArr.push(obj);
               lastHourArr.push(objDate);
             }
             setEventSaleGraphData(grapArr);
-            setSectionArr([...new Set(sectionArr)])
+            setSectionArr(sectionArr.filter((obj, index) => {
+              return index === sectionArr.findIndex(o => obj.sec === o.sec);
+              } ))
 
             // Call the function to get the data from the last hour
             const lastHourData = findLastHourData(lastHourArr);
@@ -461,7 +458,7 @@ const SearchResult = () => {
       let obj = {
         x: filterArr[s].time_checked,
         y: parseInt(filterArr[s].Price.slice(1, 100).split(".")[0]),
-        z: filterArr[s].Section
+        z: filterArr[s].Section,
       };
       grapArr.push(obj);
     }
@@ -472,7 +469,7 @@ const SearchResult = () => {
     // console.log(filterDate == "2023-02-22", "3rd Date")
     // console.log(uArr)
   };
-  console.log(eventSaleGraphData, "eventSaleGraphData")
+  console.log(eventSaleGraphData, "eventSaleGraphData");
 
   return (
     <section className="search-viewer">
@@ -714,13 +711,13 @@ const SearchResult = () => {
                       </div>
                     </div>
                     <div className="output-cart-content">
-                      <a href={query} target="_blank">
                       <h2 className="title">
-                        {queryData?.event_name !== null
-                          ? queryData?.event_name
-                          : ""}
+                        <a href={query} target="_blank">
+                          {queryData?.event_name !== null
+                            ? queryData?.event_name
+                            : ""}
+                        </a>
                       </h2>
-                      </a>
                       <address className="address">
                         {queryData?.event_title !== null
                           ? queryData?.event_title
@@ -757,7 +754,7 @@ const SearchResult = () => {
                       </option>
                       {sectionArr.map((item, index) => (
                         <option value={item.sec} key={index}>
-                           {item.sec}
+                          {item.sec}
                         </option>
                       ))}
                     </select>
