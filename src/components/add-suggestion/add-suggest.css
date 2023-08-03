@@ -1,6 +1,17 @@
 .text-are {
   height: 250px;
   width: 100%;
+  background: #1218238f;
+  border: 1px solid #ffffff40;
+  resize: none;
+  color: #ffffffbd;
+  padding: 1rem;
+  border-radius: 9px;
+}
+textarea.text-are:focus {
+  border: 1px solid #7bc9ba;
+  box-shadow: none;
+  outline: none;
 }
 
 .suggestion {

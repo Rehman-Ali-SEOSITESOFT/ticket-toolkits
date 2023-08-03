@@ -74,7 +74,7 @@ const AddSuggestion = () => {
             onClick={hanldeEventListingPopUPClosed}
           ></div>
           <div className="event-sale-listing">
-            <div className="event-sale-detail">
+            <div className="event-sale-detail addsuggest">
               <div className="d-flex align-items-center my-2">
                 <div className="col-6 suggestion">
                   <h2 className="popup-title ">Add your suggestion</h2>
@@ -89,7 +89,7 @@ const AddSuggestion = () => {
                 </div>
               </div>
 
-              <div id="style-1">
+              <div className="add-suggestion">
                 <textarea
                   className="text-are"
                   onChange={(e) => setValue(e.target.value)}

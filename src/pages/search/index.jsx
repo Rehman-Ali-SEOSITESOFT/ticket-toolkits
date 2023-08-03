@@ -78,7 +78,6 @@ const SearchResult = () => {
   const [eventListingGraphData, setEventListingGraphData] = useState([]);
   const [filterEventSaleGraphData, setFilterEventSaleGraphData] = useState([]);
 
-
   // Function to find data from the last hour
   const findLastHourData = (dataArray) => {
     // Get the current date and time
@@ -399,61 +398,58 @@ const SearchResult = () => {
       })
       .catch((err) => console.log("search_query", err));
   };
-  const onClickReset = (e) =>{
-   
-  e.preventDefault();
-  setIsFilter(false);
-  setFilterDate("");
-  setFilterRow("");
-  setFilterSeat("");
-  setfilterPrice(0);
-  setFilterEventSaleGraphData([]);
-  }
+  const onClickReset = (e) => {
+    e.preventDefault();
+    setIsFilter(false);
+    setFilterDate("");
+    setFilterRow("");
+    setFilterSeat("");
+    setfilterPrice(0);
+    setFilterEventSaleGraphData([]);
+  };
   const onFilter = (e) => {
     e.preventDefault();
     setIsFilter(true);
-    
-      let allSales = [...queryData?.previousSales, ...queryData?.recentSales];
-       console.log("allSales====", allSales)
-      let uArr = [];
-      for (var t = 0; t < allSales.length; t++) {
-        let date = allSales[t].time_checked;
-        let d = date.split(" ");
-        
-        let dateReverse = d[0]
-          .split("/")
-         .reverse().join("-")
 
-        let objDate = {
-          ...allSales[t],
-          time_checked: dateReverse,
-        };
-        uArr.push(objDate);
-      }
-      let filterArr = uArr.filter(
-        (item) =>
-          item.Price.slice(1, 100).split(".")[0] === filterPrice ||
-          item.Row.toLowerCase() == filterRow.toLowerCase() ||
-          item.Seats.split(" ").includes(filterSeat) ||
-          item.time_checked == filterDate
-      );
-     
-      let grapArr = [];
-      for (let s = 0; s < filterArr.length; s++) {
-        let obj = {
-          x: filterArr[s].time_checked,
-          y: parseInt(filterArr[s].Price.slice(1, 100).split(".")[0]),
-        };
-        grapArr.push(obj);
-      }
-      setFilterEventSaleGraphData(grapArr);
-    
-      // console.log(new Date("2023-02-22"), "1st date")
-      // console.log(filterDate, "2nd Date")
-      // console.log(filterDate == "2023-02-22", "3rd Date")
-      // console.log(uArr)
+    let allSales = [...queryData?.previousSales, ...queryData?.recentSales];
+    console.log("allSales====", allSales);
+    let uArr = [];
+    for (var t = 0; t < allSales.length; t++) {
+      let date = allSales[t].time_checked;
+      let d = date.split(" ");
+
+      let dateReverse = d[0].split("/").reverse().join("-");
+
+      let objDate = {
+        ...allSales[t],
+        time_checked: dateReverse,
+      };
+      uArr.push(objDate);
+    }
+    let filterArr = uArr.filter(
+      (item) =>
+        item.Price.slice(1, 100).split(".")[0] === filterPrice ||
+        item.Row.toLowerCase() == filterRow.toLowerCase() ||
+        item.Seats.split(" ").includes(filterSeat) ||
+        item.time_checked == filterDate
+    );
+
+    let grapArr = [];
+    for (let s = 0; s < filterArr.length; s++) {
+      let obj = {
+        x: filterArr[s].time_checked,
+        y: parseInt(filterArr[s].Price.slice(1, 100).split(".")[0]),
+      };
+      grapArr.push(obj);
+    }
+    setFilterEventSaleGraphData(grapArr);
+
+    // console.log(new Date("2023-02-22"), "1st date")
+    // console.log(filterDate, "2nd Date")
+    // console.log(filterDate == "2023-02-22", "3rd Date")
+    // console.log(uArr)
   };
-  console.log(filterEventSaleGraphData, "graph")
+  console.log(filterEventSaleGraphData, "graph");
   return (
     <section className="search-viewer">
       <ToastContainer />
@@ -531,7 +527,7 @@ const SearchResult = () => {
               </div>
             </div>
             <div className="row align-items-center flex-wrap">
-              <div className="col-lg-5 col-12">
+              <div className="col-lg-12 col-12">
                 <div className="d-flex justify-content-between">
                   <div
                     style={error !== "" ? { outline: "1px solid red" } : null}
@@ -564,7 +560,7 @@ const SearchResult = () => {
                   Search
                 </button>
               </div> */}
-              <div className="col-lg-7 pt-lg-0 pt-2  col-12 ">
+              {/* <div className="col-lg-7 pt-lg-0 pt-2  col-12 ">
                 <div className="filter-box-new">
                   <div className="filter-by-wrapper d-flex justify-content-between align-items-center">
                     <h1 className="filter-by"> Filter by: </h1>
@@ -659,7 +655,7 @@ const SearchResult = () => {
                   )  }
                  
                 </div>
-              </div>
+              </div> */}
             </div>
             <p className="error-text">{error}</p>
           </div>
@@ -716,6 +712,112 @@ const SearchResult = () => {
             </div>
           </div>
           <div className="container-xxl">
+            <div className="row">
+              <div className="col-lg-10  pt-4 m-auto col-12 ">
+                <div className="filter-box-new">
+                  <div className="filter-by-wrapper d-flex justify-content-between align-items-center">
+                    <h1 className="filter-by"> Filter by: </h1>
+                    <select
+                      name=""
+                      id=""
+                      onChange={(e) => setFilterRow(e.target.value)}
+                      className="form-select"
+                    >
+                      <option
+                        value=""
+                        selected={filterRow === "" ? true : false}
+                      >
+                        row
+                      </option>
+                      <option value="A">Row A</option>
+                      <option value="B">Row B</option>
+                      <option value="C">Row C</option>
+                      <option value="D">Row D</option>
+                      <option value="E">Row E</option>
+                      <option value="F">Row F</option>
+                      <option value="G">Row G</option>
+                      <option value="H">Row H</option>
+                      <option value="I">Row I</option>
+                      <option value="J">Row J</option>
+                      <option value="K">Row K</option>
+                      <option value="L">Row L</option>
+                      <option value="M">Row M</option>
+                      <option value="N">Row N</option>
+                      <option value="O">Row O</option>
+                      <option value="P">Row P</option>
+                      <option value="Q">Row Q</option>
+                      <option value="R">Row R</option>
+                      <option value="S">Row S</option>
+                      <option value="T">Row T</option>
+                      <option value="U">Row U</option>
+                      <option value="V">Row V</option>
+                      <option value="W">Row W</option>
+                      <option value="X">Row X</option>
+                      <option value="Y">Row Y</option>
+                      <option value="Z">Row Z</option>
+                    </select>
+                    <select
+                      name=""
+                      id=""
+                      onChange={(e) => setFilterSeat(e.target.value)}
+                      className="form-select"
+                    >
+                      <option
+                        value={""}
+                        selected={filterSeat === "" ? true : false}
+                      >
+                        seat type
+                      </option>
+                      {seatArr.map((item, index) => (
+                        <option value={item.seat} key={index}>
+                          seat {item.seat}
+                        </option>
+                      ))}
+                    </select>
+                    <select
+                      name=""
+                      id=""
+                      onChange={(e) => setfilterPrice(e.target.value)}
+                      className="form-select"
+                    >
+                      <option
+                        value={0}
+                        selected={filterPrice === 0 ? true : false}
+                      >
+                        price
+                      </option>
+                      {priceArr.map((item, index) => (
+                        <option value={item.seat} key={index}>
+                          £ {item.seat}
+                        </option>
+                      ))}
+                    </select>
+
+                    <input
+                      type="date"
+                      value={filterDate}
+                      onChange={(e) => setFilterDate(e.target.value)}
+                      className="form-control"
+                    />
+                  </div>
+
+                  <button
+                    onClick={(e) => onFilter(e)}
+                    className="search-button text-decoration-none"
+                  >
+                    Filter
+                  </button>
+                  {isFilter && (
+                    <button
+                      onClick={(e) => onClickReset(e)}
+                      className="search-button text-decoration-none"
+                    >
+                      Reset
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
             <div className="row graphic">
               <div className="col-md-6">
                 <div className="d-flex justify-content-between align-items-end mb-5">
@@ -758,7 +860,11 @@ const SearchResult = () => {
 
                       <Scatter
                         name="Event Sale"
-                        data={isFilter === false ? eventSaleGraphData : filterEventSaleGraphData}
+                        data={
+                          isFilter === false
+                            ? eventSaleGraphData
+                            : filterEventSaleGraphData
+                        }
                         fill="#8884d8"
                       />
                     </ScatterChart>
