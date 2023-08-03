@@ -57,6 +57,7 @@ const SearchResult = () => {
   const navigate = useNavigate();
   const [dateValue, setDateValue] = useState([]);
   const [selectedDateValue, setSelectedDateValue] = useState([]);
+  const [dateError, setDateError] = useState(false);
   const hanldeClose = () => {
     setOpedPopUp(false);
     document.querySelector("body").style.overflow = "auto";
@@ -438,51 +439,59 @@ const SearchResult = () => {
     setFilterRow("");
     setFilterSeat("");
     setFilterSection("");
+    setDateError(false);
+    setDateValue([]);
+    setSelectedDateValue([])
     setfilterPrice(0);
     setFilterEventSaleGraphData([]);
   };
   const onFilter = (e) => {
     e.preventDefault();
-    setIsFilter(true);
+    if(selectedDateValue.length === 1){
+      setDateError(true)
+    }else{
+      setIsFilter(true);
+      setDateError(false)
 
-    let allSales = [...queryData?.previousSales, ...queryData?.recentSales];
-    let uArr = [];
-    for (var t = 0; t < allSales.length; t++) {
-      let date = allSales[t].time_checked;
-      let d = date.split(" ");
-
-      let dateReverse = d[0].split("/").reverse().join("-");
-
-      let objDate = {
-        ...allSales[t],
-        time_checked: dateReverse,
-      };
-      uArr.push(objDate);
-    }
-    let filterArr = uArr.filter(
-      (item) =>
-        item.Price.slice(1, 100).split(".")[0] === filterPrice ||
-        (item.Row.toLowerCase() !== "" && item.Row.toLowerCase() === filterRow.toLowerCase()) ||
-        (item.Seats !== ""  && item.Seats.split(" ").includes(filterSeat)) ||
-        item.Section === filterSection ||
-        ((new Date(item.time_checked) >=  new Date(selectedDateValue[0])) &&  (new Date(item.time_checked) <= new Date(selectedDateValue[1])) )
-    );
-
+      let allSales = [...queryData?.previousSales, ...queryData?.recentSales];
+      let uArr = [];
+      for (var t = 0; t < allSales.length; t++) {
+        let date = allSales[t].time_checked;
+        let d = date.split(" ");
   
-    let grapArr = [];
-    for (let s = 0; s < filterArr.length; s++) {
-      let obj = {
-        x: filterArr[s].time_checked,
-        y: parseInt(filterArr[s].Price.slice(1, 100).split(".")[0]),
-        z: filterArr[s].Section,
-      };
-      grapArr.push(obj);
+        let dateReverse = d[0].split("/").reverse().join("-");
+  
+        let objDate = {
+          ...allSales[t],
+          time_checked: dateReverse,
+        };
+        uArr.push(objDate);
+      }
+      let filterArr = uArr.filter(
+        (item) =>
+          item.Price.slice(1, 100).split(".")[0] === filterPrice ||
+          (item.Row.toLowerCase() !== "" && item.Row.toLowerCase() === filterRow.toLowerCase()) ||
+          (item.Seats !== ""  && item.Seats.split(" ").includes(filterSeat)) ||
+          item.Section === filterSection ||
+          ((new Date(item.time_checked) >=  new Date(selectedDateValue[0])) &&  (new Date(item.time_checked) <= new Date(selectedDateValue[1])) )
+      );
+  
+    
+      let grapArr = [];
+      for (let s = 0; s < filterArr.length; s++) {
+        let obj = {
+          x: filterArr[s].time_checked,
+          y: parseInt(filterArr[s].Price.slice(1, 100).split(".")[0]),
+          z: filterArr[s].Section,
+        };
+        grapArr.push(obj);
+      }
+      setFilterEventSaleGraphData(grapArr);
     }
-    setFilterEventSaleGraphData(grapArr);
+    
   };
 
-
-  const handleChangeDatePicker = (value) =>{
+  const handleChangeDatePicker = (value) => {
     //your modification on passed value ....
     let arr = [];
     for(let d=0; d < value.length ; d++){
@@ -863,24 +872,40 @@ const SearchResult = () => {
                       onChange={(e) => setFilterDate(e.target.value)}
                       className="form-control"
                     /> */}
-                    <DatePicker className="form-control" value={dateValue}  range onChange={handleChangeDatePicker} />
+                    <div className={`date-picker ${dateError && 'bor'} `}>
+                      <DatePicker
+                        placeholder="Start-Date ~ End-Date"
+                        className="form-control error-date"
+                        value={dateValue}
+                        range
+                        onChange={handleChangeDatePicker}
+                      />
+                    </div>
                   </div>
 
-                  <button
-                    onClick={(e) => onFilter(e)}
-                    className="search-button text-decoration-none"
-                  >
-                    Filter
-                  </button>
-                  {isFilter && (
+                  <div className="btns-filter">
                     <button
-                      onClick={(e) => onClickReset(e)}
+                      onClick={(e) => onFilter(e)}
                       className="search-button text-decoration-none"
                     >
-                      Reset
+                      Filter
                     </button>
-                  )}
+                    {isFilter && (
+                      <button
+                        onClick={(e) => onClickReset(e)}
+                        className="search-button text-decoration-none"
+                      >
+                        Reset
+                      </button>
+                    )}
+                  </div>
                 </div>
+                {dateError && 
+                  <span className="text-danger selected-datte">
+                  Please make sure to select both the start and end dates.
+                </span>
+              
+                }
               </div>
             </div>
             <div className="row graphic">
