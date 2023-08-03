@@ -164,9 +164,8 @@ const SearchResult = () => {
               let date = totalsales[s].time_checked;
               let d = date.split(" ");
               let dateReverse = d[0]
-                .split("/")
-                .sort((a, b) => b - a)
-                .join("-");
+              .split("/")
+              .reverse().join("-")
 
               let objDate = {
                 x: dateReverse + "T" + d[1],
@@ -210,7 +209,8 @@ const SearchResult = () => {
 
                 for (var v = 0; v < totalsales2.length; v++) {
                   let obj2 = {
-                    x: totalsales2[v]["Event Date"],
+                    x: totalsales2[v]?.Section,
+                    // x: totalsales2[v]["Event Date"],
                     y: totalsales2[v]?.Price
                       ? parseInt(
                           totalsales2[v].Price.slice(1, 100).split(".")[0]
@@ -281,9 +281,8 @@ const SearchResult = () => {
               let date = totalsales[s].time_checked;
               let d = date.split(" ");
               let dateReverse = d[0]
-                .split("/")
-                .sort((a, b) => b - a)
-                .join("-");
+              .split("/")
+              .reverse().join("-")
 
               let objDate = {
                 x: dateReverse + "T" + d[1],
@@ -328,7 +327,8 @@ const SearchResult = () => {
 
                 for (var v = 0; v < totalsales2.length; v++) {
                   let obj2 = {
-                    x: totalsales2[v]["Event Date"],
+                    // x: totalsales2[v]["Event Date"],
+                    x: totalsales2[v]?.Section,
                     y: totalsales2[v]?.Price
                       ? parseInt(
                           totalsales2[v].Price.slice(1, 100).split(".")[0]
@@ -453,7 +453,7 @@ const SearchResult = () => {
       // console.log(filterDate == "2023-02-22", "3rd Date")
       // console.log(uArr)
   };
-  console.log(filterEventSaleGraphData, "graph")
+  console.log(eventListingGraphData, "eventListingGraphData")
   return (
     <section className="search-viewer">
       <ToastContainer />
@@ -727,11 +727,9 @@ const SearchResult = () => {
                     </p>
                   </div>
                   <h2 className="text-right time-right">
-                    last updated:
-                    {queryData?.time_checked
-                      ? queryData?.time_checked[
-                          queryData?.time_checked.length - 1
-                        ]
+                    last updated:&nbsp;
+                    {queryData?.last_checked
+                      ? queryData?.last_checked
                       : "01:00 AM"}
                   </h2>
                 </div>
@@ -812,7 +810,7 @@ const SearchResult = () => {
                     </p>
                   </div>
                   <h2 className="text-right time-right">
-                    last updated:
+                    last updated:&nbsp;
                     {eventListing?.time_checked
                       ? eventListing?.time_checked
                       : "01:10 PM"}
@@ -828,7 +826,7 @@ const SearchResult = () => {
                         <XAxis
                           tick={{ fill: "#121823" }}
                           dataKey="x"
-                          name="Date"
+                          name="Section"
                           unit=""
                         />
                         <YAxis
@@ -1036,8 +1034,8 @@ const SearchResult = () => {
                       <th> Event Date </th> */}
                       <th> Price </th>
                       <th> Quantity </th>
-                      <th> Row </th>
                       <th> Section </th>
+                      <th> Row </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1049,8 +1047,8 @@ const SearchResult = () => {
                           <td> {queryData?.event_date} </td> */}
                           <td>{e.Price} </td>
                           <td>{e.Quantity} </td>
-                          <td>{e.Row} </td>
                           <td>{e.Section} </td>
+                          <td>{e.Row} </td>
                         </tr>
                       );
                     })}
