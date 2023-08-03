@@ -188,11 +188,10 @@ const SearchResult = () => {
               lastHourArr.push(objDate);
             }
             setEventSaleGraphData(grapArr);
-            setSectionArr(
-              sectionArr.filter((obj, index) => {
-                return index === sectionArr.findIndex((o) => obj.sec === o.sec);
-              })
-            );
+
+            setSectionArr(sectionArr.filter((obj, index) => {
+              return index === sectionArr.findIndex((o) => obj.sec === o.sec);
+            }))
             // Call the function to get the data from the last hour
             const lastHourData = findLastHourData(lastHourArr);
             const last24HourData = findLast24HourData(lastHourArr);
@@ -319,10 +318,9 @@ const SearchResult = () => {
               lastHourArr.push(objDate);
             }
             setEventSaleGraphData(grapArr);
-            setSectionArr(
-              sectionArr.filter((obj, index) => {
-                return index === sectionArr.findIndex((o) => obj.sec === o.sec);
-              })
+            setSectionArr(sectionArr.filter((obj, index) => {
+              return index === sectionArr.findIndex((o) => obj.sec === o.sec);
+            })
             );
 
             // Call the function to get the data from the last hour
@@ -482,7 +480,7 @@ const SearchResult = () => {
         let obj = {
           x: filterArr[s].time_checked,
           y: parseInt(filterArr[s].Price.slice(1, 100).split(".")[0]),
-          z: filterArr[s].Section,
+          z:  filterArr[s].Section,
         };
         grapArr.push(obj);
       }
@@ -784,9 +782,9 @@ const SearchResult = () => {
                       >
                         section
                       </option>
-                      {sectionArr.map((item, index) => (
-                        <option value={item.sec} key={index}>
-                          {item.sec}
+                      {sectionArr.map((e) => e.sec.trim()).sort().map((item, index) => (
+                        <option value={item} key={index}>
+                          {item}
                         </option>
                       ))}
                     </select>
