@@ -124,7 +124,9 @@ const SaleViewer = () => {
                             />
                           </div>
                           <div className="output-cart-content">
+                            {/* <a href={`https://www.viagogo.co.uk/E-${e.eventId}`} target="_blank"> */}
                             <h2 className="title">{e.event_name}</h2>
+                            {/* </a> */}
                             <address className="address">
                               {e.event_title}
                             </address>

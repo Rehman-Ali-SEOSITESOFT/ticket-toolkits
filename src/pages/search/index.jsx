@@ -44,6 +44,7 @@ const SearchResult = () => {
   const [last24HourSale, setLast24HourSale] = useState([]);
   const [error, setError] = useState("");
   const [token, setToken] = useState("");
+  const [sectionArr, setSectionArr] = useState([]);
   const [seatArr, setSeatArr] = useState([]);
   const [priceArr, setPriceArr] = useState([]);
   const [filterRow, setFilterRow] = useState("");
@@ -150,6 +151,7 @@ const SearchResult = () => {
             setIsNotFound(false);
             let grapArr = [];
             let lastHourArr = [];
+            let sectionArr = [];
             let totalsales = [
               ...res.data.data.previousSales,
               ...res.data.data.recentSales,
@@ -158,6 +160,7 @@ const SearchResult = () => {
               let obj = {
                 x: totalsales[s].time_checked,
                 y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
+                z: totalsales[s].Section
               };
               // split date and make format that we used
               let date = totalsales[s].time_checked;
@@ -169,11 +172,17 @@ const SearchResult = () => {
               let objDate = {
                 x: dateReverse + "T" + d[1],
                 y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
+               
               };
+              let secObj={
+                sec: totalsales[s].Section
+              }
+              sectionArr.push(secObj)
               grapArr.push(obj);
               lastHourArr.push(objDate);
             }
             setEventSaleGraphData(grapArr);
+            setSectionArr(sectionArr)
             // Call the function to get the data from the last hour
             const lastHourData = findLastHourData(lastHourArr);
             const last24HourData = findLast24HourData(lastHourArr);
@@ -267,6 +276,7 @@ const SearchResult = () => {
             setIsNotFound(false);
             let grapArr = [];
             let lastHourArr = [];
+            let sectionArr = [];
             let totalsales = [
               ...res.data.data.previousSales,
               ...res.data.data.recentSales,
@@ -275,6 +285,7 @@ const SearchResult = () => {
               let obj = {
                 x: totalsales[s].time_checked,
                 y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
+                z: totalsales[s].Section
               };
               // split date and make format that we used
               let date = totalsales[s].time_checked;
@@ -287,10 +298,15 @@ const SearchResult = () => {
                 x: dateReverse + "T" + d[1],
                 y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
               };
+              let secObj={
+                sec: totalsales[s].Section
+              }
+              sectionArr.push(secObj)
               grapArr.push(obj);
               lastHourArr.push(objDate);
             }
             setEventSaleGraphData(grapArr);
+            setSectionArr(sectionArr)
             // Call the function to get the data from the last hour
             const lastHourData = findLastHourData(lastHourArr);
             const last24HourData = findLast24HourData(lastHourArr);
@@ -439,6 +455,7 @@ const SearchResult = () => {
       let obj = {
         x: filterArr[s].time_checked,
         y: parseInt(filterArr[s].Price.slice(1, 100).split(".")[0]),
+        z: filterArr[s].Section
       };
       grapArr.push(obj);
     }
@@ -449,8 +466,8 @@ const SearchResult = () => {
     // console.log(filterDate == "2023-02-22", "3rd Date")
     // console.log(uArr)
   };
-  console.log(eventListingGraphData, "eventListingGraphData")
-  console.log(filterEventSaleGraphData, "graph");
+  console.log(eventSaleGraphData, "eventSaleGraphData")
+
   return (
     <section className="search-viewer">
       <ToastContainer />
@@ -691,11 +708,13 @@ const SearchResult = () => {
                       </div>
                     </div>
                     <div className="output-cart-content">
+                      <a href={query} target="_blank">
                       <h2 className="title">
                         {queryData?.event_name !== null
                           ? queryData?.event_name
                           : ""}
                       </h2>
+                      </a>
                       <address className="address">
                         {queryData?.event_title !== null
                           ? queryData?.event_title
@@ -718,6 +737,24 @@ const SearchResult = () => {
                 <div className="filter-box-new">
                   <div className="filter-by-wrapper d-flex justify-content-between align-items-center">
                     <h1 className="filter-by"> Filter by: </h1>
+                    <select
+                      name=""
+                      id=""
+                      onChange={(e) => setFilterSeat(e.target.value)}
+                      className="form-select"
+                    >
+                      <option
+                        value={""}
+                        selected={filterSeat === "" ? true : false}
+                      >
+                        section
+                      </option>
+                      {sectionArr.map((item, index) => (
+                        <option value={item.sec} key={index}>
+                           {item.sec}
+                        </option>
+                      ))}
+                    </select>
                     <select
                       name=""
                       id=""
@@ -853,6 +890,13 @@ const SearchResult = () => {
                         unit="£"
                         tick={{ fill: "white" }}
                       />
+                      <ZAxis
+                        dataKey="z"
+                        type="number"
+                        name="Section"
+                        unit=""
+                        tick={{ fill: "white" }}
+                      />
 
                       <Tooltip cursor={{ strokeDasharray: "3 3" }} />
                       <Legend />
@@ -913,7 +957,7 @@ const SearchResult = () => {
                             ...eventListing?.previousSales,
                           ].length
                         : 0}
-                      listing (s) found
+                      &nbsp;listing (s) found
                     </p>
                   </div>
                   <h2 className="text-right time-right">
@@ -1082,9 +1126,9 @@ const SearchResult = () => {
                       <th> Event Date </th> */}
                       <th> Price </th>
                       <th> Quantity </th>
+                      <th> Section </th>
                       <th> Row </th>
                       <th> Seats </th>
-                      <th> Section </th>
                       <th> Time Checked </th>
                     </tr>
                   </thead>
@@ -1097,9 +1141,9 @@ const SearchResult = () => {
                           <td> {queryData?.event_date} </td> */}
                           <td> {e.Price} </td>
                           <td> {e.Quantity} </td>
+                          <td> {e.Section} </td>
                           <td> {e.Row} </td>
                           <td> {e.Seats} </td>
-                          <td> {e.Section} </td>
                           <td> {e.time_checked} </td>
                         </tr>
                       );
