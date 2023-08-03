@@ -782,7 +782,7 @@ const SearchResult = () => {
                       >
                         section
                       </option>
-                      {sectionArr.map((e) => e.sec.trim()).sort().map((item, index) => (
+                      {sectionArr.map((e) => e.sec.trim()).sort((a, b) => a.localeCompare(b, undefined, { numeric: true })).map((item, index) => (
                         <option value={item} key={index}>
                           {item}
                         </option>
