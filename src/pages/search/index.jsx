@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import masjid from "../../assets/images/faisal-masjid.jpg";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   Bar,
   BarChart,
@@ -22,7 +21,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NotFoundImage from "../../assets/images/not-found.jpg";
 import Cookies from "js-cookie";
-import html2canvas from "html2canvas";
 import facebook from "../../assets/images/facebook.png";
 import instagram from "../../assets/images/instagram.png";
 import spotify from "../../assets/images/spotify.png";
@@ -57,6 +55,7 @@ const SearchResult = () => {
   const navigate = useNavigate();
   const [dateValue, setDateValue] = useState([]);
   const [selectedDateValue, setSelectedDateValue] = useState([]);
+  const [filterObjectArr, setFilterObjectArr] = useState([]);
   const [dateError, setDateError] = useState(false);
   const hanldeClose = () => {
     setOpedPopUp(false);
@@ -175,7 +174,6 @@ const SearchResult = () => {
               let date = totalsales[s].time_checked;
               let d = date.split(" ");
               let dateReverse = d[0].split("/").reverse().join("-");
-
               let objDate = {
                 x: dateReverse + "T" + d[1],
                 y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
@@ -195,16 +193,6 @@ const SearchResult = () => {
             // Call the function to get the data from the last hour
             const lastHourData = findLastHourData(lastHourArr);
             const last24HourData = findLast24HourData(lastHourArr);
-
-            // let sum = 0;
-            // let sum2 = 0;
-            // for (var h = 0; h < lastHourData; h++) {
-            //   sum += lastHourData[h].y;
-            // }
-            // for (var h1 = 0; h1 < last24HourData; h1++) {
-            //   sum2 += last24HourData[h1].y;
-            // }
-
             setLast24HourSale(last24HourData);
             setlastHourSale(lastHourData);
 
@@ -326,17 +314,6 @@ const SearchResult = () => {
             // Call the function to get the data from the last hour
             const lastHourData = findLastHourData(lastHourArr);
             const last24HourData = findLast24HourData(lastHourArr);
-            // let sum = 0;
-            // let sum2 = 0;
-            // for (var h = 0; h < lastHourData; h++) {
-            //   sum += lastHourData[h].y;
-            // }
-            // for (var h1 = 0; h1 < last24HourData; h1++) {
-            //   sum2 += last24HourData[h1].y;
-            // }
-            // setLast24HourSale(sum2);
-            // setlastHourSale(sum);
-
             setLast24HourSale(last24HourData);
             setlastHourSale(lastHourData);
 
@@ -442,6 +419,7 @@ const SearchResult = () => {
     setSelectedDateValue([])
     setfilterPrice(0);
     setFilterEventSaleGraphData([]);
+    setFilterObjectArr([]);
   };
   const onFilter = (e) => {
     e.preventDefault();
@@ -474,7 +452,7 @@ const SearchResult = () => {
           ((new Date(item.time_checked) >=  new Date(selectedDateValue[0])) &&  (new Date(item.time_checked) <= new Date(selectedDateValue[1])) )
       );
   
-    
+      setFilterObjectArr(filterArr)
       let grapArr = [];
       for (let s = 0; s < filterArr.length; s++) {
         let obj = {
@@ -602,111 +580,6 @@ const SearchResult = () => {
                   </button>
                 </div>
               </div>
-
-              {/* <div className="col-lg-1 col-md-2 col-3">
-                <button
-                  className="search-button text-decoration-none"
-                  onClick={() => onClickSearch()}
-                >
-                  Search
-                </button>
-              </div> */}
-              {/* <div className="col-lg-7 pt-lg-0 pt-2  col-12 ">
-                <div className="filter-box-new">
-                  <div className="filter-by-wrapper d-flex justify-content-between align-items-center">
-                    <h1 className="filter-by"> Filter by: </h1>
-                    <select
-                      name=""
-                      id=""
-                      onChange={(e) => setFilterRow(e.target.value)}
-                      className="form-select"
-                    >
-                      <option value="" selected={filterRow === "" ? true : false}>
-                        row
-                      </option>
-                      <option value="A">Row A</option>
-                      <option value="B">Row B</option>
-                      <option value="C">Row C</option>
-                      <option value="D">Row D</option>
-                      <option value="E">Row E</option>
-                      <option value="F">Row F</option>
-                      <option value="G">Row G</option>
-                      <option value="H">Row H</option>
-                      <option value="I">Row I</option>
-                      <option value="J">Row J</option>
-                      <option value="K">Row K</option>
-                      <option value="L">Row L</option>
-                      <option value="M">Row M</option>
-                      <option value="N">Row N</option>
-                      <option value="O">Row O</option>
-                      <option value="P">Row P</option>
-                      <option value="Q">Row Q</option>
-                      <option value="R">Row R</option>
-                      <option value="S">Row S</option>
-                      <option value="T">Row T</option>
-                      <option value="U">Row U</option>
-                      <option value="V">Row V</option>
-                      <option value="W">Row W</option>
-                      <option value="X">Row X</option>
-                      <option value="Y">Row Y</option>
-                      <option value="Z">Row Z</option>
-                    </select>
-                    <select
-                      name=""
-                      id=""
-                      onChange={(e) => setFilterSeat(e.target.value)}
-                      className="form-select"
-                    >
-                      <option value={""} selected={filterSeat === "" ? true : false}>
-                        seat type
-                      </option>
-                      {seatArr.map((item, index) => (
-                        <option value={item.seat} key={index}>
-                          seat {item.seat}
-                        </option>
-                      ))}
-                    </select>
-                    <select
-                      name=""
-                      id=""
-                      onChange={(e) => setfilterPrice(e.target.value)}
-                      className="form-select"
-                    >
-                      <option value={0} selected={filterPrice === 0 ? true : false}>
-                        price
-                      </option>
-                      {priceArr.map((item, index) => (
-                        <option value={item.seat} key={index}>
-                          £ {item.seat}
-                        </option>
-                      ))}
-                    </select>
-
-                    <input
-                      type="date"
-                      value={filterDate}
-                      onChange={(e) => setFilterDate(e.target.value)}
-                      className="form-control"
-                    />
-                  </div>
-              
-                    <button
-                      onClick={(e) => onFilter(e)}
-                      className="search-button text-decoration-none"
-                    >
-                      Filter
-                    </button>
-                    {isFilter && (
-                    <button
-                      onClick={(e) => onClickReset(e)}
-                      className="search-button text-decoration-none"
-                    >
-                      Reset
-                    </button>
-                  )  }
-                 
-                </div>
-              </div> */}
             </div>
             <p className="error-text">{error}</p>
           </div>
@@ -863,13 +736,6 @@ const SearchResult = () => {
                         </option>
                       ))}
                     </select>
-                    {/* 
-                    <input
-                      type="date"
-                      value={filterDate}
-                      onChange={(e) => setFilterDate(e.target.value)}
-                      className="form-control"
-                    /> */}
                     <div className={`date-picker ${dateError && 'bor'} `}>
                       <DatePicker
                         placeholder="Start-Date ~ End-Date"
@@ -1179,9 +1045,6 @@ const SearchResult = () => {
                 <table className="table table-dark table-hover">
                   <thead>
                     <tr>
-                      {/* <th> Event Name </th>
-                      <th> Venue </th>
-                      <th> Event Date </th> */}
                       <th> Price </th>
                       <th> Quantity </th>
                       <th> Section </th>
@@ -1191,12 +1054,9 @@ const SearchResult = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {queryData?.recentSales.map((e, i) => {
+                    {filterObjectArr.length < 1 ?  queryData?.recentSales.map((e, i) => {
                       return (
                         <tr key={i}>
-                          {/* <td>{queryData?.event_name}</td>
-                          <td>{queryData?.event_title}</td>
-                          <td> {queryData?.event_date} </td> */}
                           <td> {e.Price} </td>
                           <td> {e.Quantity} </td>
                           <td> {e.Section} </td>
@@ -1205,7 +1065,21 @@ const SearchResult = () => {
                           <td> {e.time_checked} </td>
                         </tr>
                       );
-                    })}
+                    }) : 
+                    
+                    filterObjectArr?.map((e, i) => {
+                      return (
+                        <tr key={i}>
+                          <td> {e.Price} </td>
+                          <td> {e.Quantity} </td>
+                          <td> {e.Section} </td>
+                          <td> {e.Row} </td>
+                          <td> {e.Seats} </td>
+                          <td> {e.time_checked} </td>
+                        </tr>
+                      );
+                    })
+                    }
                   </tbody>
                 </table>
               </div>
@@ -1238,9 +1112,6 @@ const SearchResult = () => {
                 <table className="table table-dark table-hover">
                   <thead>
                     <tr>
-                      {/* <th> Event Name </th>
-                      <th> Venue Name </th>
-                      <th> Event Date </th> */}
                       <th> Price </th>
                       <th> Quantity </th>
                       <th> Section </th>
@@ -1251,9 +1122,6 @@ const SearchResult = () => {
                     {eventListing?.recentSales.map((e, i) => {
                       return (
                         <tr key={i}>
-                          {/* <td>{queryData?.event_name}</td>
-                          <td>{queryData?.event_title}</td>
-                          <td> {queryData?.event_date} </td> */}
                           <td>{e.Price} </td>
                           <td>{e.Quantity} </td>
                           <td>{e.Section} </td>

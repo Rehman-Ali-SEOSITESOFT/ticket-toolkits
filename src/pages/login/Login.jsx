@@ -12,16 +12,7 @@ const Login = ({ props }) => {
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
   useEffect(() => {
-    // let localObj = {
-    //   username: "rehmanali",
-    //   avatar: null,
-    //   token:
-    //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwOTc3NjI1NDQ5MTI5NzM4NDYiLCJ1c2VybmFtZSI6InJlaG1hbmFsaTE3IiwiaWF0IjoxNjkwODgwNjcyfQ.Qw0p94MUeGQ1cFCWrBtqUijVssTHIZmDEk0807p8Je4",
-    // };
-    // Cookies.set("authUser", JSON.stringify(localObj), { expires: 3 });
-
     let code = new URLSearchParams(search).get("code");
-    // let authUser = JSON.parse(localStorage.getItem("authUser"));
     let authUser = {};
     if (Cookies.get("authUser") !== undefined) {
       authUser = JSON.parse(Cookies.get("authUser"));
@@ -41,7 +32,6 @@ const Login = ({ props }) => {
         .get(`${SERVER_URL}/api/user/authWithDiscord?code=${code}`)
         .then((res) => {
           setLoader(false);
-          console.log(res.data.success, "res data===============");
           if (res.data.success === 1) {
             let obj = {
               username: res.data.userList.username,
@@ -51,14 +41,13 @@ const Login = ({ props }) => {
             Cookies.set("authUser", JSON.stringify(obj), { expires: 3 });
             navigate("/sales-view");
           } else {
-            console.log("else working................");
             axios
               .post(`${SERVER_URL}/api/liveSale/add-failure`, {
                 username: res.data.userList.username,
                 content: "Not allow access",
               })
               .then((res) => {
-                console.log("res=====else", res);
+                console.log("res", res);
               })
               .catch((err) => console.log(err));
             toast("Unauthorized!", {

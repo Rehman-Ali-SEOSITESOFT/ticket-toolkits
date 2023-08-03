@@ -13,7 +13,6 @@ const SaleViewer = () => {
   const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    // let user= JSON.parse(localStorage.getItem('authUser'));
     let user = {};
     if (Cookies.get("authUser") !== undefined) {
       user = JSON.parse(Cookies.get("authUser"));
@@ -124,9 +123,7 @@ const SaleViewer = () => {
                             />
                           </div>
                           <div className="output-cart-content">
-                            {/* <a href={`https://www.viagogo.co.uk/E-${e.eventId}`} target="_blank"> */}
-                            <h2 className="title">{e.event_name}</h2>
-                            {/* </a> */}
+                             <h2 className="title">{e.event_name}</h2>
                             <address className="address">
                               {e.event_title}
                             </address>
