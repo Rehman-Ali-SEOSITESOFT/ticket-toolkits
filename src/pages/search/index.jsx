@@ -49,6 +49,7 @@ const SearchResult = () => {
   const [priceArr, setPriceArr] = useState([]);
   const [filterRow, setFilterRow] = useState("");
   const [filterSeat, setFilterSeat] = useState("");
+  const [filterSection, setFilterSection] = useState("");
   const [filterPrice, setfilterPrice] = useState(0);
   const [filterDate, setFilterDate] = useState("");
   const [isFilter, setIsFilter] = useState(false);
@@ -158,7 +159,7 @@ const SearchResult = () => {
             ];
             for (var s = 0; s < totalsales.length; s++) {
               let obj = {
-                x: totalsales[s].time_checked,
+                x: totalsales[s].time_checked.split(" ")[0] + " " + totalsales[s].time_checked.split(" ")[1].split(":")[0] +  ":" + totalsales[s].time_checked.split(" ")[1].split(":")[1]  ,
                 y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
                 z: totalsales[s].Section
               };
@@ -182,7 +183,9 @@ const SearchResult = () => {
               lastHourArr.push(objDate);
             }
             setEventSaleGraphData(grapArr);
-            setSectionArr(sectionArr)
+            setSectionArr(sectionArr.filter((obj, index) => {
+              return index === sectionArr.findIndex(o => obj.sec === o.sec);
+              } ))
             // Call the function to get the data from the last hour
             const lastHourData = findLastHourData(lastHourArr);
             const last24HourData = findLast24HourData(lastHourArr);
@@ -283,7 +286,7 @@ const SearchResult = () => {
             ];
             for (var s = 0; s < totalsales.length; s++) {
               let obj = {
-                x: totalsales[s].time_checked,
+                x: totalsales[s].time_checked.split(" ")[0] + " " + totalsales[s].time_checked.split(" ")[1].split(":")[0] +  ":" + totalsales[s].time_checked.split(" ")[1].split(":")[1]  ,
                 y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
                 z: totalsales[s].Section
               };
@@ -306,7 +309,8 @@ const SearchResult = () => {
               lastHourArr.push(objDate);
             }
             setEventSaleGraphData(grapArr);
-            setSectionArr(sectionArr)
+            setSectionArr([...new Set(sectionArr)])
+
             // Call the function to get the data from the last hour
             const lastHourData = findLastHourData(lastHourArr);
             const last24HourData = findLast24HourData(lastHourArr);
@@ -420,6 +424,7 @@ const SearchResult = () => {
     setFilterDate("");
     setFilterRow("");
     setFilterSeat("");
+    setFilterSection("");
     setfilterPrice(0);
     setFilterEventSaleGraphData([]);
   };
@@ -447,6 +452,7 @@ const SearchResult = () => {
         item.Price.slice(1, 100).split(".")[0] === filterPrice ||
         item.Row.toLowerCase() == filterRow.toLowerCase() ||
         item.Seats.split(" ").includes(filterSeat) ||
+        item.Section === filterSection ||
         item.time_checked == filterDate
     );
 
@@ -740,12 +746,12 @@ const SearchResult = () => {
                     <select
                       name=""
                       id=""
-                      onChange={(e) => setFilterSeat(e.target.value)}
+                      onChange={(e) => setFilterSection(e.target.value)}
                       className="form-select"
                     >
                       <option
                         value={""}
-                        selected={filterSeat === "" ? true : false}
+                        selected={filterSection === "" ? true : false}
                       >
                         section
                       </option>
@@ -869,8 +875,8 @@ const SearchResult = () => {
                   <h2 className="text-right time-right">
                     last updated:&nbsp;
                     {queryData?.last_checked
-                      ? queryData?.last_checked
-                      : "01:00 AM"}
+                      ? queryData?.last_checked.split(" ")[0] + " " + queryData?.last_checked.split(" ")[1].split(":")[0] +  ":" + queryData?.last_checked.split(" ")[1].split(":")[1] 
+                      : "01:00"}
                   </h2>
                 </div>
                 <div className="event-sales-wrapper">
@@ -963,8 +969,8 @@ const SearchResult = () => {
                   <h2 className="text-right time-right">
                     last updated:&nbsp;
                     {eventListing?.time_checked
-                      ? eventListing?.time_checked
-                      : "01:10 PM"}
+                      ? eventListing?.last_checked.split(" ")[0] + " " + eventListing?.last_checked.split(" ")[1].split(":")[0] +  ":" + eventListing?.last_checked.split(" ")[1].split(":")[1] 
+                      : "01:10"}
                   </h2>
                 </div>
                 <div className="event-listings-wrapper">
