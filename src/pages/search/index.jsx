@@ -485,13 +485,15 @@ const SearchResult = () => {
     // console.log(uArr)
   };
 
-
-  const handleChangeDatePicker = (value) =>{
+  const handleChangeDatePicker = (value) => {
     //your modification on passed value ....
-    console.log(value[0].day +  "-" + value[0].month.number + "-" + value[0].year , "===value")
-    setDateValue(value)
-  }
-  
+    console.log(
+      value[0].day + "-" + value[0].month.number + "-" + value[0].year,
+      "===value"
+    );
+    setDateValue(value);
+  };
+
   console.log(dateValue, "dateValue======");
 
   return (
@@ -863,7 +865,13 @@ const SearchResult = () => {
                       onChange={(e) => setFilterDate(e.target.value)}
                       className="form-control"
                     /> */}
-                    <DatePicker className="form-control" value={dateValue}  range onChange={handleChangeDatePicker} />
+                    <DatePicker
+                      placeholder="Start-Date ~ End-Date"
+                      className="form-control"
+                      value={dateValue}
+                      range
+                      onChange={handleChangeDatePicker}
+                    />
                   </div>
 
                   <button
