@@ -518,8 +518,13 @@ hr.hr-border {
     width: 48%;
     margin: 0;
   }
-  .date-picker,
+  .date-picker{
+    width: 48%;
+  }
   .filter-by-wrapper .date-picker .rmdp-container {
+    width: 100% !important;
+  }
+  .date-picker .rmdp-container input{
     width: 100% !important;
   }
 
