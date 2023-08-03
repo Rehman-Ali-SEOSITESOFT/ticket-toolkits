@@ -56,6 +56,7 @@ const SearchResult = () => {
   const [isFilter, setIsFilter] = useState(false);
   const navigate = useNavigate();
   const [dateValue, setDateValue] = useState([]);
+  const [selectedDateValue, setSelectedDateValue] = useState([]);
   const hanldeClose = () => {
     setOpedPopUp(false);
     document.querySelector("body").style.overflow = "auto";
@@ -445,7 +446,6 @@ const SearchResult = () => {
     setIsFilter(true);
 
     let allSales = [...queryData?.previousSales, ...queryData?.recentSales];
-    console.log("allSales====", allSales);
     let uArr = [];
     for (var t = 0; t < allSales.length; t++) {
       let date = allSales[t].time_checked;
@@ -462,12 +462,13 @@ const SearchResult = () => {
     let filterArr = uArr.filter(
       (item) =>
         item.Price.slice(1, 100).split(".")[0] === filterPrice ||
-        item.Row.toLowerCase() == filterRow.toLowerCase() ||
-        item.Seats.split(" ").includes(filterSeat) ||
+        (item.Row.toLowerCase() !== "" && item.Row.toLowerCase() === filterRow.toLowerCase()) ||
+        (item.Seats !== ""  && item.Seats.split(" ").includes(filterSeat)) ||
         item.Section === filterSection ||
-        item.time_checked == filterDate
+        ((new Date(item.time_checked) >=  new Date(selectedDateValue[0])) &&  (new Date(item.time_checked) <= new Date(selectedDateValue[1])) )
     );
 
+  
     let grapArr = [];
     for (let s = 0; s < filterArr.length; s++) {
       let obj = {
@@ -478,21 +479,20 @@ const SearchResult = () => {
       grapArr.push(obj);
     }
     setFilterEventSaleGraphData(grapArr);
-
-    // console.log(new Date("2023-02-22"), "1st date")
-    // console.log(filterDate, "2nd Date")
-    // console.log(filterDate == "2023-02-22", "3rd Date")
-    // console.log(uArr)
   };
 
 
   const handleChangeDatePicker = (value) =>{
     //your modification on passed value ....
-    console.log(value[0].day +  "-" + value[0].month.number + "-" + value[0].year , "===value")
-    setDateValue(value)
+    let arr = [];
+    for(let d=0; d < value.length ; d++){
+      arr.push(value[d].year +  "-" + value[d].month.number + "-" + value[d].day)
+    }
+    setDateValue(value);
+    setSelectedDateValue(arr)
+
   }
   
-  console.log(dateValue, "dateValue======");
 
   return (
     <section className="search-viewer">
