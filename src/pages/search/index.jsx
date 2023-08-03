@@ -865,30 +865,37 @@ const SearchResult = () => {
                       onChange={(e) => setFilterDate(e.target.value)}
                       className="form-control"
                     /> */}
-                    <DatePicker
-                      placeholder="Start-Date ~ End-Date"
-                      className="form-control"
-                      value={dateValue}
-                      range
-                      onChange={handleChangeDatePicker}
-                    />
+                    <div className="date-picker bor">
+                      <DatePicker
+                        placeholder="Start-Date ~ End-Date"
+                        className="form-control error-date"
+                        value={dateValue}
+                        range
+                        onChange={handleChangeDatePicker}
+                      />
+                    </div>
                   </div>
 
-                  <button
-                    onClick={(e) => onFilter(e)}
-                    className="search-button text-decoration-none"
-                  >
-                    Filter
-                  </button>
-                  {isFilter && (
+                  <div className="btns-filter">
                     <button
-                      onClick={(e) => onClickReset(e)}
+                      onClick={(e) => onFilter(e)}
                       className="search-button text-decoration-none"
                     >
-                      Reset
+                      Filter
                     </button>
-                  )}
+                    {isFilter && (
+                      <button
+                        onClick={(e) => onClickReset(e)}
+                        className="search-button text-decoration-none"
+                      >
+                        Reset
+                      </button>
+                    )}
+                  </div>
                 </div>
+                <span className="text-danger selected-datte">
+                  Please make sure to select both the start and end dates.
+                </span>
               </div>
             </div>
             <div className="row graphic">

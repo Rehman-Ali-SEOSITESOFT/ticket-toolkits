@@ -24,6 +24,7 @@
   border-color: #9c9c9c61;
   height: 38px;
 }
+
 .filter-by-wrapper select {
   margin-right: 10px;
   text-transform: capitalize;
@@ -402,6 +403,16 @@ hr.hr-border {
   color: red;
   /* padding-left: 10px; */
 }
+.filter-box-new .btns-filter {
+  display: flex;
+}
+
+.date-picker.bor .rmdp-input {
+  border: 1px solid red;
+}
+.selected-datte {
+  padding-left: 100px;
+}
 @media screen and (max-width: 1024px) {
   .event-sale-listing .event-sale-detail {
     max-height: 400px;
@@ -467,6 +478,23 @@ hr.hr-border {
     min-width: 30%;
     width: 30%;
   }
+  .filter-box-new {
+    flex-direction: column;
+  }
+
+  .filter-box-new .filter-by-wrapper {
+    width: 100%;
+  }
+  .filter-box-new .btns-filter {
+    margin-top: 15px;
+    padding-left: 80px;
+    justify-content: space-between;
+  }
+  .filter-box-new .btns-filter .search-button {
+    width: 48%;
+
+    margin-left: 0 !important;
+  }
 }
 @media screen and (max-width: 575px) {
   .filter-box-new {
@@ -489,6 +517,15 @@ hr.hr-border {
   .filter-box-new .filter-by-wrapper input {
     width: 48%;
     margin: 0;
+  }
+  .date-picker,
+  .filter-by-wrapper .date-picker .rmdp-container {
+    width: 100% !important;
+  }
+
+  .selected-datte,
+  .filter-box-new .btns-filter {
+    padding-left: 0;
   }
 }
 @media screen and (max-width: 500px) {
