@@ -29,6 +29,7 @@ import spotify from "../../assets/images/spotify.png";
 import youtube from "../../assets/images/youtube.png";
 import tiktok from "../../assets/images/tik-tok.png";
 import SocialAccountDetail from "../../components/social";
+import DatePicker from "react-multi-date-picker";
 const SearchResult = () => {
   const [searchResult, setSearchResult] = useState("");
   const search = useLocation().search;
@@ -54,7 +55,7 @@ const SearchResult = () => {
   const [filterDate, setFilterDate] = useState("");
   const [isFilter, setIsFilter] = useState(false);
   const navigate = useNavigate();
-
+  const [dateValue, setDateValue] = useState([]);
   const hanldeClose = () => {
     setOpedPopUp(false);
     document.querySelector("body").style.overflow = "auto";
@@ -159,7 +160,12 @@ const SearchResult = () => {
             ];
             for (var s = 0; s < totalsales.length; s++) {
               let obj = {
-                x: totalsales[s].time_checked.split(" ")[0] + " " + totalsales[s].time_checked.split(" ")[1].split(":")[0] +  ":" + totalsales[s].time_checked.split(" ")[1].split(":")[1]  ,
+                x:
+                  totalsales[s].time_checked.split(" ")[0] +
+                  " " +
+                  totalsales[s].time_checked.split(" ")[1].split(":")[0] +
+                  ":" +
+                  totalsales[s].time_checked.split(" ")[1].split(":")[1],
                 y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
                 z: totalsales[s].Section,
               };
@@ -180,9 +186,11 @@ const SearchResult = () => {
               lastHourArr.push(objDate);
             }
             setEventSaleGraphData(grapArr);
-            setSectionArr(sectionArr.filter((obj, index) => {
-              return index === sectionArr.findIndex(o => obj.sec === o.sec);
-              } ))
+            setSectionArr(
+              sectionArr.filter((obj, index) => {
+                return index === sectionArr.findIndex((o) => obj.sec === o.sec);
+              })
+            );
             // Call the function to get the data from the last hour
             const lastHourData = findLastHourData(lastHourArr);
             const last24HourData = findLast24HourData(lastHourArr);
@@ -283,7 +291,12 @@ const SearchResult = () => {
             ];
             for (var s = 0; s < totalsales.length; s++) {
               let obj = {
-                x: totalsales[s].time_checked.split(" ")[0] + " " + totalsales[s].time_checked.split(" ")[1].split(":")[0] +  ":" + totalsales[s].time_checked.split(" ")[1].split(":")[1]  ,
+                x:
+                  totalsales[s].time_checked.split(" ")[0] +
+                  " " +
+                  totalsales[s].time_checked.split(" ")[1].split(":")[0] +
+                  ":" +
+                  totalsales[s].time_checked.split(" ")[1].split(":")[1],
                 y: parseInt(totalsales[s].Price.slice(1, 100).split(".")[0]),
                 z: totalsales[s].Section,
               };
@@ -304,9 +317,11 @@ const SearchResult = () => {
               lastHourArr.push(objDate);
             }
             setEventSaleGraphData(grapArr);
-            setSectionArr(sectionArr.filter((obj, index) => {
-              return index === sectionArr.findIndex(o => obj.sec === o.sec);
-              } ))
+            setSectionArr(
+              sectionArr.filter((obj, index) => {
+                return index === sectionArr.findIndex((o) => obj.sec === o.sec);
+              })
+            );
 
             // Call the function to get the data from the last hour
             const lastHourData = findLastHourData(lastHourArr);
@@ -469,7 +484,15 @@ const SearchResult = () => {
     // console.log(filterDate == "2023-02-22", "3rd Date")
     // console.log(uArr)
   };
-  console.log(eventSaleGraphData, "eventSaleGraphData");
+
+
+  const handleChangeDatePicker = (value) =>{
+    //your modification on passed value ....
+    console.log(value[0].day +  "-" + value[0].month.number + "-" + value[0].year , "===value")
+    setDateValue(value)
+  }
+  
+  console.log(dateValue, "dateValue======");
 
   return (
     <section className="search-viewer">
@@ -833,13 +856,14 @@ const SearchResult = () => {
                         </option>
                       ))}
                     </select>
-
+                    {/* 
                     <input
                       type="date"
                       value={filterDate}
                       onChange={(e) => setFilterDate(e.target.value)}
                       className="form-control"
-                    />
+                    /> */}
+                    <DatePicker className="form-control" value={dateValue}  range onChange={handleChangeDatePicker} />
                   </div>
 
                   <button
@@ -872,7 +896,11 @@ const SearchResult = () => {
                   <h2 className="text-right time-right">
                     last updated:&nbsp;
                     {queryData?.last_checked
-                      ? queryData?.last_checked.split(" ")[0] + " " + queryData?.last_checked.split(" ")[1].split(":")[0] +  ":" + queryData?.last_checked.split(" ")[1].split(":")[1] 
+                      ? queryData?.last_checked.split(" ")[0] +
+                        " " +
+                        queryData?.last_checked.split(" ")[1].split(":")[0] +
+                        ":" +
+                        queryData?.last_checked.split(" ")[1].split(":")[1]
                       : "01:00"}
                   </h2>
                 </div>
@@ -966,7 +994,11 @@ const SearchResult = () => {
                   <h2 className="text-right time-right">
                     last updated:&nbsp;
                     {eventListing?.time_checked
-                      ? eventListing?.last_checked.split(" ")[0] + " " + eventListing?.last_checked.split(" ")[1].split(":")[0] +  ":" + eventListing?.last_checked.split(" ")[1].split(":")[1] 
+                      ? eventListing?.last_checked.split(" ")[0] +
+                        " " +
+                        eventListing?.last_checked.split(" ")[1].split(":")[0] +
+                        ":" +
+                        eventListing?.last_checked.split(" ")[1].split(":")[1]
                       : "01:10"}
                   </h2>
                 </div>
