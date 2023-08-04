@@ -1115,8 +1115,9 @@ const SearchResult = () => {
                   <tbody>
                     {IsSeeAllSales
                       ? [
-                          ...queryData?.previousSales,
                           ...queryData?.recentSales,
+                          ...queryData?.previousSales,
+                         
                         ].map((e, i) => {
                           return (
                             <tr key={i}>
