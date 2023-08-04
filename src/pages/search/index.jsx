@@ -445,7 +445,7 @@ const SearchResult = () => {
       for (var t = 0; t < allSales.length; t++) {
         let date = allSales[t].time_checked;
         let d = date.split(" ");
-
+        
         let dateReverse = d[0].split("/").reverse().join("-");
 
         let objDate = {
@@ -1118,7 +1118,7 @@ const SearchResult = () => {
                           ...queryData?.recentSales,
                           ...queryData?.previousSales,
                          
-                        ].map((e, i) => {
+                        ].sort((a, b) => new Date(b.time_checked.split(" ")[0].split("/").reverse().join("-")) - new Date(a.time_checked.split(" ")[0].split("/").reverse().join("-"))).map((e, i) => {
                           return (
                             <tr key={i}>
                               <td> {e.Price} </td>
@@ -1143,7 +1143,7 @@ const SearchResult = () => {
                             </tr>
                           );
                         })
-                      : filterObjectArr?.map((e, i) => {
+                      : filterObjectArr?.sort((a, b) => new Date(b.time_checked.split(" ")[0].split("/").reverse().join("-")) - new Date(a.time_checked.split(" ")[0].split("/").reverse().join("-"))).map((e, i) => {
                           return (
                             <tr key={i}>
                               <td> {e.Price} </td>
