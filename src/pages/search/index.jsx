@@ -61,6 +61,7 @@ const SearchResult = () => {
   const [IsSeeAllSales, setIsSeeAllSales] = useState(false);
   const hanldeClose = () => {
     setOpedPopUp(false);
+    setIsSeeAllSales(false)
     document.querySelector("body").style.overflow = "auto";
   };
   const hanldeOpened = () => {
