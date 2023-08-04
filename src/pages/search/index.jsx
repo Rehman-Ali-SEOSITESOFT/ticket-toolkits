@@ -456,12 +456,12 @@ const SearchResult = () => {
       }
       let filterArr = uArr.filter(
         (item) =>
-          (
+          (  
             parseInt(item.Price.slice(1, 100).split(".")[0]) >=
-              parseInt(filterStartPrice) &&
+            parseInt(filterStartPrice) &&
             parseInt(item.Price.slice(1, 100).split(".")[0]) <=
-              parseInt(filterEndPrice)
-          )(
+            parseInt(filterEndPrice)
+          )|| (
             item.Row.toLowerCase() !== "" &&
               item.Row.toLowerCase() === filterRow.toLowerCase()
           ) ||
