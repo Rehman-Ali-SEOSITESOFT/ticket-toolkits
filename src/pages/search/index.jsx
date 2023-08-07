@@ -59,9 +59,10 @@ const SearchResult = () => {
   const [filterObjectArr, setFilterObjectArr] = useState([]);
   const [dateError, setDateError] = useState("");
   const [IsSeeAllSales, setIsSeeAllSales] = useState(false);
-  const hanldeClose = () => {
+  const hanldeClose = (e) => {
     setOpedPopUp(false);
-    setIsSeeAllSales(false)
+    setIsSeeAllSales(false);
+    onClickReset(e);
     document.querySelector("body").style.overflow = "auto";
   };
   const hanldeOpened = () => {
@@ -140,7 +141,7 @@ const SearchResult = () => {
 
     if (query) {
       let q = query?.split("/");
-      let search_query = q[q.length - 1].slice(2, 100);
+      let search_query = q[q.length - 1].slice(2,      100);
       setLoader(true);
 
       const config = { headers: { "x-auth-token": user.token } };
@@ -895,7 +896,7 @@ const SearchResult = () => {
                 </div>
                 <div className="enevt-cards-disc">
                   <button className="my-4 my-md-5" onClick={hanldeOpened}>
-                    view all recent sales
+                  view all {filterObjectArr.length > 1 ? "Filtered"  : "recent"}  event listings
                   </button>
                   <div className="d-flex event-cardss flex-wrap">
                     <div className="cart">
@@ -989,7 +990,7 @@ const SearchResult = () => {
                     className="my-4 my-md-5"
                     onClick={hanldeEventListingPopUPOpened}
                   >
-                    view all recent event listings
+                    view all recent recent event listings
                   </button>
                   <div className="d-flex event-cardss flex-wrap">
                     <div className="cart">
@@ -1087,15 +1088,15 @@ const SearchResult = () => {
 
       {opedPopUp && (
         <React.Fragment>
-          <div className="event-sale-overlay" onClick={hanldeClose}></div>
+          <div className="event-sale-overlay" onClick={(e) => hanldeClose(e)}></div>
           <div className="event-sale-listing">
             <div className="event-sale-detail">
               <div className="row my-2 pop-responsivechange">
                 <div className="col-6">
-                  <h2 className="popup-title">  {IsSeeAllSales ? "All Sales" : "Recent Sale"} </h2>
+                  <h2 className="popup-title">  {IsSeeAllSales ? "All Sales" : filterObjectArr.length < 1 ? "Recent Sales" : "Filtered Sales"} </h2>
                 </div>
                 <div className="col-6 text-end">
-                  <span className="closed-popup" onClick={hanldeClose}>
+                  <span className="closed-popup" onClick={(e) => hanldeClose(e)}>
                     <i className="fa-solid fa-xmark"></i>
                   </span>
                 </div>
@@ -1163,7 +1164,7 @@ const SearchResult = () => {
                     onClick={(e) => onClickSeeAllSales(e)}
                     className="search-button text-decoration-none border-outline-none mt-2"
                   >
-                   {IsSeeAllSales ? "Recent Sales" : "All Sales"} 
+                   {IsSeeAllSales ?  filterObjectArr.length < 1 ? "Recent Sales" : "Filtered Sales" :   "All Sales"} 
                   </button>
                 </div>
               </div>
