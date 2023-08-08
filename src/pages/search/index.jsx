@@ -618,7 +618,7 @@ const SearchResult = () => {
                       <div className="left-side">
                         <img
                           src={
-                            queryData?.artist_image !== null
+                            (queryData?.artist_image !== null && queryData?.artist_image !== undefined) 
                               ? queryData?.artist_image
                               : NotFoundImage
                           }
@@ -631,7 +631,8 @@ const SearchResult = () => {
                           src={
                             (queryData?.seatmap !== null && queryData?.seatmap !== undefined)  
                               ? queryData?.seatmap
-                              :  queryData?.seatmap_url
+                              :  (queryData?.seatmap_url !== null && queryData?.seatmap_url !== undefined) ?
+                              queryData?.seatmap_url: NotFoundImage  
                           }
                           alt=""
                           className="img-fluid"
