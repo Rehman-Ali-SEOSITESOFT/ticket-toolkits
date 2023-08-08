@@ -629,9 +629,9 @@ const SearchResult = () => {
                       <div className="right-side">
                         <img
                           src={
-                            queryData?.seatmap !== null
+                            (queryData?.seatmap !== null && queryData?.seatmap !== undefined)  
                               ? queryData?.seatmap
-                              : NotFoundImage
+                              :  queryData?.seatmap_url
                           }
                           alt=""
                           className="img-fluid"
