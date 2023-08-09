@@ -40,6 +40,12 @@ const SaleViewer = () => {
     setError("");
   };
 
+  const handleKeyPressSearch = (event) => {
+    if (event.key === "Enter") {
+      // Handle the Enter key press here
+      onClickSearch(event);
+    }
+  };
   const onClickSearch = (e) => {
     if (
       searchResult.length > 0 &&
@@ -71,6 +77,7 @@ const SaleViewer = () => {
                 placeholder="search by viagogo link"
                 value={searchResult}
                 onChange={hanldeChangeInputResult}
+                onKeyDown={(e) => handleKeyPressSearch(e)}
               />
               <span className="sale-search-icon">
                 <i className="fa-solid fa-magnifying-glass"></i>

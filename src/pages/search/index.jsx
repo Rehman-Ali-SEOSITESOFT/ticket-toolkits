@@ -250,6 +250,13 @@ const SearchResult = () => {
     }
   }, []);
 
+  const handleKeyPressSearch = (event) => {
+    if (event.key === "Enter") {
+      // Handle the Enter key press here
+      onClickSearch();
+    }
+  };
+
   const onClickSearch = () => {
     if (
       searchResult.length > 0 &&
@@ -541,6 +548,8 @@ const SearchResult = () => {
                     placeholder="search by viagogo link"
                     value={searchResult}
                     onChange={hanldeChangeInputResult}
+                    onKeyDown={(e) => handleKeyPressSearch(e)}
+                    onK
                   />
                   <span className="sale-search-icon">
                     <i className="fa-solid fa-magnifying-glass"></i>
@@ -598,6 +607,8 @@ const SearchResult = () => {
                       placeholder="Seach by viagogo link"
                       value={searchResult}
                       onChange={hanldeChangeInputResult}
+                     onKeyDown={(e) => handleKeyPressSearch(e)}
+
                     />
                     <span className="sale-search-icon">
                       <i className="fa-solid fa-magnifying-glass"></i>
