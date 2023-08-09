@@ -141,7 +141,7 @@ const SearchResult = () => {
 
     if (query) {
       let q = query?.split("/");
-      let search_query = q[q.length - 1].slice(2,      100);
+      let search_query = q[q.length - 1].slice(2, 100);
       setLoader(true);
 
       const config = { headers: { "x-auth-token": user.token } };
@@ -429,6 +429,14 @@ const SearchResult = () => {
     setFilterEventSaleGraphData([]);
     setFilterObjectArr([]);
   };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      // Handle the Enter key press here
+      onFilter(event);
+    }
+  };
+
   const onFilter = (e) => {
     e.preventDefault();
     if (selectedDateValue.length === 1) {
@@ -447,7 +455,7 @@ const SearchResult = () => {
       for (var t = 0; t < allSales.length; t++) {
         let date = allSales[t].time_checked;
         let d = date.split(" ");
-        
+
         let dateReverse = d[0].split("/").reverse().join("-");
 
         let objDate = {
@@ -458,15 +466,12 @@ const SearchResult = () => {
       }
       let filterArr = uArr.filter(
         (item) =>
-          (  
-            parseInt(item.Price.slice(1, 100).split(".")[0]) >=
+          (parseInt(item.Price.slice(1, 100).split(".")[0]) >=
             parseInt(filterStartPrice) &&
             parseInt(item.Price.slice(1, 100).split(".")[0]) <=
-            parseInt(filterEndPrice)
-          )|| (
-            item.Row.toLowerCase() !== "" &&
-              item.Row.toLowerCase() === filterRow.toLowerCase()
-          ) ||
+              parseInt(filterEndPrice)) ||
+          (item.Row.toLowerCase() !== "" &&
+            item.Row.toLowerCase() === filterRow.toLowerCase()) ||
           (item.Seats !== "" && item.Seats.split(" ").includes(filterSeat)) ||
           item.Section === filterSection ||
           (new Date(item.time_checked) >= new Date(selectedDateValue[0]) &&
@@ -498,6 +503,7 @@ const SearchResult = () => {
     }
     setDateValue(value);
     setSelectedDateValue(arr);
+
   };
 
   const onClickSeeAllSales = (e) => {
@@ -618,7 +624,8 @@ const SearchResult = () => {
                       <div className="left-side">
                         <img
                           src={
-                            (queryData?.artist_image !== null && queryData?.artist_image !== undefined) 
+                            queryData?.artist_image !== null &&
+                            queryData?.artist_image !== undefined
                               ? queryData?.artist_image
                               : NotFoundImage
                           }
@@ -629,10 +636,13 @@ const SearchResult = () => {
                       <div className="right-side">
                         <img
                           src={
-                            (queryData?.seatmap !== null && queryData?.seatmap !== undefined)  
+                            queryData?.seatmap !== null &&
+                            queryData?.seatmap !== undefined
                               ? queryData?.seatmap
-                              :  (queryData?.seatmap_url !== null && queryData?.seatmap_url !== undefined) ?
-                              queryData?.seatmap_url: NotFoundImage  
+                              : queryData?.seatmap_url !== null &&
+                                queryData?.seatmap_url !== undefined
+                              ? queryData?.seatmap_url
+                              : NotFoundImage
                           }
                           alt=""
                           className="img-fluid"
@@ -667,12 +677,18 @@ const SearchResult = () => {
             <div className="row">
               <div className="col-lg-12  pt-4 m-auto col-12 ">
                 <div className="filter-box-new">
+                  {/* <input
+                    type="text"
+                    onKeyDown={(e) => handleKeyPress(e)}
+                    hidden
+                  /> */}
                   <div className="filter-by-wrapper d-flex justify-content-between align-items-center">
                     <h1 className="filter-by"> Filter by: </h1>
                     <select
                       name=""
                       id=""
                       onChange={(e) => setFilterSection(e.target.value)}
+                      onKeyDown={(e) => handleKeyPress(e)}
                       className="form-select"
                     >
                       <option
@@ -696,6 +712,7 @@ const SearchResult = () => {
                       name=""
                       id=""
                       onChange={(e) => setFilterRow(e.target.value)}
+                      onKeyDown={(e) => handleKeyPress(e)}
                       className="form-select"
                     >
                       <option
@@ -735,6 +752,7 @@ const SearchResult = () => {
                       name=""
                       id=""
                       onChange={(e) => setFilterSeat(e.target.value)}
+                      onKeyDown={(e) => handleKeyPress(e)}
                       className="form-select"
                     >
                       <option
@@ -753,6 +771,7 @@ const SearchResult = () => {
                       name=""
                       id=""
                       onChange={(e) => setfilterStartPrice(e.target.value)}
+                      onKeyDown={(e) => handleKeyPress(e)}
                       className={`form-select ${
                         dateError ===
                           "Please make sure to select both the start and end price." &&
@@ -775,6 +794,7 @@ const SearchResult = () => {
                       name=""
                       id=""
                       onChange={(e) => setfilterEndPrice(e.target.value)}
+                      onKeyDown={(e) => handleKeyPress(e)}
                       className={`form-select ${
                         dateError ===
                           "Please make sure to select both the start and end price." &&
@@ -806,6 +826,7 @@ const SearchResult = () => {
                         value={dateValue}
                         range
                         onChange={handleChangeDatePicker}
+                      
                       />
                     </div>
                   </div>
@@ -897,7 +918,9 @@ const SearchResult = () => {
                 </div>
                 <div className="enevt-cards-disc">
                   <button className="my-4 my-md-5" onClick={hanldeOpened}>
-                  view all {filterObjectArr.length > 1 ? "Filtered"  : "recent"}  event listings
+                    view all{" "}
+                    {filterObjectArr.length > 1 ? "Filtered" : "recent"} event
+                    listings
                   </button>
                   <div className="d-flex event-cardss flex-wrap">
                     <div className="cart">
@@ -1089,15 +1112,28 @@ const SearchResult = () => {
 
       {opedPopUp && (
         <React.Fragment>
-          <div className="event-sale-overlay" onClick={(e) => hanldeClose(e)}></div>
+          <div
+            className="event-sale-overlay"
+            onClick={(e) => hanldeClose(e)}
+          ></div>
           <div className="event-sale-listing">
             <div className="event-sale-detail">
               <div className="row my-2 pop-responsivechange">
                 <div className="col-6">
-                  <h2 className="popup-title">  {IsSeeAllSales ? "All Sales" : filterObjectArr.length < 1 ? "Recent Sales" : "Filtered Sales"} </h2>
+                  <h2 className="popup-title">
+                    {" "}
+                    {IsSeeAllSales
+                      ? "All Sales"
+                      : filterObjectArr.length < 1
+                      ? "Recent Sales"
+                      : "Filtered Sales"}{" "}
+                  </h2>
                 </div>
                 <div className="col-6 text-end">
-                  <span className="closed-popup" onClick={(e) => hanldeClose(e)}>
+                  <span
+                    className="closed-popup"
+                    onClick={(e) => hanldeClose(e)}
+                  >
                     <i className="fa-solid fa-xmark"></i>
                   </span>
                 </div>
@@ -1117,22 +1153,36 @@ const SearchResult = () => {
                   </thead>
                   <tbody>
                     {IsSeeAllSales
-                      ? [
-                          ...queryData?.recentSales,
-                          ...queryData?.previousSales,
-                         
-                        ].sort((a, b) => new Date(b.time_checked.split(" ")[0].split("/").reverse().join("-")) - new Date(a.time_checked.split(" ")[0].split("/").reverse().join("-"))).map((e, i) => {
-                          return (
-                            <tr key={i}>
-                              <td> {e.Price} </td>
-                              <td> {e.Quantity} </td>
-                              <td> {e.Section} </td>
-                              <td> {e.Row} </td>
-                              <td> {e.Seats} </td>
-                              <td> {e.time_checked} </td>
-                            </tr>
-                          );
-                        })
+                      ? [...queryData?.recentSales, ...queryData?.previousSales]
+                          .sort(
+                            (a, b) =>
+                              new Date(
+                                b.time_checked
+                                  .split(" ")[0]
+                                  .split("/")
+                                  .reverse()
+                                  .join("-")
+                              ) -
+                              new Date(
+                                a.time_checked
+                                  .split(" ")[0]
+                                  .split("/")
+                                  .reverse()
+                                  .join("-")
+                              )
+                          )
+                          .map((e, i) => {
+                            return (
+                              <tr key={i}>
+                                <td> {e.Price} </td>
+                                <td> {e.Quantity} </td>
+                                <td> {e.Section} </td>
+                                <td> {e.Row} </td>
+                                <td> {e.Seats} </td>
+                                <td> {e.time_checked} </td>
+                              </tr>
+                            );
+                          })
                       : filterObjectArr.length < 1
                       ? queryData?.recentSales.map((e, i) => {
                           return (
@@ -1146,18 +1196,36 @@ const SearchResult = () => {
                             </tr>
                           );
                         })
-                      : filterObjectArr?.sort((a, b) => new Date(b.time_checked.split(" ")[0].split("/").reverse().join("-")) - new Date(a.time_checked.split(" ")[0].split("/").reverse().join("-"))).map((e, i) => {
-                          return (
-                            <tr key={i}>
-                              <td> {e.Price} </td>
-                              <td> {e.Quantity} </td>
-                              <td> {e.Section} </td>
-                              <td> {e.Row} </td>
-                              <td> {e.Seats} </td>
-                              <td> {e.time_checked} </td>
-                            </tr>
-                          );
-                        })}
+                      : filterObjectArr
+                          ?.sort(
+                            (a, b) =>
+                              new Date(
+                                b.time_checked
+                                  .split(" ")[0]
+                                  .split("/")
+                                  .reverse()
+                                  .join("-")
+                              ) -
+                              new Date(
+                                a.time_checked
+                                  .split(" ")[0]
+                                  .split("/")
+                                  .reverse()
+                                  .join("-")
+                              )
+                          )
+                          .map((e, i) => {
+                            return (
+                              <tr key={i}>
+                                <td> {e.Price} </td>
+                                <td> {e.Quantity} </td>
+                                <td> {e.Section} </td>
+                                <td> {e.Row} </td>
+                                <td> {e.Seats} </td>
+                                <td> {e.time_checked} </td>
+                              </tr>
+                            );
+                          })}
                   </tbody>
                 </table>
                 <div className="d-flex justify-content-end ">
@@ -1165,7 +1233,11 @@ const SearchResult = () => {
                     onClick={(e) => onClickSeeAllSales(e)}
                     className="search-button text-decoration-none border-outline-none mt-2"
                   >
-                   {IsSeeAllSales ?  filterObjectArr.length < 1 ? "Recent Sales" : "Filtered Sales" :   "All Sales"} 
+                    {IsSeeAllSales
+                      ? filterObjectArr.length < 1
+                        ? "Recent Sales"
+                        : "Filtered Sales"
+                      : "All Sales"}
                   </button>
                 </div>
               </div>

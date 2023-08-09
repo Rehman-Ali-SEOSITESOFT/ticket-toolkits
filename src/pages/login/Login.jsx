@@ -19,6 +19,7 @@ const Login = ({ props }) => {
     //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwOTc3NjI1NDQ5MTI5NzM4NDYiLCJ1c2VybmFtZSI6InJlaG1hbmFsaTE3IiwiaWF0IjoxNjkwODgwNjcyfQ.Qw0p94MUeGQ1cFCWrBtqUijVssTHIZmDEk0807p8Je4",
     // };
     // Cookies.set("authUser", JSON.stringify(localObj), { expires: 3 });
+       
     let code = new URLSearchParams(search).get("code");
     let authUser = {};
     if (Cookies.get("authUser") !== undefined) {
