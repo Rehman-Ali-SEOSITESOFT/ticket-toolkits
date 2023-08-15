@@ -930,8 +930,8 @@ const SearchResult = () => {
                 <div className="enevt-cards-disc">
                   <button className="my-4 my-md-5" onClick={hanldeOpened}>
                     view all{" "}
-                    {filterObjectArr.length > 1 ? "Filtered" : "recent"} event
-                    listings
+                    {filterObjectArr.length > 0 ? "Filtered " : "recent "} 
+                    Sales
                   </button>
                   <div className="d-flex event-cardss flex-wrap">
                     <div className="cart">
@@ -979,11 +979,11 @@ const SearchResult = () => {
                   <h2 className="text-right time-right">
                     last updated:&nbsp;
                     {eventListing?.time_checked
-                      ? eventListing?.last_checked.split(" ")[0] +
+                      ? eventListing.time_checked.split(" ")[0] +
                         " " +
-                        eventListing?.last_checked.split(" ")[1].split(":")[0] +
+                        eventListing.time_checked.split(" ")[1].split(":")[0] +
                         ":" +
-                        eventListing?.last_checked.split(" ")[1].split(":")[1]
+                        eventListing.time_checked.split(" ")[1].split(":")[1]
                       : "01:10"}
                   </h2>
                 </div>
@@ -1025,7 +1025,7 @@ const SearchResult = () => {
                     className="my-4 my-md-5"
                     onClick={hanldeEventListingPopUPOpened}
                   >
-                    view all recent recent event listings
+                    view all recent event listings
                   </button>
                   <div className="d-flex event-cardss flex-wrap">
                     <div className="cart">
