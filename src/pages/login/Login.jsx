@@ -87,7 +87,7 @@ const Login = ({ props }) => {
 
   const onClickBtn = (e) => {
     window.location.href =
-      "https://discord.com/api/oauth2/authorize?client_id=1131475096729567294&redirect_uri=https%3A%2F%2Ftoolkit-00.vercel.app&response_type=code&scope=identify%20guilds%20guilds.members.read";
+      "https://discord.com/api/oauth2/authorize?client_id=1131475096729567294&redirect_uri=https%3A%2F%2Fwww.fnf-toolkit.com%2F&response_type=code&scope=identify%20guilds%20guilds.members.read";
   };
 
   return (
