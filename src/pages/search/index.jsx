@@ -390,10 +390,13 @@ const SearchResult = () => {
     const config = { headers: { "x-auth-token": token } };
     let q = query?.split("/");
     let search_query = q[q.length - 1].slice(2, 100);
+    let remove_params = search_query.split('?');
+    let queryLast = query?.split("?");
+  
     axios
       .post(
         `${SERVER_URL}/api/liveSale/add-event`,
-        { eventId: search_query, query: query },
+        { eventId: remove_params, query: queryLast[0] },
         config
       )
       .then((res) => {
