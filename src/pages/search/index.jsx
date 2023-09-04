@@ -396,7 +396,7 @@ const SearchResult = () => {
     axios
       .post(
         `${SERVER_URL}/api/liveSale/add-event`,
-        { eventId: remove_params, query: queryLast[0] },
+        { eventId: remove_params[0], query: queryLast[0] },
         config
       )
       .then((res) => {
